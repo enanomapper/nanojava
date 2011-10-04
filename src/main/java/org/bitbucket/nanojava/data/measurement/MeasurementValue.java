@@ -14,8 +14,22 @@
  * along with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-package org.bitbucket.nanojava.data;
+package org.bitbucket.nanojava.data.measurement;
 
-public class IZetaPotential {
+public class MeasurementValue extends Measurement implements IMeasurementValue {
+
+	public void setValue(double value, double error) {
+		// TODO Auto-generated method stub
+	}
+
+	public double getValue() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public double getError() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }

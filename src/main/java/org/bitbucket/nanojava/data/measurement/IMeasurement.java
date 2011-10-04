@@ -14,26 +14,14 @@
  * along with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-package org.bitbucket.nanojava.data;
+package org.bitbucket.nanojava.data.measurement;
 
-import org.bitbucket.nanojava.data.measurement.IMeasurement;
+public interface IMeasurement {
 
-public class Nanomaterial {
-
-	private IMeasurement size;
-	private IMeasurement zetaPotential;
-
-	public IMeasurement getSize() {
-		return size;
+	enum Unit {
+		nm
 	}
-	public void setSize(IMeasurement size) {
-		this.size = size;
-	}
-	public IMeasurement getZetaPotential() {
-		return zetaPotential;
-	}
-	public void setZetaPotential(IMeasurement zetaPotential) {
-		this.zetaPotential = zetaPotential;
-	}
-
+	
+	public void setUnit(Unit unit);
+	public Unit getUnit();
 }

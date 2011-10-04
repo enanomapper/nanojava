@@ -14,8 +14,22 @@
  * along with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-package org.bitbucket.nanojava.data;
+package org.bitbucket.nanojava.data.measurement;
 
-public interface ISize {
+public class MeasurementRange extends Measurement implements IMeasurementRange {
+
+	public void setValues(double minimum, double maximum) {
+		// TODO Auto-generated method stub
+	}
+
+	public double getMinimumValue() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	public double getMaximumValue() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 
 }
