@@ -14,34 +14,16 @@
  * along with this program; if not, write to the Free Software Foundation, Inc.,
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  */
-package org.bitbucket.nanojava.data;
+package org.bitbucket.nanojava.descriptor;
 
-import org.bitbucket.nanojava.data.measurement.IMeasurement;
-import org.openscience.cdk.interfaces.IMolecularFormula;
+import org.junit.Before;
 
-public class Nanomaterial {
+public class MolecularWeightDescriptorTest
+extends NanomaterialDescriptorTest {
 
-	private IMeasurement size;
-	private IMeasurement zetaPotential;
-	private IMolecularFormula chemicalComposition;
-
-	public IMeasurement getSize() {
-		return size;
-	}
-	public void setSize(IMeasurement size) {
-		this.size = size;
-	}
-	public IMeasurement getZetaPotential() {
-		return zetaPotential;
-	}
-	public void setZetaPotential(IMeasurement zetaPotential) {
-		this.zetaPotential = zetaPotential;
-	}
-	public void setChemicalComposition(IMolecularFormula chemicalComposition) {
-		this.chemicalComposition = chemicalComposition;
-	}
-	public IMolecularFormula getChemicalComposition() {
-		return chemicalComposition;
-	}
+    @Before
+    public void setUp() throws Exception {
+        setDescriptor(MolecularWeightDescriptor.class);
+    }
 
 }
