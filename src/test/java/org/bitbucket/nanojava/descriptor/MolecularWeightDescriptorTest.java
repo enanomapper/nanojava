@@ -16,7 +16,17 @@
  */
 package org.bitbucket.nanojava.descriptor;
 
+import junit.framework.Assert;
+
+import org.bitbucket.nanojava.data.MaterialType;
+import org.bitbucket.nanojava.data.Nanomaterial;
 import org.junit.Before;
+import org.junit.Test;
+import org.openscience.cdk.DefaultChemObjectBuilder;
+import org.openscience.cdk.qsar.DescriptorValue;
+import org.openscience.cdk.qsar.result.DoubleResult;
+import org.openscience.cdk.qsar.result.IDescriptorResult;
+import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
 public class MolecularWeightDescriptorTest
 extends NanomaterialDescriptorTest {
@@ -24,6 +34,21 @@ extends NanomaterialDescriptorTest {
     @Before
     public void setUp() throws Exception {
         setDescriptor(MolecularWeightDescriptor.class);
+    }
+
+    @Test
+    public void testCalculate_ZnO() throws Exception {
+        Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
+        material.setChemicalComposition(
+            MolecularFormulaManipulator.getMolecularFormula(
+                "ZnO", DefaultChemObjectBuilder.getInstance()
+            )
+        );
+        DescriptorValue value = descriptor.calculate(material);
+        Assert.assertNotNull(value);
+        IDescriptorResult result = value.getValue();
+        Assert.assertNotNull(result);
+        Assert.assertEquals(81.3950, ((DoubleResult)result).doubleValue(), 0.0001);
     }
 
 }

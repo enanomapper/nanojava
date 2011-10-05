@@ -18,11 +18,13 @@ package org.bitbucket.nanojava.descriptor;
 
 import org.bitbucket.nanojava.data.Nanomaterial;
 import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.interfaces.IMolecularFormula;
 import org.openscience.cdk.qsar.DescriptorSpecification;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.DoubleResult;
 import org.openscience.cdk.qsar.result.DoubleResultType;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
+import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
 public class MolecularWeightDescriptor implements INanomaterialDescriptor {
 
@@ -56,16 +58,32 @@ public class MolecularWeightDescriptor implements INanomaterialDescriptor {
 	}
 
 	public DescriptorValue calculate(Nanomaterial container) {
+	    IMolecularFormula molFormula = container.getChemicalComposition();
+	    if (molFormula == null) return newNaNDescriptor();
+
+	    double mass =
+	        MolecularFormulaManipulator.getNaturalExactMass(molFormula);
+	    
 		return new DescriptorValue(
 		    getSpecification(),
 		    getParameterNames(),
 		    getParameters(),
-		    new DoubleResult(0.0),
+		    new DoubleResult(mass),
 		    getDescriptorNames()
 		);
 	}
 
-	public IDescriptorResult getDescriptorResultType() {
+	private DescriptorValue newNaNDescriptor() {
+	    return new DescriptorValue(
+	        getSpecification(),
+	        getParameterNames(),
+	        getParameters(),
+	        new DoubleResult(Double.NaN),
+	        getDescriptorNames()
+	    );
+    }
+
+    public IDescriptorResult getDescriptorResultType() {
 		return new DoubleResultType();
 	}
 
