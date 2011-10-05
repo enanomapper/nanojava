@@ -24,6 +24,11 @@ public class Nanomaterial {
 	private IMeasurement size;
 	private IMeasurement zetaPotential;
 	private IMolecularFormula chemicalComposition;
+	private MaterialType type;
+
+	public Nanomaterial(MaterialType type) {
+	    this.type = type;
+	}
 
 	public IMeasurement getSize() {
 		return size;
