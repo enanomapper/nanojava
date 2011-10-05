@@ -16,8 +16,8 @@
  */
 package org.bitbucket.nanojava.data.measurement;
 
-public interface IMeasurement {
+public enum Unit {
 
-	public void setUnit(Unit unit);
-	public Unit getUnit();
+	NM // nanometer
+	
 }
