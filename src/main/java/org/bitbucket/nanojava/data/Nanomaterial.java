@@ -30,6 +30,18 @@ public class Nanomaterial {
 	    this.type = type;
 	}
 
+	public Nanomaterial(String type) throws IllegalArgumentException {
+	    for (MaterialType nmType : MaterialType.values()) {
+	        if (nmType.name().equals(type)) {
+	            this.type = nmType;
+	            return;
+	        }
+	    }
+	    throw new IllegalArgumentException(
+	        "Unsupported MaterialType"
+	    );
+	}
+	
 	public IMeasurement getSize() {
 		return size;
 	}
