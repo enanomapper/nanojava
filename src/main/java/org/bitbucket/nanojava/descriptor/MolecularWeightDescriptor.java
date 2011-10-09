@@ -46,7 +46,7 @@ public class MolecularWeightDescriptor implements INanomaterialDescriptor {
 
 	public DescriptorSpecification getSpecification() {
 	    return new DescriptorSpecification(
-	        "http://egonw.github.com/resource/NM_000100",
+	        "http://egonw.github.com/resource/NM_001000",
 	        this.getClass().getName(),
 	        "$Id: 9927243df29a118e9bfd0b8624bc8d77d3c6db07 $",
 	        "The NanoJava Project"
