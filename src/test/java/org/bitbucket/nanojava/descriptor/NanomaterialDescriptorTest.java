@@ -28,6 +28,7 @@ public abstract class NanomaterialDescriptorTest {
 
     INanomaterialDescriptor descriptor;
     
+    @SuppressWarnings("rawtypes")
     public void setDescriptor(Class descriptorClass) throws Exception {
         if (descriptor == null) {
             Object descriptor = descriptorClass.newInstance();
