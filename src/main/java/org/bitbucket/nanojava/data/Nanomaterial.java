@@ -27,13 +27,13 @@ public class Nanomaterial {
 	private MaterialType type;
 
 	public Nanomaterial(MaterialType type) {
-	    this.type = type;
+	    this.setType(type);
 	}
 
 	public Nanomaterial(String type) throws IllegalArgumentException {
 	    for (MaterialType nmType : MaterialType.values()) {
 	        if (nmType.name().equals(type)) {
-	            this.type = nmType;
+	            this.setType(nmType);
 	            return;
 	        }
 	    }
@@ -60,5 +60,13 @@ public class Nanomaterial {
 	public IMolecularFormula getChemicalComposition() {
 		return chemicalComposition;
 	}
+
+    public void setType(MaterialType type) {
+        this.type = type;
+    }
+
+    public MaterialType getType() {
+        return type;
+    }
 
 }
