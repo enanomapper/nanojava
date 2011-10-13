@@ -51,4 +51,13 @@ public abstract class NanomaterialDescriptorTest {
         Assert.assertNotSame(0, result.length());
     }
     
+    @Test
+    public void testCalculate_Null() throws Exception {
+        DescriptorValue value = descriptor.calculate(null);
+        Assert.assertNotNull(value);
+        IDescriptorResult result = value.getValue();
+        Assert.assertNotNull(result);
+        Assert.assertNotSame(0, result.length());
+    }
+    
 }

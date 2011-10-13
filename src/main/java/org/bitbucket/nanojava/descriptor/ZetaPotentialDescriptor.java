@@ -59,6 +59,8 @@ public class ZetaPotentialDescriptor implements INanomaterialDescriptor {
 	}
 
 	public DescriptorValue calculate(Nanomaterial container) {
+        if (container == null) return newNaNDescriptor();
+
 	    IMeasurement size = container.getZetaPotential();
 	    if (size == null) return newNaNDescriptor();
 

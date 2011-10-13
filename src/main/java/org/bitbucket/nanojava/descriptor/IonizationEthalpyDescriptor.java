@@ -58,6 +58,8 @@ public class IonizationEthalpyDescriptor implements INanomaterialDescriptor {
 	}
 
 	public DescriptorValue calculate(Nanomaterial container) {
+        if (container == null) return newNaNDescriptor();
+
 	    IMolecularFormula molFormula = container.getChemicalComposition();
 	    if (molFormula == null) return newNaNDescriptor();
 

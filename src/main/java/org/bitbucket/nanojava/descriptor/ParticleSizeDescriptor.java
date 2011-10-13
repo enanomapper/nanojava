@@ -59,6 +59,8 @@ public class ParticleSizeDescriptor implements INanomaterialDescriptor {
 	}
 
 	public DescriptorValue calculate(Nanomaterial container) {
+        if (container == null) return newNaNDescriptor();
+
 	    IMeasurement size = container.getSize();
 	    if (size == null) return newNaNDescriptor();
 

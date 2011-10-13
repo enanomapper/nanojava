@@ -58,7 +58,9 @@ public class MolecularWeightDescriptor implements INanomaterialDescriptor {
 	}
 
 	public DescriptorValue calculate(Nanomaterial container) {
-	    IMolecularFormula molFormula = container.getChemicalComposition();
+        if (container == null) return newNaNDescriptor();
+
+        IMolecularFormula molFormula = container.getChemicalComposition();
 	    if (molFormula == null) return newNaNDescriptor();
 
 	    double mass =
