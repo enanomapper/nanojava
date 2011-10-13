@@ -66,4 +66,19 @@ extends NanomaterialDescriptorTest {
         Assert.assertEquals(3, ((IntegerResult)result).intValue());
     }
 
+    @Test
+    public void testCalculate_ComplexOxid4() throws Exception {
+        Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
+        material.setChemicalComposition(
+            MolecularFormulaManipulator.getMolecularFormula(
+                "CuZnFe2O4", DefaultChemObjectBuilder.getInstance()
+            )
+        );
+        DescriptorValue value = descriptor.calculate(material);
+        Assert.assertNotNull(value);
+        IDescriptorResult result = value.getValue();
+        Assert.assertNotNull(result);
+        Assert.assertEquals(4, ((IntegerResult)result).intValue());
+    }
+
 }
