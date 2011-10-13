@@ -18,6 +18,7 @@ package org.bitbucket.nanojava.data.measurement;
 
 public enum Unit {
 
-	NM // nanometer
+	NM, // nanometer
+    EV  // electrovolt
 	
 }
