@@ -18,18 +18,25 @@ package org.bitbucket.nanojava.data.measurement;
 
 public class MeasurementRange extends Measurement implements IMeasurementRange {
 
-	public void setValues(double minimum, double maximum) {
-		// TODO Auto-generated method stub
+	private double minimum;
+    private double maximum;
+
+    public MeasurementRange(double minimum, double maximum, Unit unit) {
+        this.setValues(minimum, maximum, unit);
+    }
+
+    public void setValues(double minimum, double maximum, Unit unit) {
+        this.minimum = minimum;
+        this.maximum = maximum;
+        super.unit = unit;
 	}
 
 	public double getMinimumValue() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.minimum;
 	}
 
 	public double getMaximumValue() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.maximum;
 	}
 
 }

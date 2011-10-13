@@ -18,7 +18,7 @@ package org.bitbucket.nanojava.data.measurement;
 
 public interface IMeasurementRange extends IMeasurement {
 
-	public void setValues(double minimum, double maximum);
+	public void setValues(double minimum, double maximum, Unit unit);
 	public double getMinimumValue();
 	public double getMaximumValue();
 

@@ -18,14 +18,14 @@ package org.bitbucket.nanojava.data.measurement;
 
 public class Measurement implements IMeasurement {
 
-	public void setUnit(Unit unit) {
-		// TODO Auto-generated method stub
-		
+	protected Unit unit;
+
+    public void setUnit(Unit unit) {
+		this.unit = unit;
 	}
 
 	public Unit getUnit() {
-		// TODO Auto-generated method stub
-		return null;
+		return this.unit;
 	}
 
 }

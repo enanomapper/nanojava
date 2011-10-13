@@ -18,18 +18,25 @@ package org.bitbucket.nanojava.data.measurement;
 
 public class MeasurementValue extends Measurement implements IMeasurementValue {
 
-	public void setValue(double value, double error) {
-		// TODO Auto-generated method stub
+	private double value;
+    private double error;
+
+    public MeasurementValue(double value, double error, Unit unit) {
+        setValue(value, error, unit);
+    }
+
+    public void setValue(double value, double error, Unit unit) {
+		this.value = value;
+		this.error = error;
+		super.unit = unit; 
 	}
 
 	public double getValue() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.value;
 	}
 
 	public double getError() {
-		// TODO Auto-generated method stub
-		return 0;
+		return this.error;
 	}
 
 }
