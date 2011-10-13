@@ -16,6 +16,7 @@
  */
 package org.bitbucket.nanojava.descriptor;
 
+import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.Nanomaterial;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IIsotope;
@@ -59,6 +60,9 @@ public class MetalAtomCountDescriptor implements INanomaterialDescriptor {
 	}
 
 	public DescriptorValue calculate(Nanomaterial container) {
+	    if (container == null) return newNaNDescriptor();
+	    if (container.getType() != MaterialType.METALOXIDE)
+	        return newNaNDescriptor();
 	    IMolecularFormula molFormula = container.getChemicalComposition();
 	    if (molFormula == null) return newNaNDescriptor();
 
