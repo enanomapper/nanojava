@@ -23,10 +23,9 @@ import org.openscience.cdk.interfaces.IIsotope;
 import org.openscience.cdk.interfaces.IMolecularFormula;
 import org.openscience.cdk.qsar.DescriptorSpecification;
 import org.openscience.cdk.qsar.DescriptorValue;
-import org.openscience.cdk.qsar.result.DoubleResult;
-import org.openscience.cdk.qsar.result.DoubleResultType;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 import org.openscience.cdk.qsar.result.IntegerResult;
+import org.openscience.cdk.qsar.result.IntegerResultType;
 
 public class MetalAtomCountDescriptor implements INanomaterialDescriptor {
 
@@ -87,13 +86,13 @@ public class MetalAtomCountDescriptor implements INanomaterialDescriptor {
 	        getSpecification(),
 	        getParameterNames(),
 	        getParameters(),
-	        new DoubleResult(Double.NaN),
+	        new IntegerResult((int)Double.NaN),
 	        getDescriptorNames()
 	    );
     }
 
     public IDescriptorResult getDescriptorResultType() {
-		return new DoubleResultType();
+		return new IntegerResultType();
 	}
 
 }

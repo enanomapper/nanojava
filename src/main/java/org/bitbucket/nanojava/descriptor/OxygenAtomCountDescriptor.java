@@ -22,9 +22,9 @@ import org.openscience.cdk.interfaces.IIsotope;
 import org.openscience.cdk.interfaces.IMolecularFormula;
 import org.openscience.cdk.qsar.DescriptorSpecification;
 import org.openscience.cdk.qsar.DescriptorValue;
-import org.openscience.cdk.qsar.result.DoubleResultType;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 import org.openscience.cdk.qsar.result.IntegerResult;
+import org.openscience.cdk.qsar.result.IntegerResultType;
 
 public class OxygenAtomCountDescriptor implements INanomaterialDescriptor {
 
@@ -91,7 +91,7 @@ public class OxygenAtomCountDescriptor implements INanomaterialDescriptor {
     }
 
     public IDescriptorResult getDescriptorResultType() {
-		return new DoubleResultType();
+		return new IntegerResultType();
 	}
 
 }
