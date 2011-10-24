@@ -25,6 +25,22 @@ public class MeasurementValue extends Measurement implements IMeasurementValue {
         setValue(value, error, unit);
     }
 
+    public MeasurementValue(double value, double error, String unit) {
+        setValue(value, error, unit);
+    }
+
+    public void setValue(double value, double error, String unit) {
+        for (Unit unitType : Unit.values()) {
+            if (unitType.name().equals(unit)) {
+                setValue(value, error, unitType);
+                return;
+            }
+        }
+        throw new IllegalArgumentException(
+            "Unsupported Unit"
+        );
+    }
+
     public void setValue(double value, double error, Unit unit) {
 		this.value = value;
 		this.error = error;

@@ -25,6 +25,22 @@ public class MeasurementRange extends Measurement implements IMeasurementRange {
         this.setValues(minimum, maximum, unit);
     }
 
+    public MeasurementRange(double minimum, double maximum, String unit) {
+        this.setValues(minimum, maximum, unit);
+    }
+
+    public void setValues(double minimum, double maximum, String unit) {
+        for (Unit unitType : Unit.values()) {
+            if (unitType.name().equals(unit)) {
+                setValues(minimum, maximum, unitType);
+                return;
+            }
+        }
+        throw new IllegalArgumentException(
+            "Unsupported Unit"
+        );
+    }
+
     public void setValues(double minimum, double maximum, Unit unit) {
         this.minimum = minimum;
         this.maximum = maximum;

@@ -18,6 +18,7 @@ package org.bitbucket.nanojava.data.measurement;
 
 public interface IMeasurementValue extends IMeasurement {
 
+    public void setValue(double value, double error, String nm);
 	public void setValue(double value, double error, Unit nm);
 	public double getValue();
 	public double getError();
