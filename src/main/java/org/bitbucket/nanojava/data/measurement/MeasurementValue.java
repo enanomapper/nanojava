@@ -55,4 +55,8 @@ public class MeasurementValue extends Measurement implements IMeasurementValue {
 		return this.error;
 	}
 
+    public String getString() {
+        return "" + value + " \u00b1 " + error + " " + unit;
+    }
+
 }

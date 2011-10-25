@@ -16,9 +16,16 @@
  */
 package org.bitbucket.nanojava.data.measurement;
 
-public interface IMeasurement {
+import junit.framework.Assert;
 
-	public void setUnit(Unit unit);
-	public Unit getUnit();
-	public String getString();
+import org.junit.Test;
+
+public class MeasurementRangeTest {
+
+    @Test
+    public void testToString() throws Exception {
+        IMeasurement measurement = new MeasurementRange(4.5, 6.7, "EV");
+        Assert.assertEquals("4.5 - 6.7 eV", measurement.getString());
+    }
+
 }

@@ -16,7 +16,7 @@
  */
 package org.bitbucket.nanojava.data.measurement;
 
-public class Measurement implements IMeasurement {
+public abstract class Measurement implements IMeasurement {
 
 	protected Unit unit;
 

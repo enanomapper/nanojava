@@ -55,4 +55,8 @@ public class MeasurementRange extends Measurement implements IMeasurementRange {
 		return this.maximum;
 	}
 
+    public String getString() {
+        return "" + minimum + " - " + maximum + " " + unit;
+    }
+
 }
