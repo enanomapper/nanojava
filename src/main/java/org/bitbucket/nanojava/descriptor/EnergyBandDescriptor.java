@@ -100,11 +100,11 @@ public class EnergyBandDescriptor implements INanomaterialDescriptor {
 	            } else continue;
 	        } else if ("Cu".equals(isotope.getSymbol())) {
 	            if (oCount == 1) {
-	                int znCount = getElementCount(molFormula, "Zn");
-	                if (znCount == 1) {
+	                int cuCount = getElementCount(molFormula, "Cu");
+	                if (cuCount == 1) {
 	                    result.add(-4.7);
 	                    result.add(-6.7);
-	                } else if (znCount == 2) {
+	                } else if (cuCount == 2) {
 	                    result.add(-4.4);
 	                    result.add(-5.6);
 	                } else continue;
