@@ -69,6 +69,8 @@ public class IonizationEthalpyDescriptor implements INanomaterialDescriptor {
 	            val = 1187.83;
 	        } else if ("Bi".equals(isotope.getSymbol())) {
 	            val = 1137.40; 
+	        } else if ("Ce".equals(isotope.getSymbol())) {
+	            val = 944.70; // CeO2 (PM6 SPARKLE)
 	        } else if ("Co".equals(isotope.getSymbol())) {
 	            val = 601.80; 
 	        } else if ("Cr".equals(isotope.getSymbol())) {
@@ -81,6 +83,8 @@ public class IonizationEthalpyDescriptor implements INanomaterialDescriptor {
 	            val = 1271.13; 
 	        } else if ("La".equals(isotope.getSymbol())) {
 	            val = 1017.22; 
+	        } else if ("Mn".equals(isotope.getSymbol())) {
+	            val = 1601.91; // MnO2
 	        } else if ("Ni".equals(isotope.getSymbol())) {
 	            val = 576.90; 
 	        } else if ("Sb".equals(isotope.getSymbol())) {
