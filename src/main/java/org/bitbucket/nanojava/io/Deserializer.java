@@ -17,7 +17,12 @@
 package org.bitbucket.nanojava.io;
 
 import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
+import org.bitbucket.nanojava.data.measurement.MeasurementValue;
+import org.bitbucket.nanojava.data.measurement.Unit;
+import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLMolecule;
+import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
 
 public class Deserializer {
@@ -28,6 +33,22 @@ public class Deserializer {
 		
 		for (CMLScalar scalar : cmlMaterial.getScalarElements()) {
 			if (scalar.getDictRef().equals("nano:type")) material.setType(scalar.getValue());
+		}
+
+		for (CMLElement element : cmlMaterial.getChildCMLElements()) {
+			if (element instanceof CMLProperty) {
+				CMLProperty prop = (CMLProperty)element;
+				if (prop.getDictRef().equals("nano:dimension")) {
+					for (CMLElement propScalar : prop.getChildCMLElements()) {
+						if (propScalar instanceof CMLScalar && ((CMLScalar) propScalar).getUnits().equals("qudt:nm")) {
+							IMeasurementValue sizeValue = new MeasurementValue(
+								((CMLScalar) propScalar).getDouble(), Double.NaN, Unit.NM
+							);
+							material.setSize(sizeValue);
+						}
+					}
+				}
+			}
 		}
 		return material;
 	}

@@ -17,7 +17,11 @@
 package org.bitbucket.nanojava.io;
 
 import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.measurement.IMeasurement;
+import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
+import org.bitbucket.nanojava.data.measurement.Unit;
 import org.xmlcml.cml.element.CMLMolecule;
+import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
 
 public class Serializer {
@@ -26,10 +30,27 @@ public class Serializer {
 		CMLMolecule cmlMaterial = new CMLMolecule();
 		cmlMaterial.setConvention("nano:material");
 		cmlMaterial.addNamespaceDeclaration("nano", "http://.../");
+
+		// set the type
 		CMLScalar scalar = new CMLScalar();
 		scalar.setDictRef("nano:type");
 		scalar.setValue("" + material.getType());
 		cmlMaterial.addScalar(scalar);
+
+		// set the size
+		IMeasurement sizeMeasurement = material.getSize();
+		if (sizeMeasurement != null && sizeMeasurement instanceof IMeasurementValue) {
+			CMLProperty sizeProp = new CMLProperty();
+			sizeProp.setDictRef("nano:dimension");
+			CMLScalar sizeScalar = new CMLScalar();
+			if (sizeMeasurement.getUnit() == Unit.NM) {
+				sizeScalar.setUnits("qudt:nm");
+			}
+			sizeScalar.setValue(((IMeasurementValue)sizeMeasurement).getValue());
+			sizeProp.addScalar(sizeScalar);
+			cmlMaterial.appendChild(sizeProp);
+		}
+
 		return cmlMaterial;
 	}
 

@@ -18,6 +18,8 @@ package org.bitbucket.nanojava.io;
 
 import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.measurement.MeasurementValue;
+import org.bitbucket.nanojava.data.measurement.Unit;
 import org.junit.Assert;
 import org.junit.Test;
 import org.xmlcml.cml.element.CMLMolecule;
@@ -40,6 +42,18 @@ public class SerializationTest {
 		roundTripped = Deserializer.fromCML(cmlMaterial);
 		Assert.assertNotNull(roundTripped);
 		Assert.assertEquals(MaterialType.GRAPHENE, roundTripped.getType());
+	}
+
+	@Test
+	public void roundTripSize() {
+		Nanomaterial material = new Nanomaterial("METALOXIDE");
+		material.setSize(new MeasurementValue(20.0, 7, Unit.NM));
+		CMLMolecule cmlMaterial = Serializer.toCML(material);
+		Assert.assertNotNull(cmlMaterial);
+		System.out.println(cmlMaterial.toXML());
+		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
+		Assert.assertNotNull(roundTripped);
+		Assert.assertEquals(20.0, ((MeasurementValue)roundTripped.getSize()).getValue(), 0.1);
 	}
 
 }
