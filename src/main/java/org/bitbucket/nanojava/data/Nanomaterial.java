@@ -31,15 +31,7 @@ public class Nanomaterial {
 	}
 
 	public Nanomaterial(String type) throws IllegalArgumentException {
-	    for (MaterialType nmType : MaterialType.values()) {
-	        if (nmType.name().equals(type)) {
-	            this.setType(nmType);
-	            return;
-	        }
-	    }
-	    throw new IllegalArgumentException(
-	        "Unsupported MaterialType"
-	    );
+	    setType(type);
 	}
 	
 	public IMeasurement getSize() {
@@ -60,6 +52,18 @@ public class Nanomaterial {
 	public IMolecularFormula getChemicalComposition() {
 		return chemicalComposition;
 	}
+
+    public void setType(String type) {
+    	for (MaterialType nmType : MaterialType.values()) {
+	        if (nmType.name().equals(type)) {
+	            this.setType(nmType);
+	            return;
+	        }
+	    }
+	    throw new IllegalArgumentException(
+	        "Unsupported MaterialType"
+	    );
+    }
 
     public void setType(MaterialType type) {
         this.type = type;
