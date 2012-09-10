@@ -47,8 +47,18 @@ public class Deserializer {
 							material.setSize(sizeValue);
 						}
 					}
+				} else if (prop.getDictRef().equals("nano:zetaPotential")) {
+					for (CMLElement propScalar : prop.getChildCMLElements()) {
+						if (propScalar instanceof CMLScalar && ((CMLScalar) propScalar).getUnits().equals("qudt:eV")) {
+							IMeasurementValue zpValue = new MeasurementValue(
+								((CMLScalar) propScalar).getDouble(), Double.NaN, Unit.EV
+							);
+							material.setZetaPotential(zpValue);
+						}
+					}
 				}
 			}
+
 		}
 		return material;
 	}

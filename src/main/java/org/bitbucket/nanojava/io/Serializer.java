@@ -50,6 +50,19 @@ public class Serializer {
 			sizeProp.addScalar(sizeScalar);
 			cmlMaterial.appendChild(sizeProp);
 		}
+		// set the zeta potential
+		IMeasurement zpMeasurement = material.getZetaPotential();
+		if (zpMeasurement != null && zpMeasurement instanceof IMeasurementValue) {
+			CMLProperty epProp = new CMLProperty();
+			epProp.setDictRef("nano:zetaPotential");
+			CMLScalar epScalar = new CMLScalar();
+			if (zpMeasurement.getUnit() == Unit.EV) {
+				epScalar.setUnits("qudt:eV");
+			}
+			epScalar.setValue(((IMeasurementValue)zpMeasurement).getValue());
+			epProp.addScalar(epScalar);
+			cmlMaterial.appendChild(epProp);
+		}
 
 		return cmlMaterial;
 	}

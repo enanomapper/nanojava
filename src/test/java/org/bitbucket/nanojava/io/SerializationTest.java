@@ -56,4 +56,15 @@ public class SerializationTest {
 		Assert.assertEquals(20.0, ((MeasurementValue)roundTripped.getSize()).getValue(), 0.1);
 	}
 
+	@Test
+	public void roundTripZetaPotential() {
+		Nanomaterial material = new Nanomaterial("METALOXIDE");
+		material.setZetaPotential(new MeasurementValue(-45.0, 3, Unit.EV));
+		CMLMolecule cmlMaterial = Serializer.toCML(material);
+		Assert.assertNotNull(cmlMaterial);
+		System.out.println(cmlMaterial.toXML());
+		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
+		Assert.assertNotNull(roundTripped);
+		Assert.assertEquals(-45.0, ((MeasurementValue)roundTripped.getZetaPotential()).getValue(), 0.1);
+	}
 }
