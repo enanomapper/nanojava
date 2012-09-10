@@ -29,6 +29,7 @@ public class SerializationTest {
 		Nanomaterial material = new Nanomaterial("METALOXIDE");
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
 		Assert.assertNotNull(cmlMaterial);
+		System.out.println(cmlMaterial.toXML());
 		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
 		Assert.assertNotNull(roundTripped);
 		Assert.assertEquals(MaterialType.METALOXIDE, roundTripped.getType());

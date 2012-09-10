@@ -18,11 +18,17 @@ package org.bitbucket.nanojava.io;
 
 import org.bitbucket.nanojava.data.Nanomaterial;
 import org.xmlcml.cml.element.CMLMolecule;
+import org.xmlcml.cml.element.CMLScalar;
 
 public class Deserializer {
 
 	public static Nanomaterial fromCML(CMLMolecule cmlMaterial) {
+		if (!cmlMaterial.getConvention().matches("nano:material")) return null;
 		Nanomaterial material = new Nanomaterial("METALOXIDE");
+		
+		for (CMLScalar scalar : cmlMaterial.getScalarElements()) {
+			if (scalar.getDictRef().equals("nano:type")) material.setType(scalar.getValue());
+		}
 		return material;
 	}
 

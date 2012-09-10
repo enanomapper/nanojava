@@ -18,11 +18,18 @@ package org.bitbucket.nanojava.io;
 
 import org.bitbucket.nanojava.data.Nanomaterial;
 import org.xmlcml.cml.element.CMLMolecule;
+import org.xmlcml.cml.element.CMLScalar;
 
 public class Serializer {
 
 	public static CMLMolecule toCML(Nanomaterial material) {
 		CMLMolecule cmlMaterial = new CMLMolecule();
+		cmlMaterial.setConvention("nano:material");
+		cmlMaterial.addNamespaceDeclaration("nano", "http://.../");
+		CMLScalar scalar = new CMLScalar();
+		scalar.setDictRef("nano:type");
+		scalar.setValue("" + material.getType());
+		cmlMaterial.addScalar(scalar);
 		return cmlMaterial;
 	}
 
