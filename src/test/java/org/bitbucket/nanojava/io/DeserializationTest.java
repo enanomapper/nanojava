@@ -24,6 +24,7 @@ import nu.xom.ParsingException;
 
 import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.junit.Test;
 
 public class DeserializationTest {
@@ -35,5 +36,23 @@ public class DeserializationTest {
 		Assert.assertNotNull(material);
 		Assert.assertEquals(MaterialType.GRAPHENE, material.getType());
 	}
+	
+	@Test
+	public void readSize() throws ParsingException, IOException {
+		String input = "<molecule xmlns=\"http://www.xml-cml.org/schema\" xmlns:nano=\"http://.../\" convention=\"nano:material\"><scalar dictRef=\"nano:type\" dataType=\"xsd:string\">METALOXIDE</scalar><property dictRef=\"nano:dimension\"><scalar units=\"qudt:nm\" dataType=\"xsd:double\">20.0</scalar></property></molecule>";
+		Nanomaterial material = Deserializer.fromCMLString(input);
+		Assert.assertNotNull(material);
+		Assert.assertEquals(20.0, ((MeasurementValue)material.getSize()).getValue(), 0.1);
+	}
+	
+	@Test
+	public void readZetaPotential() throws ParsingException, IOException {
+		String input = "<molecule xmlns=\"http://www.xml-cml.org/schema\" xmlns:nano=\"http://.../\" convention=\"nano:material\"><scalar dictRef=\"nano:type\" dataType=\"xsd:string\">METALOXIDE</scalar><property dictRef=\"nano:zetaPotential\"><scalar units=\"qudt:eV\" dataType=\"xsd:double\">-45.0</scalar></property></molecule>";
+		Nanomaterial material = Deserializer.fromCMLString(input);
+		Assert.assertNotNull(material);
+		Assert.assertEquals(-45.0, ((MeasurementValue)material.getZetaPotential()).getValue(), 0.1);
+	}
+	
+
 
 }
