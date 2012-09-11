@@ -18,6 +18,8 @@ package org.bitbucket.nanojava.io;
 
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import nu.xom.Document;
 import nu.xom.Element;
@@ -29,6 +31,7 @@ import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.bitbucket.nanojava.data.measurement.Unit;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
@@ -44,6 +47,17 @@ public class Deserializer {
     		return Deserializer.fromCML(cmlMaterial);
     	}
     	return null;
+	}
+
+	public static List<Nanomaterial> fromCML(CMLList cmlMaterials) {
+		List<Nanomaterial> materials = new ArrayList<Nanomaterial>();
+		for (CMLElement element : cmlMaterials.getChildCMLElements()) {
+			if (element instanceof CMLMolecule) {
+				Nanomaterial material = fromCML((CMLMolecule)element);
+				if (material != null) materials.add(material);
+			}
+		}
+		return materials;
 	}
 
 	public static Nanomaterial fromCML(CMLMolecule cmlMaterial) {

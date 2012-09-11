@@ -16,10 +16,13 @@
  */
 package org.bitbucket.nanojava.io;
 
+import java.util.List;
+
 import org.bitbucket.nanojava.data.Nanomaterial;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.Unit;
+import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
@@ -29,6 +32,14 @@ public class Serializer {
 	public static String toCMLString(Nanomaterial material) {
 		CMLMolecule cmlMaterial = toCML(material);
 		return cmlMaterial.toXML();
+	}
+
+	public static CMLList toCML(List<Nanomaterial> materials) {
+		CMLList list = new CMLList();
+		for (Nanomaterial material : materials) {
+			list.appendChild(toCML(material));
+		}
+		return list;
 	}
 
 	public static CMLMolecule toCML(Nanomaterial material) {

@@ -16,12 +16,16 @@
  */
 package org.bitbucket.nanojava.io;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.Nanomaterial;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.bitbucket.nanojava.data.measurement.Unit;
 import org.junit.Assert;
 import org.junit.Test;
+import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMolecule;
 
 public class SerializationTest {
@@ -31,7 +35,6 @@ public class SerializationTest {
 		Nanomaterial material = new Nanomaterial("METALOXIDE");
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
 		Assert.assertNotNull(cmlMaterial);
-		System.out.println(cmlMaterial.toXML());
 		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
 		Assert.assertNotNull(roundTripped);
 		Assert.assertEquals(MaterialType.METALOXIDE, roundTripped.getType());
@@ -39,7 +42,6 @@ public class SerializationTest {
 		material = new Nanomaterial("GRAPHENE");
 		cmlMaterial = Serializer.toCML(material);
 		Assert.assertNotNull(cmlMaterial);
-		System.out.println(cmlMaterial.toXML());
 		roundTripped = Deserializer.fromCML(cmlMaterial);
 		Assert.assertNotNull(roundTripped);
 		Assert.assertEquals(MaterialType.GRAPHENE, roundTripped.getType());
@@ -63,9 +65,22 @@ public class SerializationTest {
 		material.setZetaPotential(new MeasurementValue(-45.0, 3, Unit.EV));
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
 		Assert.assertNotNull(cmlMaterial);
-		System.out.println(cmlMaterial.toXML());
 		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
 		Assert.assertNotNull(roundTripped);
 		Assert.assertEquals(-45.0, ((MeasurementValue)roundTripped.getZetaPotential()).getValue(), 0.1);
+	}
+
+	@Test
+	public void roundTripList() {
+		List<Nanomaterial> materials = new ArrayList<Nanomaterial>();
+		materials.add(new Nanomaterial("GRAPHENE"));
+		materials.add(new Nanomaterial("METALOXIDE"));
+		CMLList list = Serializer.toCML(materials);
+		Assert.assertNotNull(list);
+		List<Nanomaterial> roundTripped = Deserializer.fromCML(list);
+		Assert.assertNotNull(roundTripped);
+		Assert.assertEquals(2, roundTripped.size());
+		Assert.assertEquals(MaterialType.GRAPHENE, roundTripped.get(0).getType());
+		Assert.assertEquals(MaterialType.METALOXIDE, roundTripped.get(1).getType());
 	}
 }
