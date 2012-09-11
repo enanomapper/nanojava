@@ -31,6 +31,7 @@ public class SerializationTest {
 		Nanomaterial material = new Nanomaterial("METALOXIDE");
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
 		Assert.assertNotNull(cmlMaterial);
+		System.out.println(cmlMaterial.toXML());
 		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
 		Assert.assertNotNull(roundTripped);
 		Assert.assertEquals(MaterialType.METALOXIDE, roundTripped.getType());
@@ -38,6 +39,7 @@ public class SerializationTest {
 		material = new Nanomaterial("GRAPHENE");
 		cmlMaterial = Serializer.toCML(material);
 		Assert.assertNotNull(cmlMaterial);
+		System.out.println(cmlMaterial.toXML());
 		roundTripped = Deserializer.fromCML(cmlMaterial);
 		Assert.assertNotNull(roundTripped);
 		Assert.assertEquals(MaterialType.GRAPHENE, roundTripped.getType());
@@ -49,6 +51,7 @@ public class SerializationTest {
 		material.setSize(new MeasurementValue(20.0, 7, Unit.NM));
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
 		Assert.assertNotNull(cmlMaterial);
+		System.out.println(cmlMaterial.toXML());
 		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
 		Assert.assertNotNull(roundTripped);
 		Assert.assertEquals(20.0, ((MeasurementValue)roundTripped.getSize()).getValue(), 0.1);
@@ -60,6 +63,7 @@ public class SerializationTest {
 		material.setZetaPotential(new MeasurementValue(-45.0, 3, Unit.EV));
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
 		Assert.assertNotNull(cmlMaterial);
+		System.out.println(cmlMaterial.toXML());
 		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
 		Assert.assertNotNull(roundTripped);
 		Assert.assertEquals(-45.0, ((MeasurementValue)roundTripped.getZetaPotential()).getValue(), 0.1);

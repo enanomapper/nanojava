@@ -26,6 +26,11 @@ import org.xmlcml.cml.element.CMLScalar;
 
 public class Serializer {
 
+	public static String toCMLString(Nanomaterial material) {
+		CMLMolecule cmlMaterial = toCML(material);
+		return cmlMaterial.toXML();
+	}
+
 	public static CMLMolecule toCML(Nanomaterial material) {
 		CMLMolecule cmlMaterial = new CMLMolecule();
 		cmlMaterial.setConvention("nano:material");

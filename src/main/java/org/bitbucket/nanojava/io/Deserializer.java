@@ -16,16 +16,35 @@
  */
 package org.bitbucket.nanojava.io;
 
+import java.io.ByteArrayInputStream;
+import java.io.IOException;
+
+import nu.xom.Document;
+import nu.xom.Element;
+import nu.xom.ParsingException;
+
 import org.bitbucket.nanojava.data.Nanomaterial;
 import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.bitbucket.nanojava.data.measurement.Unit;
+import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
 
 public class Deserializer {
+
+	public static Nanomaterial fromCMLString(String cmlMaterialString) throws ParsingException, IOException {
+    	Document nmxDoc;
+    	nmxDoc = new CMLBuilder().buildEnsureCML(new ByteArrayInputStream(cmlMaterialString.getBytes()));
+    	Element rootElem = nmxDoc.getRootElement();
+    	if (rootElem instanceof CMLMolecule) { // requirement
+    		CMLMolecule cmlMaterial = (CMLMolecule)rootElem;
+    		return Deserializer.fromCML(cmlMaterial);
+    	}
+    	return null;
+	}
 
 	public static Nanomaterial fromCML(CMLMolecule cmlMaterial) {
 		if (!cmlMaterial.getConvention().matches("nano:material")) return null;
