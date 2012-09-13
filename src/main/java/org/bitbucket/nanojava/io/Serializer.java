@@ -22,6 +22,7 @@ import org.bitbucket.nanojava.data.Nanomaterial;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.Unit;
+import org.xmlcml.cml.element.CMLLabel;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLProperty;
@@ -46,6 +47,13 @@ public class Serializer {
 		CMLMolecule cmlMaterial = new CMLMolecule();
 		cmlMaterial.setConvention("nano:material");
 		cmlMaterial.addNamespaceDeclaration("nano", "http://.../");
+
+		// set the labels
+		for (String label : material.getLabels()) {
+			CMLLabel cmlLabel = new CMLLabel();
+			cmlLabel.setStringContent(label);
+			cmlMaterial.appendChild(cmlLabel);
+		}
 
 		// set the type
 		CMLScalar scalar = new CMLScalar();

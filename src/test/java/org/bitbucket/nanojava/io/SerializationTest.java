@@ -31,6 +31,23 @@ import org.xmlcml.cml.element.CMLMolecule;
 public class SerializationTest {
 
 	@Test
+	public void roundTripLabels() {
+		Nanomaterial material = new Nanomaterial("METALOXIDE");
+        List<String> labels = new ArrayList<String>();
+        labels.add("NM1"); labels.add("CeO2-15");
+        material.setLabels(labels);
+		CMLMolecule cmlMaterial = Serializer.toCML(material);
+		System.out.println(cmlMaterial.toXML());
+		Assert.assertNotNull(cmlMaterial);
+		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
+		Assert.assertNotNull(roundTripped);
+        Assert.assertNotNull(roundTripped.getLabels());
+        Assert.assertEquals(2, roundTripped.getLabels().size());
+        Assert.assertTrue(roundTripped.getLabels().contains("NM1"));
+        Assert.assertTrue(roundTripped.getLabels().contains("CeO2-15"));
+	}
+
+	@Test
 	public void roundTripType() {
 		Nanomaterial material = new Nanomaterial("METALOXIDE");
 		CMLMolecule cmlMaterial = Serializer.toCML(material);

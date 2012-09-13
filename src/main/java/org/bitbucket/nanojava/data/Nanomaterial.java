@@ -16,6 +16,10 @@
  */
 package org.bitbucket.nanojava.data;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.openscience.cdk.interfaces.IMolecularFormula;
 
@@ -25,6 +29,7 @@ public class Nanomaterial {
 	private IMeasurement zetaPotential;
 	private IMolecularFormula chemicalComposition;
 	private MaterialType type;
+	private List<String> labels;
 
 	public Nanomaterial(MaterialType type) {
 	    this.setType(type);
@@ -73,4 +78,14 @@ public class Nanomaterial {
         return type;
     }
 
+    public List<String> getLabels() {
+    	if (this.labels == null) return Collections.emptyList();
+    	return this.labels;
+    }
+
+    public void setLabels(List<String> labels) {
+    	if (labels == null || labels.size() == 0) return;
+    	this.labels = new ArrayList<String>();
+    	this.labels.addAll(labels);
+    }
 }

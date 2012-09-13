@@ -31,6 +31,7 @@ import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.bitbucket.nanojava.data.measurement.Unit;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.element.CMLLabel;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLProperty;
@@ -68,6 +69,7 @@ public class Deserializer {
 			if (scalar.getDictRef().equals("nano:type")) material.setType(scalar.getValue());
 		}
 
+		List<String> labels = new ArrayList<String>();
 		for (CMLElement element : cmlMaterial.getChildCMLElements()) {
 			if (element instanceof CMLProperty) {
 				CMLProperty prop = (CMLProperty)element;
@@ -90,9 +92,11 @@ public class Deserializer {
 						}
 					}
 				}
+			} else if (element instanceof CMLLabel) {
+				labels.add(element.getStringContent());
 			}
-
 		}
+		if (labels.size() > 0) material.setLabels(labels);
 		return material;
 	}
 
