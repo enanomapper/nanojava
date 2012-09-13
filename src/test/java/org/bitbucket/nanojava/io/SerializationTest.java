@@ -40,7 +40,6 @@ public class SerializationTest {
         labels.add("NM1"); labels.add("CeO2-15");
         material.setLabels(labels);
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
-		System.out.println(cmlMaterial.toXML());
 		Assert.assertNotNull(cmlMaterial);
 		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
 		Assert.assertNotNull(roundTripped);
@@ -74,7 +73,6 @@ public class SerializationTest {
         	MolecularFormulaManipulator.getMolecularFormula("CeO2", DefaultChemObjectBuilder.getInstance())
         );
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
-		System.out.println(cmlMaterial.toXML());
 		Assert.assertNotNull(cmlMaterial);
 		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
 		Assert.assertNotNull(roundTripped);
@@ -89,7 +87,6 @@ public class SerializationTest {
 		material.setSize(new MeasurementValue(20.0, 7, Unit.NM));
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
 		Assert.assertNotNull(cmlMaterial);
-		System.out.println(cmlMaterial.toXML());
 		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
 		Assert.assertNotNull(roundTripped);
 		Assert.assertEquals(20.0, ((MeasurementValue)roundTripped.getSize()).getValue(), 0.1);
