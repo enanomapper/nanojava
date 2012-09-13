@@ -29,8 +29,11 @@ import org.bitbucket.nanojava.data.Nanomaterial;
 import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.bitbucket.nanojava.data.measurement.Unit;
+import org.openscience.cdk.DefaultChemObjectBuilder;
+import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
+import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLLabel;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMolecule;
@@ -64,7 +67,7 @@ public class Deserializer {
 	public static Nanomaterial fromCML(CMLMolecule cmlMaterial) {
 		if (!cmlMaterial.getConvention().matches("nano:material")) return null;
 		Nanomaterial material = new Nanomaterial("METALOXIDE");
-		
+
 		for (CMLScalar scalar : cmlMaterial.getScalarElements()) {
 			if (scalar.getDictRef().equals("nano:type")) material.setType(scalar.getValue());
 		}
@@ -94,6 +97,15 @@ public class Deserializer {
 				}
 			} else if (element instanceof CMLLabel) {
 				labels.add(element.getStringContent());
+			} else if (element instanceof CMLFormula) {
+				if (material.getChemicalComposition() == null) { // ignore second and later copies
+					material.setChemicalComposition(
+						MolecularFormulaManipulator.getMolecularFormula(
+							element.getAttributeValue("inline"),
+							DefaultChemObjectBuilder.getInstance()
+						)
+					);
+				}
 			}
 		}
 		if (labels.size() > 0) material.setLabels(labels);

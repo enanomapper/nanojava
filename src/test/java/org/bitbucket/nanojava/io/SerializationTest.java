@@ -25,6 +25,9 @@ import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.bitbucket.nanojava.data.measurement.Unit;
 import org.junit.Assert;
 import org.junit.Test;
+import org.openscience.cdk.DefaultChemObjectBuilder;
+import org.openscience.cdk.interfaces.IMolecularFormula;
+import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMolecule;
 
@@ -62,6 +65,22 @@ public class SerializationTest {
 		roundTripped = Deserializer.fromCML(cmlMaterial);
 		Assert.assertNotNull(roundTripped);
 		Assert.assertEquals(MaterialType.GRAPHENE, roundTripped.getType());
+	}
+
+	@Test
+	public void roundChemicalComposition() {
+		Nanomaterial material = new Nanomaterial("METALOXIDE");
+        material.setChemicalComposition(
+        	MolecularFormulaManipulator.getMolecularFormula("CeO2", DefaultChemObjectBuilder.getInstance())
+        );
+		CMLMolecule cmlMaterial = Serializer.toCML(material);
+		System.out.println(cmlMaterial.toXML());
+		Assert.assertNotNull(cmlMaterial);
+		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
+		Assert.assertNotNull(roundTripped);
+        IMolecularFormula molForm = roundTripped.getChemicalComposition();
+        Assert.assertNotNull(molForm);
+        Assert.assertEquals("CeO2", MolecularFormulaManipulator.getString(molForm));
 	}
 
 	@Test
