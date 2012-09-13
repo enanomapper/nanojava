@@ -49,7 +49,8 @@ public class Serializer {
 	public static CMLMolecule toCML(Nanomaterial material) {
 		CMLMolecule cmlMaterial = new CMLMolecule();
 		cmlMaterial.setConvention("nano:material");
-		cmlMaterial.addNamespaceDeclaration("nano", "http://.../");
+		cmlMaterial.addNamespaceDeclaration("nano", "http://example.org/nano#");
+		cmlMaterial.addNamespaceDeclaration("qudt", "http://example.org/qudt#");
 
 		// set the composition
 		if (material.getChemicalComposition() != null) {
