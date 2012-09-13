@@ -16,9 +16,15 @@
  */
 package org.bitbucket.nanojava.data.measurement;
 
+import java.util.List;
+
 public interface IMeasurement {
 
 	public void setUnit(Unit unit);
 	public Unit getUnit();
 	public String getString();
+
+	public List<ICondition> getConditions();
+	public void setConditions(List<ICondition> conditions);
+
 }

@@ -16,6 +16,7 @@
  */
 package org.bitbucket.nanojava.data.measurement;
 
+
 public class MeasurementRange extends Measurement implements IMeasurementRange {
 
 	private double minimum;

@@ -1,4 +1,4 @@
-/* Copyright (C) 2011  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2012  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,34 +16,6 @@
  */
 package org.bitbucket.nanojava.data.measurement;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-
-public abstract class Measurement implements IMeasurement {
-
-	protected Unit unit;
-	private List<ICondition> conditions;
-
-    public void setUnit(Unit unit) {
-		this.unit = unit;
-	}
-
-	public Unit getUnit() {
-		return this.unit;
-	}
-
-	@Override
-	public List<ICondition> getConditions() {
-		if (this.conditions == null) return Collections.emptyList();
-		return this.conditions;
-	}
-
-	@Override
-	public void setConditions(List<ICondition> conditions) {
-		if (conditions == null || conditions.size() == 0) return;
-		this.conditions = new ArrayList<ICondition>();
-		this.conditions.addAll(conditions);
-	}
+public interface ICondition {
 
 }
