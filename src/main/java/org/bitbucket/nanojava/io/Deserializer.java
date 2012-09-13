@@ -34,9 +34,9 @@ import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLFormula;
-import org.xmlcml.cml.element.CMLLabel;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMolecule;
+import org.xmlcml.cml.element.CMLName;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
 
@@ -95,7 +95,7 @@ public class Deserializer {
 						}
 					}
 				}
-			} else if (element instanceof CMLLabel) {
+			} else if (element instanceof CMLName) {
 				labels.add(element.getStringContent());
 			} else if (element instanceof CMLFormula) {
 				if (material.getChemicalComposition() == null) { // ignore second and later copies
