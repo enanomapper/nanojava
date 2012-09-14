@@ -3,7 +3,6 @@
   <groupId>org.bitbucket.nanojava</groupId>
   <artifactId>nanojava</artifactId>
   <name>NanoJava</name>
-  <version>0.0.1-SNAPSHOT</version>
   
   <repositories>
     <repository>
@@ -62,4 +61,5 @@
     </pluginManagement>
   </build>
   
+  <version>1.0.0</version>
 </project>
