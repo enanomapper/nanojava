@@ -108,7 +108,7 @@ public class IonizationEthalpyMopac2012Descriptor implements INanomaterialDescri
 	    } else if ("Y2O3".equals(mfString)) {
 	    	val = 837.15457; 
 	    } else if ("OZn".equals(mfString)) {
-	    	val = 713.73801;
+	    	val = 662.43584;
 	    } else if ("O2Zr".equals(mfString)) {
 	    	val = 1357.66444; 
 	    } else {

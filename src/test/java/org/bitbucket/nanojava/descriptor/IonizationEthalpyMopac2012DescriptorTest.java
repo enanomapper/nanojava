@@ -48,7 +48,7 @@ extends NanomaterialDescriptorTest {
         Assert.assertNotNull(value);
         IDescriptorResult result = value.getValue();
         Assert.assertNotNull(result);
-        Assert.assertEquals(713.73801, ((DoubleResult)result).doubleValue(), 0.0001);
+        Assert.assertEquals(662.43584, ((DoubleResult)result).doubleValue(), 0.0001);
     }
 
     @Test
