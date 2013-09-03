@@ -100,7 +100,7 @@ public class IonizationEthalpyDescriptor implements INanomaterialDescriptor {
 	    } else if ("TiO2".equals(mfString)) {
 	    	val = 1575.73; 
 	    } else if ("V2O3".equals(mfString)) {
-	    	val = 1079.73; 
+	    	val = 1097.73; 
 	    } else if ("Y2O3".equals(mfString)) {
 	    	val = 837.15; 
 	    } else if ("OZn".equals(mfString)) {
