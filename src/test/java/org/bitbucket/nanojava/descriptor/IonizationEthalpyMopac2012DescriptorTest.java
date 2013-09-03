@@ -81,4 +81,19 @@ extends NanomaterialDescriptorTest {
         Assert.assertEquals(1187.82572, ((DoubleResult)result).doubleValue(), 0.0001);
     }
 
+    @Test
+    public void testCalculate_CuZnFe2O4() throws Exception {
+        Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
+        material.setChemicalComposition(
+            MolecularFormulaManipulator.getMolecularFormula(
+                "CuZnFe2O4", DefaultChemObjectBuilder.getInstance()
+            )
+        );
+        DescriptorValue value = descriptor.calculate(material);
+        Assert.assertNotNull(value);
+        IDescriptorResult result = value.getValue();
+        Assert.assertNotNull(result);
+        Assert.assertEquals(662.43584, ((DoubleResult)result).doubleValue(), 0.0001);
+    }
+
 }

@@ -81,6 +81,9 @@ public class IonizationEthalpyMopac2012Descriptor implements INanomaterialDescri
 	    	val = 1266.39724; 
 	    } else if ("CuO".equals(mfString)) {
 	    	val = 713.73801;
+	    } else if ("CuFe2O4Zn".equals(mfString)) {
+	    	val = 662.43584; // links via Aldrich to PubChem SID 24883132 telling FeIII, Zn2+, Cu2+
+	    	                 // taking the lowest enthalpy
 	    } else if ("Fe2O3".equals(mfString)) {
 	    	val = 1363.39566; 
 	    } else if ("FeO".equals(mfString)) {
