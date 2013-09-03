@@ -18,14 +18,17 @@ package org.bitbucket.nanojava.descriptor;
 
 import org.bitbucket.nanojava.data.Nanomaterial;
 import org.openscience.cdk.exception.CDKException;
-import org.openscience.cdk.interfaces.IIsotope;
 import org.openscience.cdk.interfaces.IMolecularFormula;
 import org.openscience.cdk.qsar.DescriptorSpecification;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.DoubleResult;
 import org.openscience.cdk.qsar.result.DoubleResultType;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
+import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
+/**
+ * Values are calculated with Mopac2009 using the PM6 method.
+ */
 public class IonizationEthalpyDescriptor implements INanomaterialDescriptor {
 
 	public String[] getDescriptorNames() {
@@ -62,61 +65,59 @@ public class IonizationEthalpyDescriptor implements INanomaterialDescriptor {
 
 	    IMolecularFormula molFormula = container.getChemicalComposition();
 	    if (molFormula == null) return newNaNDescriptor();
+	    String mfString = MolecularFormulaManipulator.getString(molFormula);
+	    System.out.println(mfString);
 
 	    double val = Double.NaN;
-	    for (IIsotope isotope : molFormula.isotopes()) {
-	        if ("Al".equals(isotope.getSymbol())) {
-	            val = 1187.83;
-	        } else if ("Bi".equals(isotope.getSymbol())) {
-	            val = 1137.40; 
-	        } else if ("Ce".equals(isotope.getSymbol())) {
-	            val = 944.70; // CeO2 (PM6 SPARKLE)
-	        } else if ("Co".equals(isotope.getSymbol())) {
-	            val = 601.80; 
-	        } else if ("Cr".equals(isotope.getSymbol())) {
-	            val = 1268.70; 
-	        } else if ("Cu".equals(isotope.getSymbol())) {
-	            val = 706.25; 
-	        } else if ("Fe".equals(isotope.getSymbol())) {
-	            val = 1408.29; 
-	        } else if ("In".equals(isotope.getSymbol())) {
-	            val = 1271.13; 
-	        } else if ("La".equals(isotope.getSymbol())) {
-	            val = 1017.22; 
-	        } else if ("Mn".equals(isotope.getSymbol())) {
-	            val = 1601.91; // MnO2
-	        } else if ("Ni".equals(isotope.getSymbol())) {
-	            val = 576.90; 
-	        } else if ("Sb".equals(isotope.getSymbol())) {
-	            val = 1233.06; 
-	        } else if ("Si".equals(isotope.getSymbol())) {
-	            val = 1686.38; 
-	        } else if ("Sn".equals(isotope.getSymbol())) {
-	            val = 1717.32; 
-	        } else if ("Ti".equals(isotope.getSymbol())) {
-	            val = 1575.73; 
-	        } else if ("V".equals(isotope.getSymbol())) {
-	            val = 1079.73; 
-	        } else if ("Y".equals(isotope.getSymbol())) {
-	            val = 837.15; 
-	        } else if ("Zn".equals(isotope.getSymbol())) {
-	            val = 662.44;
-	        } else if ("Zr".equals(isotope.getSymbol())) {
-	            val = 1357.66; 
-	        } else {
-	            continue;
-	        }
-
-	        return new DescriptorValue(
-	                getSpecification(),
-	                getParameterNames(),
-	                getParameters(),
-	                new DoubleResult(val),
-	                getDescriptorNames()
-	        );
+	    if ("Al2O3".equals(mfString)) {
+	    	val = 1187.83;
+	    } else if ("Bi2O3".equals(mfString)) {
+	    	val = 1137.40; 
+	    } else if ("CeO2".equals(mfString)) {
+	    	val = 944.70; // CeO2 (PM6 SPARKLE)
+	    } else if ("CoO".equals(mfString)) {
+	    	val = 601.80; 
+	    } else if ("Cr2O3".equals(mfString)) {
+	    	val = 1268.70; 
+	    } else if ("CuO".equals(mfString)) {
+	    	val = 706.25; 
+	    } else if ("Fe2O3".equals(mfString)) {
+	    	val = 1408.29; 
+	    } else if ("In2O3".equals(mfString)) {
+	    	val = 1271.13; 
+	    } else if ("La2O3".equals(mfString)) {
+	    	val = 1017.22; 
+	    } else if ("MnO2".equals(mfString)) {
+	    	val = 1601.91; // MnO2
+	    } else if ("NiO".equals(mfString)) {
+	    	val = 576.90; 
+	    } else if ("Sb2O3".equals(mfString)) {
+	    	val = 1233.06; 
+	    } else if ("SiO2".equals(mfString)) {
+	    	val = 1686.38; 
+	    } else if ("SnO2".equals(mfString)) {
+	    	val = 1717.32; 
+	    } else if ("TiO2".equals(mfString)) {
+	    	val = 1575.73; 
+	    } else if ("V2O3".equals(mfString)) {
+	    	val = 1079.73; 
+	    } else if ("Y2O3".equals(mfString)) {
+	    	val = 837.15; 
+	    } else if ("OZn".equals(mfString)) {
+	    	val = 662.44;
+	    } else if ("O2Zr".equals(mfString)) {
+	    	val = 1357.66; 
+	    } else {
+		    return newNaNDescriptor();
 	    }
-	    
-	    return newNaNDescriptor();
+
+	    return new DescriptorValue(
+	    		getSpecification(),
+	    		getParameterNames(),
+	    		getParameters(),
+	    		new DoubleResult(val),
+	    		getDescriptorNames()
+	    		);
 	}
 
 	private DescriptorValue newNaNDescriptor() {

@@ -51,4 +51,34 @@ extends NanomaterialDescriptorTest {
         Assert.assertEquals(662.44, ((DoubleResult)result).doubleValue(), 0.0001);
     }
 
+    @Test
+    public void testCalculate_Fe2O3() throws Exception {
+        Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
+        material.setChemicalComposition(
+            MolecularFormulaManipulator.getMolecularFormula(
+                "Fe2O3", DefaultChemObjectBuilder.getInstance()
+            )
+        );
+        DescriptorValue value = descriptor.calculate(material);
+        Assert.assertNotNull(value);
+        IDescriptorResult result = value.getValue();
+        Assert.assertNotNull(result);
+        Assert.assertEquals(1408.29, ((DoubleResult)result).doubleValue(), 0.0001);
+    }
+
+    @Test
+    public void testCalculate_Al2O3() throws Exception {
+        Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
+        material.setChemicalComposition(
+            MolecularFormulaManipulator.getMolecularFormula(
+                "Al2O3", DefaultChemObjectBuilder.getInstance()
+            )
+        );
+        DescriptorValue value = descriptor.calculate(material);
+        Assert.assertNotNull(value);
+        IDescriptorResult result = value.getValue();
+        Assert.assertNotNull(result);
+        Assert.assertEquals(1187.83, ((DoubleResult)result).doubleValue(), 0.0001);
+    }
+
 }
