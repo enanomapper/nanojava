@@ -19,6 +19,7 @@ package org.bitbucket.nanojava.descriptor;
 import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.Nanomaterial;
 import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.interfaces.IChemObjectBuilder;
 import org.openscience.cdk.interfaces.IIsotope;
 import org.openscience.cdk.interfaces.IMolecularFormula;
 import org.openscience.cdk.qsar.DescriptorSpecification;
@@ -93,6 +94,11 @@ public class MetalAtomCountDescriptor implements INanomaterialDescriptor {
 
     public IDescriptorResult getDescriptorResultType() {
 		return new IntegerResultType();
+	}
+
+	@Override
+	public void initialise(IChemObjectBuilder builder) {
+		// nothing to be done
 	}
 
 }

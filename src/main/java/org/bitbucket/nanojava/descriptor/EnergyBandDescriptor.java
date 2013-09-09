@@ -24,6 +24,7 @@ import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.bitbucket.nanojava.data.measurement.MeasurementRange;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.interfaces.IChemObjectBuilder;
 import org.openscience.cdk.interfaces.IIsotope;
 import org.openscience.cdk.interfaces.IMolecularFormula;
 import org.openscience.cdk.qsar.DescriptorSpecification;
@@ -181,6 +182,11 @@ public class EnergyBandDescriptor implements INanomaterialDescriptor {
 
     public IDescriptorResult getDescriptorResultType() {
 		return new DoubleArrayResultType(2);
+	}
+
+	@Override
+	public void initialise(IChemObjectBuilder builder) {
+		// nothing to be done
 	}
 
 }

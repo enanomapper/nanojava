@@ -21,6 +21,7 @@ import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.bitbucket.nanojava.data.measurement.IMeasurementRange;
 import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
 import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.interfaces.IChemObjectBuilder;
 import org.openscience.cdk.qsar.DescriptorSpecification;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.DoubleResult;
@@ -95,6 +96,11 @@ public class ZetaPotentialDescriptor implements INanomaterialDescriptor {
 
     public IDescriptorResult getDescriptorResultType() {
 		return new DoubleResultType();
+	}
+
+	@Override
+	public void initialise(IChemObjectBuilder builder) {
+		// nothing to be done
 	}
 
 }
