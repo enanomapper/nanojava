@@ -1,4 +1,4 @@
-/* Copyright (C) 2011  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2011-2013  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -19,6 +19,8 @@ package org.bitbucket.nanojava.data.measurement;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import com.github.jqudt.Unit;
 
 public abstract class Measurement implements IMeasurement {
 

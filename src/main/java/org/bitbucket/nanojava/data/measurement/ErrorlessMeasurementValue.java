@@ -1,4 +1,4 @@
-/* Copyright (C) 2011  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2011-2013  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,6 +16,9 @@
  */
 package org.bitbucket.nanojava.data.measurement;
 
+import com.github.jqudt.Unit;
+import com.github.jqudt.onto.UnitFactory;
+
 public class ErrorlessMeasurementValue extends Measurement implements IErrorlessMeasurementValue {
 
 	private double value;
@@ -29,11 +32,10 @@ public class ErrorlessMeasurementValue extends Measurement implements IErrorless
     }
 
     public void setValue(double value, String unit) {
-        for (Unit unitType : Unit.values()) {
-            if (unitType.name().equals(unit)) {
-                setValue(value, unitType);
-                return;
-            }
+    	Unit unitObj = UnitFactory.getInstance().getUnit(unit);
+    	if (unitObj != null) {
+    		setValue(value, unitObj);
+    		return;
         }
         throw new IllegalArgumentException(
             "Unsupported Unit"

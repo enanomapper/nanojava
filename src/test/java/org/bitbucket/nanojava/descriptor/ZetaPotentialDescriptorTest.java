@@ -22,12 +22,13 @@ import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.Nanomaterial;
 import org.bitbucket.nanojava.data.measurement.MeasurementRange;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
-import org.bitbucket.nanojava.data.measurement.Unit;
 import org.junit.Before;
 import org.junit.Test;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.DoubleResult;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
+
+import com.github.jqudt.onto.units.EnergyUnit;
 
 public class ZetaPotentialDescriptorTest
 extends NanomaterialDescriptorTest {
@@ -40,7 +41,7 @@ extends NanomaterialDescriptorTest {
     @Test
     public void testCalculate_Range() throws Exception {
         Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
-        material.setZetaPotential(new MeasurementRange(-7.5, -7.7, Unit.EV));
+        material.setZetaPotential(new MeasurementRange(-7.5, -7.7, EnergyUnit.EV));
         DescriptorValue value = descriptor.calculate(material);
         Assert.assertNotNull(value);
         IDescriptorResult result = value.getValue();
@@ -51,7 +52,7 @@ extends NanomaterialDescriptorTest {
     @Test
     public void testCalculate_Value() throws Exception {
         Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
-        material.setZetaPotential(new MeasurementValue(17.3, 2.1, Unit.EV));
+        material.setZetaPotential(new MeasurementValue(17.3, 2.1, EnergyUnit.EV));
         DescriptorValue value = descriptor.calculate(material);
         Assert.assertNotNull(value);
         IDescriptorResult result = value.getValue();

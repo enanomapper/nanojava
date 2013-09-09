@@ -26,9 +26,9 @@ public class MeasurementApplicationDomainTest {
 
     @Test
     public void testDefineFromRange() throws Exception {
-        IMeasurement range = new MeasurementRange(4.5, 6.7, "EV");
-        IMeasurement range2 = new MeasurementRange(3.5, 7.5, "EV");
-        IMeasurement range3 = new MeasurementRange(4.0, 7.0, "EV");
+        IMeasurement range = new MeasurementRange(4.5, 6.7, "http://qudt.org/vocab/unit#ElectronVolt");
+        IMeasurement range2 = new MeasurementRange(3.5, 7.5, "http://qudt.org/vocab/unit#ElectronVolt");
+        IMeasurement range3 = new MeasurementRange(4.0, 7.0, "http://qudt.org/vocab/unit#ElectronVolt");
         MeasurementApplicationDomain domain = new MeasurementApplicationDomain();
         domain.define(range, range2);
         Assert.assertTrue(domain.inDomain(range3));
@@ -36,9 +36,9 @@ public class MeasurementApplicationDomainTest {
 
     @Test
     public void testDefineFromNotInRange() throws Exception {
-        IMeasurement range = new MeasurementRange(4.5, 6.7, "EV");
-        IMeasurement range2 = new MeasurementRange(3.5, 7.5, "EV");
-        IMeasurement range3 = new MeasurementRange(4.0, 7.0, "EV");
+        IMeasurement range = new MeasurementRange(4.5, 6.7, "http://qudt.org/vocab/unit#ElectronVolt");
+        IMeasurement range2 = new MeasurementRange(3.5, 7.5, "http://qudt.org/vocab/unit#ElectronVolt");
+        IMeasurement range3 = new MeasurementRange(4.0, 7.0, "http://qudt.org/vocab/unit#ElectronVolt");
         MeasurementApplicationDomain domain = new MeasurementApplicationDomain();
         domain.define(range, range3);
         Assert.assertFalse(domain.inDomain(range2));
@@ -46,9 +46,9 @@ public class MeasurementApplicationDomainTest {
 
     @Test
     public void testValueInRange() throws Exception {
-        IMeasurement range = new MeasurementRange(4.5, 6.7, "EV");
-        IMeasurement range2 = new MeasurementRange(3.5, 7.5, "EV");
-        IMeasurement value = new MeasurementValue(4.0, 1.0, "EV");
+        IMeasurement range = new MeasurementRange(4.5, 6.7, "http://qudt.org/vocab/unit#ElectronVolt");
+        IMeasurement range2 = new MeasurementRange(3.5, 7.5, "http://qudt.org/vocab/unit#ElectronVolt");
+        IMeasurement value = new MeasurementValue(4.0, 1.0, "http://qudt.org/vocab/unit#ElectronVolt");
         MeasurementApplicationDomain domain = new MeasurementApplicationDomain();
         domain.define(range, range2);
         Assert.assertTrue(domain.inDomain(value));
@@ -56,9 +56,9 @@ public class MeasurementApplicationDomainTest {
 
     @Test
     public void testValueNotInRange() throws Exception {
-        IMeasurement range = new MeasurementRange(4.5, 6.7, "EV");
-        IMeasurement range2 = new MeasurementRange(3.5, 7.5, "EV");
-        IMeasurement value = new MeasurementValue(8.0, 1.0, "EV");
+        IMeasurement range = new MeasurementRange(4.5, 6.7, "http://qudt.org/vocab/unit#ElectronVolt");
+        IMeasurement range2 = new MeasurementRange(3.5, 7.5, "http://qudt.org/vocab/unit#ElectronVolt");
+        IMeasurement value = new MeasurementValue(8.0, 1.0, "http://qudt.org/vocab/unit#ElectronVolt");
         MeasurementApplicationDomain domain = new MeasurementApplicationDomain();
         domain.define(range, range2);
         Assert.assertFalse(domain.inDomain(value));
@@ -66,9 +66,9 @@ public class MeasurementApplicationDomainTest {
 
     @Test
     public void testAddRange() throws Exception {
-        IMeasurement range = new MeasurementRange(4.5, 6.7, "EV");
-        IMeasurement range2 = new MeasurementRange(3.5, 7.5, "EV");
-        IMeasurement range3 = new MeasurementRange(5.0, 7.0, "EV");
+        IMeasurement range = new MeasurementRange(4.5, 6.7, "http://qudt.org/vocab/unit#ElectronVolt");
+        IMeasurement range2 = new MeasurementRange(3.5, 7.5, "http://qudt.org/vocab/unit#ElectronVolt");
+        IMeasurement range3 = new MeasurementRange(5.0, 7.0, "http://qudt.org/vocab/unit#ElectronVolt");
         MeasurementApplicationDomain domain = new MeasurementApplicationDomain();
         domain.add(range);
         domain.add(range2);

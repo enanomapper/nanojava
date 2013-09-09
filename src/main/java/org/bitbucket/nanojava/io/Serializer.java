@@ -21,7 +21,6 @@ import java.util.List;
 import org.bitbucket.nanojava.data.Nanomaterial;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
-import org.bitbucket.nanojava.data.measurement.Unit;
 import org.openscience.cdk.interfaces.IMolecularFormula;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 import org.xmlcml.cml.element.CMLFormula;
@@ -30,6 +29,9 @@ import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLName;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
+
+import com.github.jqudt.onto.units.EnergyUnit;
+import com.github.jqudt.onto.units.LengthUnit;
 
 public class Serializer {
 
@@ -79,7 +81,7 @@ public class Serializer {
 			CMLProperty sizeProp = new CMLProperty();
 			sizeProp.setDictRef("nano:dimension");
 			CMLScalar sizeScalar = new CMLScalar();
-			if (sizeMeasurement.getUnit() == Unit.NM) {
+			if (sizeMeasurement.getUnit() == LengthUnit.NM) {
 				sizeScalar.setUnits("qudt:nm");
 			}
 			sizeScalar.setValue(((IMeasurementValue)sizeMeasurement).getValue());
@@ -92,7 +94,7 @@ public class Serializer {
 			CMLProperty epProp = new CMLProperty();
 			epProp.setDictRef("nano:zetaPotential");
 			CMLScalar epScalar = new CMLScalar();
-			if (zpMeasurement.getUnit() == Unit.EV) {
+			if (zpMeasurement.getUnit() == EnergyUnit.EV) {
 				epScalar.setUnits("qudt:eV");
 			}
 			epScalar.setValue(((IMeasurementValue)zpMeasurement).getValue());

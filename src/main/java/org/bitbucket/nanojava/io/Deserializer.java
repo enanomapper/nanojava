@@ -1,4 +1,4 @@
-/* Copyright (C) 2012  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2012-2013  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -28,7 +28,6 @@ import nu.xom.ParsingException;
 import org.bitbucket.nanojava.data.Nanomaterial;
 import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
-import org.bitbucket.nanojava.data.measurement.Unit;
 import org.openscience.cdk.DefaultChemObjectBuilder;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 import org.xmlcml.cml.base.CMLBuilder;
@@ -39,6 +38,9 @@ import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLName;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
+
+import com.github.jqudt.onto.units.EnergyUnit;
+import com.github.jqudt.onto.units.LengthUnit;
 
 public class Deserializer {
 
@@ -80,7 +82,7 @@ public class Deserializer {
 					for (CMLElement propScalar : prop.getChildCMLElements()) {
 						if (propScalar instanceof CMLScalar && ((CMLScalar) propScalar).getUnits().equals("qudt:nm")) {
 							IMeasurementValue sizeValue = new MeasurementValue(
-								((CMLScalar) propScalar).getDouble(), Double.NaN, Unit.NM
+								((CMLScalar) propScalar).getDouble(), Double.NaN, LengthUnit.NM
 							);
 							material.setSize(sizeValue);
 						}
@@ -89,7 +91,7 @@ public class Deserializer {
 					for (CMLElement propScalar : prop.getChildCMLElements()) {
 						if (propScalar instanceof CMLScalar && ((CMLScalar) propScalar).getUnits().equals("qudt:eV")) {
 							IMeasurementValue zpValue = new MeasurementValue(
-								((CMLScalar) propScalar).getDouble(), Double.NaN, Unit.EV
+								((CMLScalar) propScalar).getDouble(), Double.NaN, EnergyUnit.EV
 							);
 							material.setZetaPotential(zpValue);
 						}

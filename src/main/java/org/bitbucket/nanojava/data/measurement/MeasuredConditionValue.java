@@ -1,4 +1,4 @@
-/* Copyright (C) 2012  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2012-2013  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -15,6 +15,8 @@
  * 51 Franklin St, Fifth Floor, Boston, MA 02110-1301 USA.
  */
 package org.bitbucket.nanojava.data.measurement;
+
+import com.github.jqudt.Unit;
 
 public class MeasuredConditionValue extends MeasurementValue implements IMeasurementValue, ICondition {
 
