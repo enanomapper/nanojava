@@ -19,7 +19,8 @@ package org.bitbucket.nanojava.data.measurement;
 public enum Unit {
 
 	NM("nm"), // nanometer
-    EV("eV"); // electrovolt
+    EV("eV"), // electrovolt
+    DIMENSIONLESS(""); // dimensionless
 	
     private String string;
     
