@@ -99,6 +99,26 @@ public class Deserializer {
 							material.setZetaPotential(zpValue);
 						}
 					}
+				} else if (prop.getDictRef().equals("npo:NPO_1915")) { // FIXME: do something smarter here
+					for (CMLElement propScalar : prop.getChildCMLElements()) {
+						if (propScalar instanceof CMLScalar && ((CMLScalar) propScalar).getUnits().equals("ops:Nanometer")) {
+							IMeasurementValue zpValue = new MeasurementValue(
+								EndPoints.DIAMETER_DLS,
+								((CMLScalar) propScalar).getDouble(), Double.NaN, LengthUnit.NM
+							);
+							material.addCharacterization(zpValue);
+						}
+					}
+				} else if (prop.getDictRef().equals("pato:PATO_0001334")) { // FIXME: do something smarter here
+					for (CMLElement propScalar : prop.getChildCMLElements()) {
+						if (propScalar instanceof CMLScalar && ((CMLScalar) propScalar).getUnits().equals("ops:Nanometer")) {
+							IMeasurementValue zpValue = new MeasurementValue(
+								EndPoints.DIAMETER_TEM,
+								((CMLScalar) propScalar).getDouble(), Double.NaN, LengthUnit.NM
+							);
+							material.addCharacterization(zpValue);
+						}
+					}
 				}
 			} else if (element instanceof CMLName) {
 				labels.add(element.getStringContent());
