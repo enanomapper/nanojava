@@ -121,10 +121,6 @@ public class Deserializer {
 
 	private static Unit getUnit(String unitUrl) {
 		if (unitUrl == null) return null;
-		// support for hacky past code
-		if ("qudt:nm".equals(unitUrl)) {
-			return LengthUnit.NM;
-		}
 		return UnitFactory.getInstance().getUnit(unitUrl);
 	}
 
