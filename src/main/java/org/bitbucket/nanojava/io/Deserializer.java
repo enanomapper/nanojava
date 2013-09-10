@@ -32,8 +32,6 @@ import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.ErrorlessMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.IEndPoint;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
-import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
-import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.openscience.cdk.DefaultChemObjectBuilder;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 import org.xmlcml.cml.base.CMLBuilder;
@@ -47,7 +45,6 @@ import org.xmlcml.cml.element.CMLScalar;
 
 import com.github.jqudt.Unit;
 import com.github.jqudt.onto.UnitFactory;
-import com.github.jqudt.onto.units.EnergyUnit;
 import com.github.jqudt.onto.units.LengthUnit;
 
 public class Deserializer {
@@ -89,18 +86,19 @@ public class Deserializer {
 				String dictRef = prop.getDictRef();
 				String url = resolveDictRef(prop, dictRef);
 				if (url != null) {
+					System.out.println("url: " + url);
 					for (CMLElement propScalar : prop.getChildCMLElements()) {
 						if (propScalar instanceof CMLScalar) {
 							CMLScalar scalar = (CMLScalar)propScalar;
 							String unitUrl = resolveDictRef(scalar, scalar.getUnits());
 							// OK, let's figure out the end point and unit
 							IEndPoint endpoint = getEndPoint(url);
-							Unit unit = UnitFactory.getInstance().getUnit(unitUrl);
+							Unit unit = getUnit(unitUrl);
 							System.out.println(endpoint + " -> " + unit);
 							if (endpoint != null && unit != null) {
 								IMeasurement characterization = new ErrorlessMeasurementValue(
-										endpoint, scalar.getDouble(), unit
-										);
+									endpoint, scalar.getDouble(), unit
+								);
 								material.addCharacterization(characterization);
 							}
 						}
@@ -123,6 +121,16 @@ public class Deserializer {
 		return material;
 	}
 
+	private static Unit getUnit(String unitUrl) {
+		if (unitUrl == null) return null;
+		System.out.println("unitUrl: " + unitUrl);
+		// support for hacky past code
+		if ("qudt:nm".equals(unitUrl)) {
+			return LengthUnit.NM;
+		}
+		return UnitFactory.getInstance().getUnit(unitUrl);
+	}
+
 	@SuppressWarnings("serial")
 	private static Map<String,IEndPoint> endpoints = new HashMap<String, IEndPoint>() {{
 			// can this be done smarter??
@@ -139,11 +147,23 @@ public class Deserializer {
 	};
 
 	private static IEndPoint getEndPoint(String url) {
+		// support for hacky past code
+		if ("nano:dimension".equals(url)) {
+			return EndPoints.SIZE;
+		} else if ("nano:zetaPotential".equals(url)) {
+			return EndPoints.ZETA_POTENTIAL;
+		}
 		return endpoints.get(url);
 	}
 
 	private static String resolveDictRef(CMLElement element, String value) {
 		System.out.println("Value: " + value);
+		// support for hacky past code
+		if ("nano:dimension".equals(value)) {
+			return value;
+		} else if ("nano:zetaPotential".equals(value)) {
+			return value;
+		}
 		for (int i=0; i<element.getNamespaceDeclarationCount(); i++) {
 			String prefix = element.getNamespacePrefix(i);
 			System.out.println(prefix + "->" + element.getNamespaceURIForPrefix(prefix));
@@ -154,6 +174,15 @@ public class Deserializer {
 				System.out.println(fullUrl);
 				return fullUrl;
 			}
+		}
+		if (value.startsWith("qudt:")) {
+			String localpart = value.substring("qudt".length()+1);
+			String namespace = "http://qudt.org/vocab/unit#";
+			if ("eV".equals(localpart)) { localpart = "ElectronVolt"; } else
+			if ("nm".equals(localpart)) { localpart = "Nanometer"; namespace = "http://www.openphacts.org/units/"; }
+			String fullUrl =  namespace + localpart;
+			System.out.println(fullUrl);
+			return fullUrl;
 		}
 		return null;
 	}
