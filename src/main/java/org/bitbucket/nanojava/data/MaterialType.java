@@ -1,4 +1,4 @@
-/* Copyright (C) 2011  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2011,2013  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -18,8 +18,17 @@ package org.bitbucket.nanojava.data;
 
 public enum MaterialType {
 
-    METALOXIDE,
-    CARBONNANOTUBE,
-    GRAPHENE
+    METALOXIDE("metal oxide", ""),
+    CARBONNANOTUBE("carbon nanotube", ""),
+    GRAPHENE("graphene", "");
+
+    String label;
+    // future NPO support
+    String uri;
+
+    MaterialType(String label, String uri) {
+    	this.label = label;
+        this.uri = uri;
+    }
     
 }
