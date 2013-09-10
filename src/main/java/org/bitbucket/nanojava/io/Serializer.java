@@ -128,8 +128,8 @@ public class Serializer {
 							System.out.println(unitStr);
 							if (unitStr.startsWith(unitNS)) {
 								prefix = Namespaces.prefixes.get(unitNS);
-								entry = endPointStr.substring(namespace.length());
-								scalar.addNamespaceDeclaration(prefix, namespace);
+								entry = unitStr.substring(unitNS.length());
+								scalar.addNamespaceDeclaration(prefix, unitNS);
 								scalar.setUnits(prefix + ":" + entry);
 							}
 						}
