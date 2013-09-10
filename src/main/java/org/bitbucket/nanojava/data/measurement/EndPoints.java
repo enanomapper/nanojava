@@ -30,4 +30,5 @@ public class EndPoints {
 
 	public final static IEndPoint PH = new EndPoint("pH", URI.create("http://purl.org/obo/owl/UO#UO_0000196"), null);
 
+	public final static IEndPoint PURITY = new EndPoint("purity", URI.create("http://purl.bioontology.org/ontology/npo#NPO_1345"), null);
 }
