@@ -16,15 +16,18 @@
  */
 package org.bitbucket.nanojava.data.measurement;
 
+import java.net.URI;
+
 
 public class EndPoints {
 
-	public final static IEndPoint SIZE = new EndPoint("size", null, null);
-	public final static IEndPoint DIAMETER_TEM = new EndPoint("diameter (TEM)", null, SIZE);
-	public final static IEndPoint DIAMETER_DLS = new EndPoint("diameter (DLS)", null, SIZE);
+	public final static IEndPoint SIZE = new EndPoint("size", URI.create("http://purl.org/obo/owl/PATO#PATO_0000117"), null);
+	public final static IEndPoint DIAMETER_TEM = new EndPoint("diameter (TEM)", URI.create("http://purl.org/obo/owl/PATO#PATO_0001334"), SIZE);
 
-	public final static IEndPoint ZETA_POTENTIAL = new EndPoint("zeta potential", null, null);
+	public final static IEndPoint DIAMETER_DLS = new EndPoint("diameter (DLS)", URI.create("http://purl.bioontology.org/ontology/npo#NPO_1915"), null);
 
-	public final static IEndPoint PH = new EndPoint("pH", null, null);
+	public final static IEndPoint ZETA_POTENTIAL = new EndPoint("zeta potential", URI.create("http://purl.bioontology.org/ontology/npo#NPO_1302"), null);
+
+	public final static IEndPoint PH = new EndPoint("pH", URI.create("http://purl.org/obo/owl/UO#UO_0000196"), null);
 
 }

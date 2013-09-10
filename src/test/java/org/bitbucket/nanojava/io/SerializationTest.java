@@ -96,6 +96,25 @@ public class SerializationTest {
 	}
 
 	@Test
+	public void roundTripSizes() {
+		Nanomaterial material = new Nanomaterial("METALOXIDE");
+		material.addCharacterization(new MeasurementValue(EndPoints.DIAMETER_TEM, 20.0, 7, LengthUnit.NM));
+		material.addCharacterization(new MeasurementValue(EndPoints.DIAMETER_DLS, 55.3, 14.3, LengthUnit.NM));
+		CMLMolecule cmlMaterial = Serializer.toCML(material);
+		Assert.assertNotNull(cmlMaterial);
+		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
+		Assert.assertNotNull(roundTripped);
+		Assert.assertEquals(20.0,
+			((MeasurementValue)roundTripped.getCharacterizations().get(EndPoints.DIAMETER_TEM)).getValue(),
+			0.1
+		);
+		Assert.assertEquals(55.3,
+			((MeasurementValue)roundTripped.getCharacterizations().get(EndPoints.DIAMETER_DLS)).getValue(),
+			0.1
+		);
+	}
+
+	@Test
 	public void roundTripZetaPotential() {
 		Nanomaterial material = new Nanomaterial("METALOXIDE");
 		material.setZetaPotential(new MeasurementValue(EndPoints.ZETA_POTENTIAL, -45.0, 3, EnergyUnit.EV));

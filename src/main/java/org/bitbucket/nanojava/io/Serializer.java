@@ -17,8 +17,10 @@
 package org.bitbucket.nanojava.io;
 
 import java.util.List;
+import java.util.Map;
 
 import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.measurement.IEndPoint;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
 import org.openscience.cdk.interfaces.IMolecularFormula;
@@ -30,6 +32,7 @@ import org.xmlcml.cml.element.CMLName;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
 
+import com.github.jqudt.Unit;
 import com.github.jqudt.onto.units.EnergyUnit;
 import com.github.jqudt.onto.units.LengthUnit;
 
@@ -102,7 +105,47 @@ public class Serializer {
 			cmlMaterial.appendChild(epProp);
 		}
 
+		// set the characterizations
+		Map<IEndPoint,IMeasurement> characterizations = material.getCharacterizations();
+		for (IEndPoint endPoint : characterizations.keySet()) {
+			IMeasurement measurement = characterizations.get(endPoint);
+			if (measurement != null) {
+				for (String namespace : Namespaces.prefixes.keySet()) {
+					String endPointStr = endPoint.getURI().toString();
+					if (endPointStr.startsWith(namespace)) {
+						String prefix = Namespaces.prefixes.get(namespace);
+						String entry = endPointStr.substring(namespace.length());
+
+						CMLProperty prop = new CMLProperty();
+						prop.addNamespaceDeclaration(prefix, namespace);
+						prop.setDictRef(prefix + ":" + entry);
+
+						scalar = new CMLScalar();
+						Unit unit = measurement.getUnit();
+						System.out.println(unit);
+						for (String unitNS : Namespaces.prefixes.keySet()) {
+							String unitStr = unit.getResource().toString();
+							System.out.println(unitStr);
+							if (unitStr.startsWith(unitNS)) {
+								prefix = Namespaces.prefixes.get(unitNS);
+								entry = endPointStr.substring(namespace.length());
+								scalar.addNamespaceDeclaration(prefix, namespace);
+								scalar.setUnits(prefix + ":" + entry);
+							}
+						}
+						if (measurement instanceof IMeasurementValue) {
+							scalar.setValue(((IMeasurementValue)measurement).getValue());
+						}
+						prop.addScalar(scalar);
+						cmlMaterial.appendChild(prop);
+					}
+				}
+			}
+		}
+
+		System.out.println(cmlMaterial.toXML());
 		return cmlMaterial;
 	}
 
+	
 }
