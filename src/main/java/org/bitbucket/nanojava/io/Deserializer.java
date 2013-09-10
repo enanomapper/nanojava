@@ -26,6 +26,7 @@ import nu.xom.Element;
 import nu.xom.ParsingException;
 
 import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.openscience.cdk.DefaultChemObjectBuilder;
@@ -82,6 +83,7 @@ public class Deserializer {
 					for (CMLElement propScalar : prop.getChildCMLElements()) {
 						if (propScalar instanceof CMLScalar && ((CMLScalar) propScalar).getUnits().equals("qudt:nm")) {
 							IMeasurementValue sizeValue = new MeasurementValue(
+							    EndPoints.SIZE,
 								((CMLScalar) propScalar).getDouble(), Double.NaN, LengthUnit.NM
 							);
 							material.setSize(sizeValue);
@@ -91,6 +93,7 @@ public class Deserializer {
 					for (CMLElement propScalar : prop.getChildCMLElements()) {
 						if (propScalar instanceof CMLScalar && ((CMLScalar) propScalar).getUnits().equals("qudt:eV")) {
 							IMeasurementValue zpValue = new MeasurementValue(
+								EndPoints.ZETA_POTENTIAL,
 								((CMLScalar) propScalar).getDouble(), Double.NaN, EnergyUnit.EV
 							);
 							material.setZetaPotential(zpValue);

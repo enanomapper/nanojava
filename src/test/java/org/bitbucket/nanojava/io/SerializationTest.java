@@ -21,6 +21,7 @@ import java.util.List;
 
 import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.junit.Assert;
 import org.junit.Test;
@@ -86,7 +87,7 @@ public class SerializationTest {
 	@Test
 	public void roundTripSize() {
 		Nanomaterial material = new Nanomaterial("METALOXIDE");
-		material.setSize(new MeasurementValue(20.0, 7, LengthUnit.NM));
+		material.setSize(new MeasurementValue(EndPoints.SIZE, 20.0, 7, LengthUnit.NM));
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
 		Assert.assertNotNull(cmlMaterial);
 		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
@@ -97,7 +98,7 @@ public class SerializationTest {
 	@Test
 	public void roundTripZetaPotential() {
 		Nanomaterial material = new Nanomaterial("METALOXIDE");
-		material.setZetaPotential(new MeasurementValue(-45.0, 3, EnergyUnit.EV));
+		material.setZetaPotential(new MeasurementValue(EndPoints.ZETA_POTENTIAL, -45.0, 3, EnergyUnit.EV));
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
 		Assert.assertNotNull(cmlMaterial);
 		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);

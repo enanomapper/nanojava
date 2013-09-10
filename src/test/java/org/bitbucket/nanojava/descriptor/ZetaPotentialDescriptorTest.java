@@ -20,6 +20,7 @@ import junit.framework.Assert;
 
 import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.MeasurementRange;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.junit.Before;
@@ -41,7 +42,7 @@ extends NanomaterialDescriptorTest {
     @Test
     public void testCalculate_Range() throws Exception {
         Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
-        material.setZetaPotential(new MeasurementRange(-7.5, -7.7, EnergyUnit.EV));
+        material.setZetaPotential(new MeasurementRange(EndPoints.ZETA_POTENTIAL, -7.5, -7.7, EnergyUnit.EV));
         DescriptorValue value = descriptor.calculate(material);
         Assert.assertNotNull(value);
         IDescriptorResult result = value.getValue();
@@ -52,7 +53,7 @@ extends NanomaterialDescriptorTest {
     @Test
     public void testCalculate_Value() throws Exception {
         Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
-        material.setZetaPotential(new MeasurementValue(17.3, 2.1, EnergyUnit.EV));
+        material.setZetaPotential(new MeasurementValue(EndPoints.ZETA_POTENTIAL, 17.3, 2.1, EnergyUnit.EV));
         DescriptorValue value = descriptor.calculate(material);
         Assert.assertNotNull(value);
         IDescriptorResult result = value.getValue();

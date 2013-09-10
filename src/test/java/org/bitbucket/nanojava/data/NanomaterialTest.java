@@ -21,7 +21,11 @@ import java.util.List;
 
 import junit.framework.Assert;
 
+import org.bitbucket.nanojava.data.measurement.EndPoints;
+import org.bitbucket.nanojava.data.measurement.ErrorlessMeasurementValue;
 import org.junit.Test;
+
+import com.github.jqudt.onto.units.LengthUnit;
 
 public class NanomaterialTest {
 
@@ -40,6 +44,15 @@ public class NanomaterialTest {
         Assert.assertNotNull(nm.getLabels());
         Assert.assertEquals(2, nm.getLabels().size());
         Assert.assertTrue(nm.getLabels().contains("NM1"));
+    }
+
+    @Test
+    public void testMultipleSizes() throws Exception {
+        Nanomaterial nm = new Nanomaterial("GRAPHENE");
+        nm.addCharacterization(new ErrorlessMeasurementValue(EndPoints.DIAMETER_TEM, 20.0, LengthUnit.NM));
+        nm.addCharacterization(new ErrorlessMeasurementValue(EndPoints.DIAMETER_DLS, 55.0, LengthUnit.NM));
+        Assert.assertNotNull(nm.getCharacterizations());
+        Assert.assertEquals(2, nm.getCharacterizations().size());
     }
 
 }

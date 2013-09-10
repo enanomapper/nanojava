@@ -25,11 +25,13 @@ public class MeasurementRange extends Measurement implements IMeasurementRange {
 	private double minimum;
     private double maximum;
 
-    public MeasurementRange(double minimum, double maximum, Unit unit) {
+    public MeasurementRange(IEndPoint endpoint, double minimum, double maximum, Unit unit) {
+    	this.setEndPoint(endpoint);
         this.setValues(minimum, maximum, unit);
     }
 
-    public MeasurementRange(double minimum, double maximum, String unit) {
+    public MeasurementRange(IEndPoint endpoint, double minimum, double maximum, String unit) {
+    	this.setEndPoint(endpoint);
         this.setValues(minimum, maximum, unit);
     }
 

@@ -24,7 +24,7 @@ public class MeasurementValueTest {
 
     @Test
     public void testToString() throws Exception {
-        IMeasurement measurement = new MeasurementValue(4.5, 0.0, "http://qudt.org/vocab/unit#ElectronVolt");
+        IMeasurement measurement = new MeasurementValue(EndPoints.ZETA_POTENTIAL, 4.5, 0.0, "http://qudt.org/vocab/unit#ElectronVolt");
         Assert.assertEquals("4.5 \u00b1 0.0 eV", measurement.getString());
     }
 

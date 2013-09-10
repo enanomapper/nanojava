@@ -20,6 +20,7 @@ import junit.framework.Assert;
 
 import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.junit.Before;
 import org.junit.Test;
@@ -29,7 +30,7 @@ import org.openscience.cdk.qsar.result.DoubleArrayResult;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
-import com.github.jqudt.onto.units.ConcentrationUnit;
+import com.github.jqudt.onto.units.LengthUnit;
 
 public class EnergyBandDescriptorTest
 extends NanomaterialDescriptorTest {
@@ -66,7 +67,7 @@ extends NanomaterialDescriptorTest {
                 "ZnO", DefaultChemObjectBuilder.getInstance()
             )
         );
-        material.setSize(new MeasurementValue(10.0, 5.0, ConcentrationUnit.NANOMOLAR));
+        material.setSize(new MeasurementValue(EndPoints.SIZE, 10.0, 5.0, LengthUnit.NM));
         DescriptorValue value = descriptor.calculate(material);
         Assert.assertNotNull(value);
         IDescriptorResult result = value.getValue();
@@ -86,7 +87,7 @@ extends NanomaterialDescriptorTest {
                 "ZnO", DefaultChemObjectBuilder.getInstance()
             )
         );
-        material.setSize(new MeasurementValue(40.0, 5.0, ConcentrationUnit.NANOMOLAR));
+        material.setSize(new MeasurementValue(EndPoints.SIZE, 40.0, 5.0, LengthUnit.NM));
         DescriptorValue value = descriptor.calculate(material);
         Assert.assertNotNull(value);
         IDescriptorResult result = value.getValue();

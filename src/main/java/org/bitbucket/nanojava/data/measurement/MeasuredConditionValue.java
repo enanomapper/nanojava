@@ -20,11 +20,11 @@ import com.github.jqudt.Unit;
 
 public class MeasuredConditionValue extends MeasurementValue implements IMeasurementValue, ICondition {
 
-    public MeasuredConditionValue(double value, double error, Unit unit) {
-        super(value, error, unit);
+    public MeasuredConditionValue(IEndPoint endpoint, double value, double error, Unit unit) {
+        super(endpoint, value, error, unit);
     }
 
-    public MeasuredConditionValue(double value, double error, String unit) {
-        super(value, error, unit);
+    public MeasuredConditionValue(IEndPoint endpoint, double value, double error, String unit) {
+        super(endpoint, value, error, unit);
     }
 }

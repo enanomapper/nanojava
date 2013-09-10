@@ -23,11 +23,13 @@ public class ErrorlessMeasurementValue extends Measurement implements IErrorless
 
 	private double value;
 
-    public ErrorlessMeasurementValue(double value, Unit unit) {
+    public ErrorlessMeasurementValue(IEndPoint endpoint, double value, Unit unit) {
+    	setEndPoint(endpoint);
         setValue(value, unit);
     }
 
-    public ErrorlessMeasurementValue(double value, String unit) {
+    public ErrorlessMeasurementValue(IEndPoint endpoint, double value, String unit) {
+    	setEndPoint(endpoint);
         setValue(value, unit);
     }
 

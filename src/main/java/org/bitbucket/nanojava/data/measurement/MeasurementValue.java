@@ -24,11 +24,13 @@ public class MeasurementValue extends Measurement implements IMeasurementValue {
 	private double value;
     private double error;
 
-    public MeasurementValue(double value, double error, Unit unit) {
+    public MeasurementValue(IEndPoint endpoint, double value, double error, Unit unit) {
+    	this.setEndPoint(endpoint);
         setValue(value, error, unit);
     }
 
-    public MeasurementValue(double value, double error, String unit) {
+    public MeasurementValue(IEndPoint endpoint, double value, double error, String unit) {
+    	this.setEndPoint(endpoint);
         setValue(value, error, unit);
     }
 

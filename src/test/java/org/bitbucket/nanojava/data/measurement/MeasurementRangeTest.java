@@ -24,7 +24,7 @@ public class MeasurementRangeTest {
 
     @Test
     public void testToString() throws Exception {
-        IMeasurement measurement = new MeasurementRange(4.5, 6.7, "http://qudt.org/vocab/unit#ElectronVolt");
+        IMeasurement measurement = new MeasurementRange(EndPoints.ZETA_POTENTIAL, 4.5, 6.7, "http://qudt.org/vocab/unit#ElectronVolt");
         Assert.assertEquals("4.5 - 6.7 eV", measurement.getString());
     }
 
