@@ -26,7 +26,7 @@ public abstract class Measurement implements IMeasurement {
 
 	protected IEndPoint endPoint;
 	protected Unit unit;
-	private List<ICondition> conditions;
+	private List<IMeasurement> conditions;
 
     public void setUnit(Unit unit) {
 		this.unit = unit;
@@ -37,15 +37,15 @@ public abstract class Measurement implements IMeasurement {
 	}
 
 	@Override
-	public List<ICondition> getConditions() {
+	public List<IMeasurement> getConditions() {
 		if (this.conditions == null) return Collections.emptyList();
 		return this.conditions;
 	}
 
 	@Override
-	public void setConditions(List<ICondition> conditions) {
+	public void setConditions(List<IMeasurement> conditions) {
 		if (conditions == null || conditions.size() == 0) return;
-		this.conditions = new ArrayList<ICondition>();
+		this.conditions = new ArrayList<IMeasurement>();
 		this.conditions.addAll(conditions);
 	}
 

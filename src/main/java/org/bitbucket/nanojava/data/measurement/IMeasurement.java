@@ -29,7 +29,7 @@ public interface IMeasurement {
 	public Unit getUnit();
 	public String getString();
 
-	public List<ICondition> getConditions();
-	public void setConditions(List<ICondition> conditions);
+	public List<IMeasurement> getConditions();
+	public void setConditions(List<IMeasurement> conditions);
 
 }

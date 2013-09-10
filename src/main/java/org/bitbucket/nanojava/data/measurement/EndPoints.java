@@ -25,4 +25,6 @@ public class EndPoints {
 
 	public final static IEndPoint ZETA_POTENTIAL = new EndPoint("zeta potential", null, null);
 
+	public final static IEndPoint PH = new EndPoint("pH", null, null);
+
 }
