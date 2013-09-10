@@ -23,7 +23,6 @@ import java.io.Writer;
 import java.util.List;
 
 import org.bitbucket.nanojava.data.Nanomaterial;
-import org.bitbucket.nanojava.io.Serializer;
 import org.xmlcml.cml.element.CMLList;
 
 /**
