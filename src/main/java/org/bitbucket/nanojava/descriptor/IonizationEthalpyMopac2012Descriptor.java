@@ -67,7 +67,6 @@ public class IonizationEthalpyMopac2012Descriptor implements INanomaterialDescri
 	    IMolecularFormula molFormula = container.getChemicalComposition();
 	    if (molFormula == null) return newNaNDescriptor();
 	    String mfString = MolecularFormulaManipulator.getString(molFormula);
-	    System.out.println(mfString);
 
 	    double val = Double.NaN;
 	    if ("Al2O3".equals(mfString)) {

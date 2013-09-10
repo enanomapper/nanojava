@@ -123,10 +123,8 @@ public class Serializer {
 
 						scalar = new CMLScalar();
 						Unit unit = measurement.getUnit();
-						System.out.println(unit);
 						for (String unitNS : Namespaces.prefixes.keySet()) {
 							String unitStr = unit.getResource().toString();
-							System.out.println(unitStr);
 							if (unitStr.startsWith(unitNS)) {
 								prefix = Namespaces.prefixes.get(unitNS);
 								entry = unitStr.substring(unitNS.length());
@@ -146,7 +144,6 @@ public class Serializer {
 			}
 		}
 
-		System.out.println(cmlMaterial.toXML());
 		return cmlMaterial;
 	}
 

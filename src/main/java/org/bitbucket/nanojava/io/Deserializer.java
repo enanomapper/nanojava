@@ -86,7 +86,6 @@ public class Deserializer {
 				String dictRef = prop.getDictRef();
 				String url = resolveDictRef(prop, dictRef);
 				if (url != null) {
-					System.out.println("url: " + url);
 					for (CMLElement propScalar : prop.getChildCMLElements()) {
 						if (propScalar instanceof CMLScalar) {
 							CMLScalar scalar = (CMLScalar)propScalar;
@@ -94,7 +93,6 @@ public class Deserializer {
 							// OK, let's figure out the end point and unit
 							IEndPoint endpoint = getEndPoint(url);
 							Unit unit = getUnit(unitUrl);
-							System.out.println(endpoint + " -> " + unit);
 							if (endpoint != null && unit != null) {
 								IMeasurement characterization = new ErrorlessMeasurementValue(
 									endpoint, scalar.getDouble(), unit
@@ -123,7 +121,6 @@ public class Deserializer {
 
 	private static Unit getUnit(String unitUrl) {
 		if (unitUrl == null) return null;
-		System.out.println("unitUrl: " + unitUrl);
 		// support for hacky past code
 		if ("qudt:nm".equals(unitUrl)) {
 			return LengthUnit.NM;
@@ -157,7 +154,6 @@ public class Deserializer {
 	}
 
 	private static String resolveDictRef(CMLElement element, String value) {
-		System.out.println("Value: " + value);
 		// support for hacky past code
 		if ("nano:dimension".equals(value)) {
 			return value;
@@ -166,12 +162,10 @@ public class Deserializer {
 		}
 		for (int i=0; i<element.getNamespaceDeclarationCount(); i++) {
 			String prefix = element.getNamespacePrefix(i);
-			System.out.println(prefix + "->" + element.getNamespaceURIForPrefix(prefix));
 			if (value.startsWith(prefix + ":")) {
 				String localpart = value.substring(prefix.length()+1);
 				String namespace = element.getNamespaceURIForPrefix(prefix);
 				String fullUrl = namespace+localpart;
-				System.out.println(fullUrl);
 				return fullUrl;
 			}
 		}
@@ -181,7 +175,6 @@ public class Deserializer {
 			if ("eV".equals(localpart)) { localpart = "ElectronVolt"; } else
 			if ("nm".equals(localpart)) { localpart = "Nanometer"; namespace = "http://www.openphacts.org/units/"; }
 			String fullUrl =  namespace + localpart;
-			System.out.println(fullUrl);
 			return fullUrl;
 		}
 		return null;
