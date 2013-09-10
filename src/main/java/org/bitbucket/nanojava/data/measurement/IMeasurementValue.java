@@ -18,11 +18,10 @@ package org.bitbucket.nanojava.data.measurement;
 
 import com.github.jqudt.Unit;
 
-public interface IMeasurementValue extends IMeasurement {
+public interface IMeasurementValue extends IErrorlessMeasurementValue {
 
     public void setValue(double value, double error, String nm);
 	public void setValue(double value, double error, Unit nm);
-	public double getValue();
 	public double getError();
 
 }

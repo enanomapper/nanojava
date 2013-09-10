@@ -21,6 +21,7 @@ import java.util.Map;
 
 import org.bitbucket.nanojava.data.Nanomaterial;
 import org.bitbucket.nanojava.data.measurement.IEndPoint;
+import org.bitbucket.nanojava.data.measurement.IErrorlessMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
 import org.openscience.cdk.interfaces.IMolecularFormula;
@@ -135,6 +136,8 @@ public class Serializer {
 						}
 						if (measurement instanceof IMeasurementValue) {
 							scalar.setValue(((IMeasurementValue)measurement).getValue());
+						} else if (measurement instanceof IErrorlessMeasurementValue) {
+							scalar.setValue(((IErrorlessMeasurementValue)measurement).getValue());
 						}
 						prop.addScalar(scalar);
 						cmlMaterial.appendChild(prop);

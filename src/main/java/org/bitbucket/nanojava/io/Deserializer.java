@@ -19,7 +19,9 @@ package org.bitbucket.nanojava.io;
 import java.io.ByteArrayInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import nu.xom.Document;
 import nu.xom.Element;
@@ -27,6 +29,9 @@ import nu.xom.ParsingException;
 
 import org.bitbucket.nanojava.data.Nanomaterial;
 import org.bitbucket.nanojava.data.measurement.EndPoints;
+import org.bitbucket.nanojava.data.measurement.ErrorlessMeasurementValue;
+import org.bitbucket.nanojava.data.measurement.IEndPoint;
+import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.openscience.cdk.DefaultChemObjectBuilder;
@@ -40,6 +45,8 @@ import org.xmlcml.cml.element.CMLName;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
 
+import com.github.jqudt.Unit;
+import com.github.jqudt.onto.UnitFactory;
 import com.github.jqudt.onto.units.EnergyUnit;
 import com.github.jqudt.onto.units.LengthUnit;
 
@@ -79,44 +86,23 @@ public class Deserializer {
 		for (CMLElement element : cmlMaterial.getChildCMLElements()) {
 			if (element instanceof CMLProperty) {
 				CMLProperty prop = (CMLProperty)element;
-				if (prop.getDictRef().equals("nano:dimension")) {
+				String dictRef = prop.getDictRef();
+				String url = resolveDictRef(prop, dictRef);
+				if (url != null) {
 					for (CMLElement propScalar : prop.getChildCMLElements()) {
-						if (propScalar instanceof CMLScalar && ((CMLScalar) propScalar).getUnits().equals("qudt:nm")) {
-							IMeasurementValue sizeValue = new MeasurementValue(
-							    EndPoints.SIZE,
-								((CMLScalar) propScalar).getDouble(), Double.NaN, LengthUnit.NM
-							);
-							material.setSize(sizeValue);
-						}
-					}
-				} else if (prop.getDictRef().equals("nano:zetaPotential")) {
-					for (CMLElement propScalar : prop.getChildCMLElements()) {
-						if (propScalar instanceof CMLScalar && ((CMLScalar) propScalar).getUnits().equals("qudt:eV")) {
-							IMeasurementValue zpValue = new MeasurementValue(
-								EndPoints.ZETA_POTENTIAL,
-								((CMLScalar) propScalar).getDouble(), Double.NaN, EnergyUnit.EV
-							);
-							material.setZetaPotential(zpValue);
-						}
-					}
-				} else if (prop.getDictRef().equals("npo:NPO_1915")) { // FIXME: do something smarter here
-					for (CMLElement propScalar : prop.getChildCMLElements()) {
-						if (propScalar instanceof CMLScalar && ((CMLScalar) propScalar).getUnits().equals("ops:Nanometer")) {
-							IMeasurementValue zpValue = new MeasurementValue(
-								EndPoints.DIAMETER_DLS,
-								((CMLScalar) propScalar).getDouble(), Double.NaN, LengthUnit.NM
-							);
-							material.addCharacterization(zpValue);
-						}
-					}
-				} else if (prop.getDictRef().equals("pato:PATO_0001334")) { // FIXME: do something smarter here
-					for (CMLElement propScalar : prop.getChildCMLElements()) {
-						if (propScalar instanceof CMLScalar && ((CMLScalar) propScalar).getUnits().equals("ops:Nanometer")) {
-							IMeasurementValue zpValue = new MeasurementValue(
-								EndPoints.DIAMETER_TEM,
-								((CMLScalar) propScalar).getDouble(), Double.NaN, LengthUnit.NM
-							);
-							material.addCharacterization(zpValue);
+						if (propScalar instanceof CMLScalar) {
+							CMLScalar scalar = (CMLScalar)propScalar;
+							String unitUrl = resolveDictRef(scalar, scalar.getUnits());
+							// OK, let's figure out the end point and unit
+							IEndPoint endpoint = getEndPoint(url);
+							Unit unit = UnitFactory.getInstance().getUnit(unitUrl);
+							System.out.println(endpoint + " -> " + unit);
+							if (endpoint != null && unit != null) {
+								IMeasurement characterization = new ErrorlessMeasurementValue(
+										endpoint, scalar.getDouble(), unit
+										);
+								material.addCharacterization(characterization);
+							}
 						}
 					}
 				}
@@ -135,6 +121,41 @@ public class Deserializer {
 		}
 		if (labels.size() > 0) material.setLabels(labels);
 		return material;
+	}
+
+	@SuppressWarnings("serial")
+	private static Map<String,IEndPoint> endpoints = new HashMap<String, IEndPoint>() {{
+			// can this be done smarter??
+		    addEndPoint(EndPoints.DIAMETER_DLS);
+		    addEndPoint(EndPoints.DIAMETER_TEM);
+		    addEndPoint(EndPoints.SIZE);
+		    addEndPoint(EndPoints.PH);
+		    addEndPoint(EndPoints.ZETA_POTENTIAL);
+		    addEndPoint(EndPoints.PURITY);
+	    }
+	    public void addEndPoint(IEndPoint endpoint) {
+	    	this.put(endpoint.getURI().toString(), endpoint);
+	    }
+	};
+
+	private static IEndPoint getEndPoint(String url) {
+		return endpoints.get(url);
+	}
+
+	private static String resolveDictRef(CMLElement element, String value) {
+		System.out.println("Value: " + value);
+		for (int i=0; i<element.getNamespaceDeclarationCount(); i++) {
+			String prefix = element.getNamespacePrefix(i);
+			System.out.println(prefix + "->" + element.getNamespaceURIForPrefix(prefix));
+			if (value.startsWith(prefix + ":")) {
+				String localpart = value.substring(prefix.length()+1);
+				String namespace = element.getNamespaceURIForPrefix(prefix);
+				String fullUrl = namespace+localpart;
+				System.out.println(fullUrl);
+				return fullUrl;
+			}
+		}
+		return null;
 	}
 
 }

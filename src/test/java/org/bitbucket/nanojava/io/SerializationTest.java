@@ -22,6 +22,8 @@ import java.util.List;
 import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.Nanomaterial;
 import org.bitbucket.nanojava.data.measurement.EndPoints;
+import org.bitbucket.nanojava.data.measurement.ErrorlessMeasurementValue;
+import org.bitbucket.nanojava.data.measurement.IErrorlessMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.junit.Assert;
 import org.junit.Test;
@@ -31,6 +33,7 @@ import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMolecule;
 
+import com.github.jqudt.onto.UnitFactory;
 import com.github.jqudt.onto.units.EnergyUnit;
 import com.github.jqudt.onto.units.LengthUnit;
 
@@ -92,7 +95,7 @@ public class SerializationTest {
 		Assert.assertNotNull(cmlMaterial);
 		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
 		Assert.assertNotNull(roundTripped);
-		Assert.assertEquals(20.0, ((MeasurementValue)roundTripped.getSize()).getValue(), 0.1);
+		Assert.assertEquals(20.0, ((IErrorlessMeasurementValue)roundTripped.getSize()).getValue(), 0.1);
 	}
 
 	@Test
@@ -105,11 +108,28 @@ public class SerializationTest {
 		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
 		Assert.assertNotNull(roundTripped);
 		Assert.assertEquals(20.0,
-			((MeasurementValue)roundTripped.getCharacterizations().get(EndPoints.DIAMETER_TEM)).getValue(),
+			((IErrorlessMeasurementValue)roundTripped.getCharacterizations().get(EndPoints.DIAMETER_TEM)).getValue(),
 			0.1
 		);
 		Assert.assertEquals(55.3,
-			((MeasurementValue)roundTripped.getCharacterizations().get(EndPoints.DIAMETER_DLS)).getValue(),
+			((IErrorlessMeasurementValue)roundTripped.getCharacterizations().get(EndPoints.DIAMETER_DLS)).getValue(),
+			0.1
+		);
+	}
+
+	@Test
+	public void roundTripPurity() {
+		Nanomaterial material = new Nanomaterial("METALOXIDE");
+		material.addCharacterization(new ErrorlessMeasurementValue(
+			EndPoints.PURITY, 95,
+			UnitFactory.getInstance().getUnit("http://qudt.org/vocab/unit#Percent")
+		));
+		CMLMolecule cmlMaterial = Serializer.toCML(material);
+		Assert.assertNotNull(cmlMaterial);
+		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
+		Assert.assertNotNull(roundTripped);
+		Assert.assertEquals(95,
+			((IErrorlessMeasurementValue)roundTripped.getCharacterizations().get(EndPoints.PURITY)).getValue(),
 			0.1
 		);
 	}
@@ -122,7 +142,7 @@ public class SerializationTest {
 		Assert.assertNotNull(cmlMaterial);
 		Nanomaterial roundTripped = Deserializer.fromCML(cmlMaterial);
 		Assert.assertNotNull(roundTripped);
-		Assert.assertEquals(-45.0, ((MeasurementValue)roundTripped.getZetaPotential()).getValue(), 0.1);
+		Assert.assertEquals(-45.0, ((IErrorlessMeasurementValue)roundTripped.getZetaPotential()).getValue(), 0.1);
 	}
 
 	@Test

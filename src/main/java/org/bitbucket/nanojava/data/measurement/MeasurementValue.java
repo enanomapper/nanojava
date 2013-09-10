@@ -63,4 +63,14 @@ public class MeasurementValue extends Measurement implements IMeasurementValue {
         return "" + value + " \u00b1 " + error + " " + unit;
     }
 
+	@Override
+	public void setValue(double value, String unit) {
+		setValue(value, Double.NaN, unit);
+	}
+
+	@Override
+	public void setValue(double value, Unit unit) {
+		setValue(value, Double.NaN, unit);
+	}
+
 }
