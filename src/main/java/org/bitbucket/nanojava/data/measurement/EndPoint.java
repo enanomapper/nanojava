@@ -1,4 +1,4 @@
-/* Copyright (C) 2011-2013  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2013  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,20 +16,34 @@
  */
 package org.bitbucket.nanojava.data.measurement;
 
-import java.util.List;
+import java.net.URI;
 
-import com.github.jqudt.Unit;
+public class EndPoint implements IEndPoint {
 
-public interface IMeasurement {
+	private String label;
+	private IEndPoint parent;
+	// for NPO support
+	private URI uri;
+
+	public EndPoint(String label, URI uri, IEndPoint parent) {
+		this.label = label;
+		this.uri = uri;
+		this.parent = parent;
+	}
+
+	@Override
+	public String getLabel() {
+		return this.label;
+	}
+
+	@Override
+	public URI getURI() {
+		return this.uri;
+	};
 	
-	public void setEndPoint(IEndPoint endPoint);
-	public IEndPoint getEndPoint();
-
-	public void setUnit(Unit unit);
-	public Unit getUnit();
-	public String getString();
-
-	public List<ICondition> getConditions();
-	public void setConditions(List<ICondition> conditions);
-
+	@Override
+	public IEndPoint getParent() {
+		return this.parent;
+	};
+	
 }

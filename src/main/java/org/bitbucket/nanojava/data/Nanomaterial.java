@@ -18,15 +18,18 @@ package org.bitbucket.nanojava.data;
 
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import org.bitbucket.nanojava.data.measurement.EndPoints;
+import org.bitbucket.nanojava.data.measurement.IEndPoint;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.openscience.cdk.interfaces.IMolecularFormula;
 
 public class Nanomaterial {
 
-	private IMeasurement size;
-	private IMeasurement zetaPotential;
+	private Map<IEndPoint,IMeasurement> characterizations;
 	private IMolecularFormula chemicalComposition;
 	private MaterialType type;
 	private List<String> labels;
@@ -40,17 +43,25 @@ public class Nanomaterial {
 	}
 	
 	public IMeasurement getSize() {
-		return size;
+		if (this.characterizations == null) return null;
+		return this.characterizations.get(EndPoints.SIZE);
 	}
+
 	public void setSize(IMeasurement size) {
-		this.size = size;
+		if (size.getEndPoint() == null) size.setEndPoint(EndPoints.SIZE);
+		addCharacterization(size);
 	}
+
 	public IMeasurement getZetaPotential() {
-		return zetaPotential;
+		if (this.characterizations == null) return null;
+		return this.characterizations.get(EndPoints.ZETA_POTENTIAL);
 	}
+
 	public void setZetaPotential(IMeasurement zetaPotential) {
-		this.zetaPotential = zetaPotential;
+		if (zetaPotential.getEndPoint() == null) zetaPotential.setEndPoint(EndPoints.ZETA_POTENTIAL);
+		addCharacterization(zetaPotential);
 	}
+
 	public void setChemicalComposition(IMolecularFormula chemicalComposition) {
 		this.chemicalComposition = chemicalComposition;
 	}
@@ -81,6 +92,19 @@ public class Nanomaterial {
     public List<String> getLabels() {
     	if (this.labels == null) return Collections.emptyList();
     	return this.labels;
+    }
+
+    public Map<IEndPoint,IMeasurement> getCharacterizations() {
+    	if (this.characterizations == null) return Collections.emptyMap();
+    	return this.characterizations;
+    }
+
+    public void addCharacterization(IMeasurement characterization) {
+    	if (characterization == null || characterization.getEndPoint() == null)
+    		throw new NullPointerException("The characterization or its end point is null");
+    	if (this.characterizations == null)
+    		this.characterizations = new HashMap<IEndPoint,IMeasurement>();
+    	this.characterizations.put(characterization.getEndPoint(), characterization);
     }
 
     public void setLabels(List<String> labels) {

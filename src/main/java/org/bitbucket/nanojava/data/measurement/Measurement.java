@@ -24,6 +24,7 @@ import com.github.jqudt.Unit;
 
 public abstract class Measurement implements IMeasurement {
 
+	protected IEndPoint endPoint;
 	protected Unit unit;
 	private List<ICondition> conditions;
 
@@ -46,6 +47,16 @@ public abstract class Measurement implements IMeasurement {
 		if (conditions == null || conditions.size() == 0) return;
 		this.conditions = new ArrayList<ICondition>();
 		this.conditions.addAll(conditions);
+	}
+
+	@Override
+	public void setEndPoint(IEndPoint endPoint) {
+		this.endPoint = endPoint;
+	}
+
+	@Override
+	public IEndPoint getEndPoint() {
+		return this.endPoint;
 	}
 
 }
