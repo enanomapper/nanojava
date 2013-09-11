@@ -34,6 +34,8 @@ public class Nanomaterial {
 	private MaterialType type;
 	private List<String> labels;
 
+	public Nanomaterial() {}
+
 	public Nanomaterial(MaterialType type) {
 	    this.setType(type);
 	}
