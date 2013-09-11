@@ -45,7 +45,6 @@ import org.xmlcml.cml.element.CMLScalar;
 
 import com.github.jqudt.Unit;
 import com.github.jqudt.onto.UnitFactory;
-import com.github.jqudt.onto.units.LengthUnit;
 
 public class Deserializer {
 
@@ -56,6 +55,17 @@ public class Deserializer {
     	if (rootElem instanceof CMLMolecule) { // requirement
     		CMLMolecule cmlMaterial = (CMLMolecule)rootElem;
     		return Deserializer.fromCML(cmlMaterial);
+    	}
+    	return null;
+	}
+
+	public static List<Nanomaterial> fromCMLListString(String cmlListString) throws ParsingException, IOException {
+    	Document nmxDoc;
+    	nmxDoc = new CMLBuilder().buildEnsureCML(new ByteArrayInputStream(cmlListString.getBytes()));
+    	Element rootElem = nmxDoc.getRootElement();
+    	if (rootElem instanceof CMLList) { // requirement
+    		CMLList cmlList = (CMLList)rootElem;
+    		return Deserializer.fromCML(cmlList);
     	}
     	return null;
 	}
