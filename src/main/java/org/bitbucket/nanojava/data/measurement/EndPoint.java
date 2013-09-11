@@ -45,5 +45,10 @@ public class EndPoint implements IEndPoint {
 	public IEndPoint getParent() {
 		return this.parent;
 	};
-	
+
+	@Override
+	public int hashCode() {
+		return (""+label+uri+parent).hashCode();
+	}
+
 }
