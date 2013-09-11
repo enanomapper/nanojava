@@ -28,12 +28,12 @@ import org.openscience.cdk.qsar.result.IDescriptorResult;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
 /**
- * Values are calculated with Mopac2009 using the PM6 method.
+ * Values are calculated with Mopac2012 using the PM6 method.
  */
-public class IonizationEthalpyDescriptor implements INanomaterialDescriptor {
+public class IonizationEnthalpyMopac2012Descriptor implements INanomaterialDescriptor {
 
 	public String[] getDescriptorNames() {
-        return new String[]{"IonEnth"};
+        return new String[]{"IonEnthMopac2012"};
 	}
 
 	public String[] getParameterNames() {
@@ -70,54 +70,61 @@ public class IonizationEthalpyDescriptor implements INanomaterialDescriptor {
 
 	    double val = Double.NaN;
 	    if ("Al2O3".equals(mfString)) {
-	    	val = 1187.83;
+	    	val = 1187.82572;
 	    } else if ("Bi2O3".equals(mfString)) {
-	    	val = 1137.40; 
+	    	val = 1137.39784; 
 	    } else if ("CeO2".equals(mfString)) {
-	    	val = 944.70; // CeO2 (PM6 SPARKLE)
+	    	val = 944.70000;
 	    } else if ("CoO".equals(mfString)) {
-	    	val = 601.80; 
+	    	val = 594.58375; 
 	    } else if ("Cr2O3".equals(mfString)) {
-	    	val = 1268.70; 
+	    	val = 1266.39724; 
 	    } else if ("CuO".equals(mfString)) {
-	    	val = 706.25; 
+	    	val = 713.73801;
+	    } else if ("CuFe2O4Zn".equals(mfString)) {
+	    	val = 662.43584; // links via Aldrich to PubChem SID 24883132 telling FeIII, Zn2+, Cu2+
+	    	                 // taking the lowest enthalpy
 	    } else if ("Fe2O3".equals(mfString)) {
-	    	val = 1408.29; 
+	    	val = 1363.39566; 
+	    } else if ("FeO".equals(mfString)) {
+	    	val = 726.86041;
+	    } else if ("Fe3O4".equals(mfString)) {
+	    	val = 726.86041; // take the lowest, this FeII, Fe3O4 = FeO + Fe2O3
 	    } else if ("In2O3".equals(mfString)) {
-	    	val = 1271.13; 
+	    	val = 1271.13268; 
 	    } else if ("La2O3".equals(mfString)) {
-	    	val = 1017.22; 
+	    	val = 1017.21598; 
 	    } else if ("MnO2".equals(mfString)) {
-	    	val = 1601.91; // MnO2
+	    	val = 1602.02881; // MnO2
 	    } else if ("NiO".equals(mfString)) {
-	    	val = 576.90; 
+	    	val = 596.79692; 
 	    } else if ("Sb2O3".equals(mfString)) {
-	    	val = 1233.06; 
+	    	val = 1233.05572; 
 	    } else if ("SiO2".equals(mfString)) {
-	    	val = 1686.38; 
+	    	val = 1686.38205; 
 	    } else if ("SnO2".equals(mfString)) {
-	    	val = 1717.32; 
+	    	val = 1717.32461; 
 	    } else if ("TiO2".equals(mfString)) {
-	    	val = 1575.73; 
+	    	val = 1575.72837; 
 	    } else if ("V2O3".equals(mfString)) {
-	    	val = 1097.73; 
+	    	val = 1097.72684; 
 	    } else if ("Y2O3".equals(mfString)) {
-	    	val = 837.15; 
+	    	val = 837.15457; 
 	    } else if ("OZn".equals(mfString)) {
-	    	val = 662.44;
+	    	val = 662.43584;
 	    } else if ("O2Zr".equals(mfString)) {
-	    	val = 1357.66; 
+	    	val = 1357.66444; 
 	    } else {
 		    return newNaNDescriptor();
 	    }
 
 	    return new DescriptorValue(
-	    		getSpecification(),
-	    		getParameterNames(),
-	    		getParameters(),
-	    		new DoubleResult(val),
-	    		getDescriptorNames()
-	    		);
+	    	getSpecification(),
+	    	getParameterNames(),
+	    	getParameters(),
+	    	new DoubleResult(val),
+	    	getDescriptorNames()
+	    );
 	}
 
 	private DescriptorValue newNaNDescriptor() {
