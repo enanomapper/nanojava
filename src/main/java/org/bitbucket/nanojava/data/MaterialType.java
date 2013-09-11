@@ -30,5 +30,12 @@ public enum MaterialType {
     	this.label = label;
         this.uri = uri;
     }
-    
+
+    public String getLabel() {
+    	return this.label;
+    }
+
+    public String getURI() {
+    	return this.uri;
+    }
 }
