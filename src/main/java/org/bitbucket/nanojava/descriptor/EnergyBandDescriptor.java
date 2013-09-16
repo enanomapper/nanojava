@@ -119,15 +119,40 @@ public class EnergyBandDescriptor implements INanomaterialDescriptor {
                     result.add(-8);
                 } else continue;
             } else if ("Fe".equals(isotope.getSymbol())) {
-                if (oCount == 1) {
+                if (oCount == 1) { // FeO
                     result.add(-4.25);
                     result.add(-6.8);
-                } else if (oCount == 3) {
+                } else if (oCount == 3) { // Fe2O3
                     result.add(-4.25);
                     result.add(-7.6);
-                } else if (oCount == 4) {
+                } else if (oCount == 4) { // Fe3O4
                     result.add(-5.7);
                     result.add(-5.8);
+                } else continue;
+            } else if ("Al".equals(isotope.getSymbol())) {
+                if (oCount == 3) { // Al2O3
+                    result.add(-1.3);
+                    result.add(-9.9);
+                } else continue;
+            } else if ("Co".equals(isotope.getSymbol())) {
+                if (oCount == 1) { // CoO
+                    result.add(-4.25);
+                    result.add(-6.9);
+                } else continue;
+            } else if ("Cr".equals(isotope.getSymbol())) {
+                if (oCount == 3) { // Cr2O3
+                    result.add(-4.0);
+                    result.add(-7.6);
+                } else continue;
+            } else if ("Hf".equals(isotope.getSymbol())) {
+                if (oCount == 2) { // HfO2
+                    result.add(-2.0);
+                    result.add(-9.5);
+                } else continue;
+            } else if ("In".equals(isotope.getSymbol())) {
+                if (oCount == 3) { // In2O3
+                    result.add(-4.0);
+                    result.add(-6.8);
                 } else continue;
 	        } else {
 	            continue;
