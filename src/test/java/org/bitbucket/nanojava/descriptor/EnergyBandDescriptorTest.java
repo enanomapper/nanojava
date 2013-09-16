@@ -100,6 +100,26 @@ extends NanomaterialDescriptorTest {
     }
 
     @Test
+    public void testCalculate_IndiumOxide() throws Exception {
+        Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
+        material.setChemicalComposition(
+            MolecularFormulaManipulator.getMolecularFormula(
+                "In2O3", DefaultChemObjectBuilder.getInstance()
+            )
+        );
+        material.setSize(new MeasurementValue(EndPoints.SIZE, 40.0, 5.0, LengthUnit.NM));
+        DescriptorValue value = descriptor.calculate(material);
+        Assert.assertNotNull(value);
+        IDescriptorResult result = value.getValue();
+        Assert.assertNotNull(result);
+        Assert.assertTrue(result instanceof DoubleArrayResult);
+        DoubleArrayResult daResult = (DoubleArrayResult)result;
+        Assert.assertEquals(2, daResult.length());
+        Assert.assertEquals(-4.0, daResult.get(0), 0.0001);
+        Assert.assertEquals(-6.8, daResult.get(1), 0.0001);
+    }
+
+    @Test
     public void testCalculate_IronOxides() throws Exception {
         Nanomaterial oxide1 = new Nanomaterial(MaterialType.METALOXIDE);
         oxide1.setChemicalComposition(
