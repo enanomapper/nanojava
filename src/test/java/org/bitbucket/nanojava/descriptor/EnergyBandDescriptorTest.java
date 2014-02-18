@@ -19,7 +19,7 @@ package org.bitbucket.nanojava.descriptor;
 import junit.framework.Assert;
 
 import org.bitbucket.nanojava.data.MaterialType;
-import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.Material;
 import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.junit.Before;
@@ -42,7 +42,7 @@ extends NanomaterialDescriptorTest {
 
     @Test
     public void testCalculate_ZnO() throws Exception {
-        Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
+        Material material = new Material(MaterialType.METALOXIDE);
         material.setChemicalComposition(
             MolecularFormulaManipulator.getMolecularFormula(
                 "ZnO", DefaultChemObjectBuilder.getInstance()
@@ -61,7 +61,7 @@ extends NanomaterialDescriptorTest {
 
     @Test
     public void testCalculate_TestSize_TooSmall() throws Exception {
-        Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
+        Material material = new Material(MaterialType.METALOXIDE);
         material.setChemicalComposition(
             MolecularFormulaManipulator.getMolecularFormula(
                 "ZnO", DefaultChemObjectBuilder.getInstance()
@@ -81,7 +81,7 @@ extends NanomaterialDescriptorTest {
 
     @Test
     public void testCalculate_TestSize_OK() throws Exception {
-        Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
+        Material material = new Material(MaterialType.METALOXIDE);
         material.setChemicalComposition(
             MolecularFormulaManipulator.getMolecularFormula(
                 "ZnO", DefaultChemObjectBuilder.getInstance()
@@ -101,7 +101,7 @@ extends NanomaterialDescriptorTest {
 
     @Test
     public void testCalculate_IndiumOxide() throws Exception {
-        Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
+        Material material = new Material(MaterialType.METALOXIDE);
         material.setChemicalComposition(
             MolecularFormulaManipulator.getMolecularFormula(
                 "In2O3", DefaultChemObjectBuilder.getInstance()
@@ -121,13 +121,13 @@ extends NanomaterialDescriptorTest {
 
     @Test
     public void testCalculate_IronOxides() throws Exception {
-        Nanomaterial oxide1 = new Nanomaterial(MaterialType.METALOXIDE);
+        Material oxide1 = new Material(MaterialType.METALOXIDE);
         oxide1.setChemicalComposition(
             MolecularFormulaManipulator.getMolecularFormula(
                 "Fe2O3", DefaultChemObjectBuilder.getInstance()
             )
         );
-        Nanomaterial oxide2 = new Nanomaterial(MaterialType.METALOXIDE);
+        Material oxide2 = new Material(MaterialType.METALOXIDE);
         oxide2.setChemicalComposition(
             MolecularFormulaManipulator.getMolecularFormula(
                 "Fe3O4", DefaultChemObjectBuilder.getInstance()

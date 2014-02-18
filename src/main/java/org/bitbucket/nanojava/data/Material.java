@@ -27,20 +27,20 @@ import org.bitbucket.nanojava.data.measurement.IEndPoint;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.openscience.cdk.interfaces.IMolecularFormula;
 
-public class Nanomaterial {
+public class Material {
 
 	private Map<IEndPoint,IMeasurement> characterizations;
 	private IMolecularFormula chemicalComposition;
 	private MaterialType type;
 	private List<String> labels;
 
-	public Nanomaterial() {}
+	public Material() {}
 
-	public Nanomaterial(MaterialType type) {
+	public Material(MaterialType type) {
 	    this.setType(type);
 	}
 
-	public Nanomaterial(String type) throws IllegalArgumentException {
+	public Material(String type) throws IllegalArgumentException {
 	    setType(type);
 	}
 	

@@ -19,7 +19,7 @@ package org.bitbucket.nanojava.io;
 import java.util.List;
 import java.util.Map;
 
-import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.Material;
 import org.bitbucket.nanojava.data.measurement.IEndPoint;
 import org.bitbucket.nanojava.data.measurement.IErrorlessMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
@@ -39,20 +39,20 @@ import com.github.jqudt.onto.units.LengthUnit;
 
 public class Serializer {
 
-	public static String toCMLString(Nanomaterial material) {
+	public static String toCMLString(Material material) {
 		CMLMolecule cmlMaterial = toCML(material);
 		return cmlMaterial.toXML();
 	}
 
-	public static CMLList toCML(List<Nanomaterial> materials) {
+	public static CMLList toCML(List<Material> materials) {
 		CMLList list = new CMLList();
-		for (Nanomaterial material : materials) {
+		for (Material material : materials) {
 			list.appendChild(toCML(material));
 		}
 		return list;
 	}
 
-	public static CMLMolecule toCML(Nanomaterial material) {
+	public static CMLMolecule toCML(Material material) {
 		CMLMolecule cmlMaterial = new CMLMolecule();
 		cmlMaterial.setConvention("nano:material");
 		cmlMaterial.addNamespaceDeclaration("nano", "http://linkedchemistry.org/nano#");

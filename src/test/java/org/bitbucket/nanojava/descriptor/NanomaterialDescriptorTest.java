@@ -19,7 +19,7 @@ package org.bitbucket.nanojava.descriptor;
 import junit.framework.Assert;
 
 import org.bitbucket.nanojava.data.MaterialType;
-import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.Material;
 import org.junit.Test;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
@@ -43,7 +43,7 @@ public abstract class NanomaterialDescriptorTest {
     
     @Test
     public void testCalculate_Empty() throws Exception {
-        Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
+        Material material = new Material(MaterialType.METALOXIDE);
         DescriptorValue value = descriptor.calculate(material);
         Assert.assertNotNull(value);
         IDescriptorResult result = value.getValue();

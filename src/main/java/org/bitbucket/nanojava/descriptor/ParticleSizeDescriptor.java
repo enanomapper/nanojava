@@ -16,7 +16,7 @@
  */
 package org.bitbucket.nanojava.descriptor;
 
-import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.Material;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.bitbucket.nanojava.data.measurement.IMeasurementRange;
 import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
@@ -59,7 +59,7 @@ public class ParticleSizeDescriptor implements INanomaterialDescriptor {
 		return; // no parameters
 	}
 
-	public DescriptorValue calculate(Nanomaterial container) {
+	public DescriptorValue calculate(Material container) {
         if (container == null) return newNaNDescriptor();
 
 	    IMeasurement size = container.getSize();

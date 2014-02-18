@@ -27,17 +27,17 @@ import org.junit.Test;
 
 import com.github.jqudt.onto.units.LengthUnit;
 
-public class NanomaterialTest {
+public class MaterialTest {
 
     @Test
     public void testAlwaysReturnsLabelList() throws Exception {
-        Nanomaterial nm = new Nanomaterial("GRAPHENE");
+        Material nm = new Material("GRAPHENE");
         Assert.assertNotNull(nm.getLabels());
     }
 
     @Test
     public void testLabels() throws Exception {
-        Nanomaterial nm = new Nanomaterial("GRAPHENE");
+        Material nm = new Material("GRAPHENE");
         List<String> labels = new ArrayList<String>();
         labels.add("NM1"); labels.add("CeO2-15");
         nm.setLabels(labels);
@@ -48,7 +48,7 @@ public class NanomaterialTest {
 
     @Test
     public void testMultipleSizes() throws Exception {
-        Nanomaterial nm = new Nanomaterial("GRAPHENE");
+        Material nm = new Material("GRAPHENE");
         nm.addCharacterization(new ErrorlessMeasurementValue(EndPoints.DIAMETER_TEM, 20.0, LengthUnit.NM));
         nm.addCharacterization(new ErrorlessMeasurementValue(EndPoints.DIAMETER_DLS, 55.0, LengthUnit.NM));
         Assert.assertNotNull(nm.getCharacterizations());

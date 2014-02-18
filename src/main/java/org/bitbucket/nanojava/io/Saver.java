@@ -22,7 +22,7 @@ import java.io.IOException;
 import java.io.Writer;
 import java.util.List;
 
-import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.Material;
 import org.xmlcml.cml.element.CMLList;
 
 /**
@@ -31,9 +31,9 @@ import org.xmlcml.cml.element.CMLList;
 public class Saver {
 
 	private String filename;
-	private List<Nanomaterial> materials;
+	private List<Material> materials;
 	
-	public Saver(String filename, List<Nanomaterial> materials) {
+	public Saver(String filename, List<Material> materials) {
 		this.filename = filename;
 		this.materials = materials;
 	}

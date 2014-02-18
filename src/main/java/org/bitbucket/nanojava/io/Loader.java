@@ -26,7 +26,7 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.ParsingException;
 
-import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.Material;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.element.CMLList;
 
@@ -41,7 +41,7 @@ public class Loader {
 		this.filename = filename;
 	}
 
-	public List<Nanomaterial> load() throws IOException, ParsingException {
+	public List<Material> load() throws IOException, ParsingException {
 		File file = new File(filename);
 		Document nmxDoc;
 		nmxDoc = new CMLBuilder().buildEnsureCML(new FileInputStream(file));

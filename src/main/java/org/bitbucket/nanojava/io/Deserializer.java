@@ -27,7 +27,7 @@ import nu.xom.Document;
 import nu.xom.Element;
 import nu.xom.ParsingException;
 
-import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.Material;
 import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.ErrorlessMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.IEndPoint;
@@ -48,7 +48,7 @@ import com.github.jqudt.onto.UnitFactory;
 
 public class Deserializer {
 
-	public static Nanomaterial fromCMLString(String cmlMaterialString) throws ParsingException, IOException {
+	public static Material fromCMLString(String cmlMaterialString) throws ParsingException, IOException {
     	Document nmxDoc;
     	nmxDoc = new CMLBuilder().buildEnsureCML(new ByteArrayInputStream(cmlMaterialString.getBytes()));
     	Element rootElem = nmxDoc.getRootElement();
@@ -59,7 +59,7 @@ public class Deserializer {
     	return null;
 	}
 
-	public static List<Nanomaterial> fromCMLListString(String cmlListString) throws ParsingException, IOException {
+	public static List<Material> fromCMLListString(String cmlListString) throws ParsingException, IOException {
     	Document nmxDoc;
     	nmxDoc = new CMLBuilder().buildEnsureCML(new ByteArrayInputStream(cmlListString.getBytes()));
     	Element rootElem = nmxDoc.getRootElement();
@@ -70,20 +70,20 @@ public class Deserializer {
     	return null;
 	}
 
-	public static List<Nanomaterial> fromCML(CMLList cmlMaterials) {
-		List<Nanomaterial> materials = new ArrayList<Nanomaterial>();
+	public static List<Material> fromCML(CMLList cmlMaterials) {
+		List<Material> materials = new ArrayList<Material>();
 		for (CMLElement element : cmlMaterials.getChildCMLElements()) {
 			if (element instanceof CMLMolecule) {
-				Nanomaterial material = fromCML((CMLMolecule)element);
+				Material material = fromCML((CMLMolecule)element);
 				if (material != null) materials.add(material);
 			}
 		}
 		return materials;
 	}
 
-	public static Nanomaterial fromCML(CMLMolecule cmlMaterial) {
+	public static Material fromCML(CMLMolecule cmlMaterial) {
 		if (!cmlMaterial.getConvention().matches("nano:material")) return null;
-		Nanomaterial material = new Nanomaterial("METALOXIDE");
+		Material material = new Material("METALOXIDE");
 
 		for (CMLScalar scalar : cmlMaterial.getScalarElements()) {
 			if (scalar.getDictRef().equals("nano:type")) material.setType(scalar.getValue());

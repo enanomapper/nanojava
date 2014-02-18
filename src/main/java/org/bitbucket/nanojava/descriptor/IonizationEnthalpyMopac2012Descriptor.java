@@ -16,7 +16,7 @@
  */
 package org.bitbucket.nanojava.descriptor;
 
-import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.Material;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
 import org.openscience.cdk.interfaces.IMolecularFormula;
@@ -61,7 +61,7 @@ public class IonizationEnthalpyMopac2012Descriptor implements INanomaterialDescr
 		return; // no parameters
 	}
 
-	public DescriptorValue calculate(Nanomaterial container) {
+	public DescriptorValue calculate(Material container) {
         if (container == null) return newNaNDescriptor();
 
 	    IMolecularFormula molFormula = container.getChemicalComposition();

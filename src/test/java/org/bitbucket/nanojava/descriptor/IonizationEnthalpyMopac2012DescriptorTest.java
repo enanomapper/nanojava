@@ -19,7 +19,7 @@ package org.bitbucket.nanojava.descriptor;
 import junit.framework.Assert;
 
 import org.bitbucket.nanojava.data.MaterialType;
-import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.Material;
 import org.junit.Before;
 import org.junit.Test;
 import org.openscience.cdk.DefaultChemObjectBuilder;
@@ -38,7 +38,7 @@ extends NanomaterialDescriptorTest {
 
     @Test
     public void testCalculate_ZnO() throws Exception {
-        Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
+        Material material = new Material(MaterialType.METALOXIDE);
         material.setChemicalComposition(
             MolecularFormulaManipulator.getMolecularFormula(
                 "ZnO", DefaultChemObjectBuilder.getInstance()
@@ -53,7 +53,7 @@ extends NanomaterialDescriptorTest {
 
     @Test
     public void testCalculate_Fe2O3() throws Exception {
-        Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
+        Material material = new Material(MaterialType.METALOXIDE);
         material.setChemicalComposition(
             MolecularFormulaManipulator.getMolecularFormula(
                 "Fe2O3", DefaultChemObjectBuilder.getInstance()
@@ -68,7 +68,7 @@ extends NanomaterialDescriptorTest {
 
     @Test
     public void testCalculate_Al2O3() throws Exception {
-        Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
+        Material material = new Material(MaterialType.METALOXIDE);
         material.setChemicalComposition(
             MolecularFormulaManipulator.getMolecularFormula(
                 "Al2O3", DefaultChemObjectBuilder.getInstance()
@@ -83,7 +83,7 @@ extends NanomaterialDescriptorTest {
 
     @Test
     public void testCalculate_CuZnFe2O4() throws Exception {
-        Nanomaterial material = new Nanomaterial(MaterialType.METALOXIDE);
+        Material material = new Material(MaterialType.METALOXIDE);
         material.setChemicalComposition(
             MolecularFormulaManipulator.getMolecularFormula(
                 "CuZnFe2O4", DefaultChemObjectBuilder.getInstance()

@@ -19,7 +19,7 @@ package org.bitbucket.nanojava.descriptor;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.Material;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.bitbucket.nanojava.data.measurement.MeasurementRange;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
@@ -64,7 +64,7 @@ public class EnergyBandDescriptor implements INanomaterialDescriptor {
 		return; // no parameters
 	}
 
-	public DescriptorValue calculate(Nanomaterial container) {
+	public DescriptorValue calculate(Material container) {
         if (container == null) return newNaNDescriptor();
 
 	    IMolecularFormula molFormula = container.getChemicalComposition();

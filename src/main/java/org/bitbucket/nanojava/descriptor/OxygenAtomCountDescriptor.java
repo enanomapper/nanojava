@@ -16,7 +16,7 @@
  */
 package org.bitbucket.nanojava.descriptor;
 
-import org.bitbucket.nanojava.data.Nanomaterial;
+import org.bitbucket.nanojava.data.Material;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
 import org.openscience.cdk.interfaces.IIsotope;
@@ -58,7 +58,7 @@ public class OxygenAtomCountDescriptor implements INanomaterialDescriptor {
 		return; // no parameters
 	}
 
-	public DescriptorValue calculate(Nanomaterial container) {
+	public DescriptorValue calculate(Material container) {
         if (container == null) return newNaNDescriptor();
 
 	    IMolecularFormula molFormula = container.getChemicalComposition();
