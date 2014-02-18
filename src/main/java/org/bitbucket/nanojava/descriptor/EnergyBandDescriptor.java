@@ -33,7 +33,7 @@ import org.openscience.cdk.qsar.result.DoubleArrayResult;
 import org.openscience.cdk.qsar.result.DoubleArrayResultType;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 
-public class EnergyBandDescriptor implements INanomaterialDescriptor {
+public class EnergyBandDescriptor implements IMaterialDescriptor {
 
 	public String[] getDescriptorNames() {
         return new String[]{"CBandE", "VBandE"};

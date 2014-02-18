@@ -29,7 +29,7 @@ import org.openscience.cdk.qsar.result.IDescriptorResult;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
 public class IonizationEnthalpyDescriptorTest
-extends NanomaterialDescriptorTest {
+extends MaterialDescriptorTest {
 
     @Before
     public void setUp() throws Exception {

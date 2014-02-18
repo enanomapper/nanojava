@@ -29,7 +29,7 @@ import org.openscience.cdk.qsar.result.DoubleResultType;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
-public class MetalElementMassDescriptor implements INanomaterialDescriptor {
+public class MetalElementMassDescriptor implements IMaterialDescriptor {
 
 	public String[] getDescriptorNames() {
         return new String[]{"MeGrp"};

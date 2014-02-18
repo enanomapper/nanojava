@@ -28,7 +28,7 @@ import org.openscience.cdk.qsar.result.DoubleResult;
 import org.openscience.cdk.qsar.result.DoubleResultType;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 
-public class ZetaPotentialDescriptor implements INanomaterialDescriptor {
+public class ZetaPotentialDescriptor implements IMaterialDescriptor {
 
 	public String[] getDescriptorNames() {
         return new String[]{"Zeta"};

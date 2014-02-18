@@ -27,7 +27,7 @@ import org.openscience.cdk.qsar.result.DoubleResultType;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
-public class MolecularWeightDescriptor implements INanomaterialDescriptor {
+public class MolecularWeightDescriptor implements IMaterialDescriptor {
 
 	public String[] getDescriptorNames() {
         return new String[]{"MW"};

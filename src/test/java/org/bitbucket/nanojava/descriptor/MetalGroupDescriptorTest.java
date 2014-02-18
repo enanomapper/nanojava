@@ -29,7 +29,7 @@ import org.openscience.cdk.qsar.result.IntegerResult;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
 public class MetalGroupDescriptorTest
-extends NanomaterialDescriptorTest {
+extends MaterialDescriptorTest {
 
     @Before
     public void setUp() throws Exception {

@@ -30,7 +30,7 @@ import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 /**
  * Values are calculated with Mopac2009 using the PM6 method.
  */
-public class IonizationEnthalpyDescriptor implements INanomaterialDescriptor {
+public class IonizationEnthalpyDescriptor implements IMaterialDescriptor {
 
 	public String[] getDescriptorNames() {
         return new String[]{"IonEnth"};

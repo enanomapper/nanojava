@@ -29,7 +29,7 @@ import org.openscience.cdk.qsar.result.IntegerResult;
 import org.openscience.cdk.qsar.result.IntegerResultType;
 import org.openscience.cdk.tools.periodictable.PeriodicTable;
 
-public class MetalPeriodDescriptor implements INanomaterialDescriptor {
+public class MetalPeriodDescriptor implements IMaterialDescriptor {
 
 	public String[] getDescriptorNames() {
         return new String[]{"MePer"};

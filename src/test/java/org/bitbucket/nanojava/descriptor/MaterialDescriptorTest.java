@@ -24,20 +24,20 @@ import org.junit.Test;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 
-public abstract class NanomaterialDescriptorTest {
+public abstract class MaterialDescriptorTest {
 
-    INanomaterialDescriptor descriptor;
+    IMaterialDescriptor descriptor;
     
     @SuppressWarnings("rawtypes")
     public void setDescriptor(Class descriptorClass) throws Exception {
         if (descriptor == null) {
             Object descriptor = descriptorClass.newInstance();
-            if (!(descriptor instanceof INanomaterialDescriptor)) {
+            if (!(descriptor instanceof IMaterialDescriptor)) {
                 throw new Exception(
                     "The passed descriptor class must be a INanomaterialDescriptor"
                 );
             }
-            this.descriptor = (INanomaterialDescriptor)descriptor;
+            this.descriptor = (IMaterialDescriptor)descriptor;
         }
     }
     

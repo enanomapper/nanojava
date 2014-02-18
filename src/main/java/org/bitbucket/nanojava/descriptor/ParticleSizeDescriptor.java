@@ -28,7 +28,7 @@ import org.openscience.cdk.qsar.result.DoubleResult;
 import org.openscience.cdk.qsar.result.DoubleResultType;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 
-public class ParticleSizeDescriptor implements INanomaterialDescriptor {
+public class ParticleSizeDescriptor implements IMaterialDescriptor {
 
 	public String[] getDescriptorNames() {
         return new String[]{"Size"};

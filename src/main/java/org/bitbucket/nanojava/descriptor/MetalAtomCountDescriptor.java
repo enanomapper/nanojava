@@ -28,7 +28,7 @@ import org.openscience.cdk.qsar.result.IDescriptorResult;
 import org.openscience.cdk.qsar.result.IntegerResult;
 import org.openscience.cdk.qsar.result.IntegerResultType;
 
-public class MetalAtomCountDescriptor implements INanomaterialDescriptor {
+public class MetalAtomCountDescriptor implements IMaterialDescriptor {
 
 	public String[] getDescriptorNames() {
         return new String[]{"NoMe"};

@@ -32,7 +32,7 @@ import org.openscience.cdk.qsar.result.IDescriptorResult;
 import com.github.jqudt.onto.units.EnergyUnit;
 
 public class ZetaPotentialDescriptorTest
-extends NanomaterialDescriptorTest {
+extends MaterialDescriptorTest {
 
     @Before
     public void setUp() throws Exception {

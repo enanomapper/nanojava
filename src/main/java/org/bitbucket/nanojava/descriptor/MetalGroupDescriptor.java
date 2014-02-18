@@ -29,7 +29,7 @@ import org.openscience.cdk.qsar.result.IntegerResult;
 import org.openscience.cdk.qsar.result.IntegerResultType;
 import org.openscience.cdk.tools.periodictable.PeriodicTable;
 
-public class MetalGroupDescriptor implements INanomaterialDescriptor {
+public class MetalGroupDescriptor implements IMaterialDescriptor {
 
 	public String[] getDescriptorNames() {
         return new String[]{"MeGrp"};

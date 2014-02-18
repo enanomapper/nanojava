@@ -22,7 +22,7 @@ import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.IDescriptor;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 
-public interface INanomaterialDescriptor extends IDescriptor {
+public interface IMaterialDescriptor extends IDescriptor {
 
     /**
      * Calculates the descriptor value for the given IAtomContainer.

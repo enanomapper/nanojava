@@ -33,7 +33,7 @@ import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 import com.github.jqudt.onto.units.LengthUnit;
 
 public class EnergyBandDescriptorTest
-extends NanomaterialDescriptorTest {
+extends MaterialDescriptorTest {
 
     @Before
     public void setUp() throws Exception {
