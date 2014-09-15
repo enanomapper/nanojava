@@ -26,13 +26,19 @@ import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.IEndPoint;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.openscience.cdk.interfaces.IMolecularFormula;
+import org.openscience.cdk.silent.Substance;
 
-public class Material {
+@SuppressWarnings("serial")
+public class Material extends Substance {
 
-	private Map<IEndPoint,IMeasurement> characterizations;
+	/** IChemObject property of type MaterialType. */
+	private final String CHARACTERIZATIONS = "nanojava.characterizations";
+	/** IChemObject property of type {@link MaterialType}. */
+	private final String TYPE = "nanojava.type";
+	/** IChemObject property of type List<String>. */
+	private final String LABELS = "nanojava.labels";
+
 	private IMolecularFormula chemicalComposition;
-	private MaterialType type;
-	private List<String> labels;
 
 	public Material() {}
 
@@ -45,8 +51,9 @@ public class Material {
 	}
 	
 	public IMeasurement getSize() {
-		if (this.characterizations == null) return null;
-		return this.characterizations.get(EndPoints.SIZE);
+		Map<IEndPoint,IMeasurement> characterizations = getProperty(CHARACTERIZATIONS);
+		if (characterizations == null) return null;
+		return characterizations.get(EndPoints.SIZE);
 	}
 
 	public void setSize(IMeasurement size) {
@@ -55,8 +62,9 @@ public class Material {
 	}
 
 	public IMeasurement getZetaPotential() {
-		if (this.characterizations == null) return null;
-		return this.characterizations.get(EndPoints.ZETA_POTENTIAL);
+		Map<IEndPoint,IMeasurement> characterizations = getProperty(CHARACTERIZATIONS);
+		if (characterizations == null) return null;
+		return characterizations.get(EndPoints.ZETA_POTENTIAL);
 	}
 
 	public void setZetaPotential(IMeasurement zetaPotential) {
@@ -84,34 +92,43 @@ public class Material {
     }
 
     public void setType(MaterialType type) {
-        this.type = type;
+        setProperty(TYPE, type);
     }
 
     public MaterialType getType() {
-        return type;
+        return getProperty(TYPE);
     }
 
     public List<String> getLabels() {
-    	if (this.labels == null) return Collections.emptyList();
-    	return this.labels;
+    	List<String> labels = getProperty(LABELS);
+    	if (labels == null) return Collections.emptyList();
+    	return Collections.unmodifiableList(labels);
     }
 
     public Map<IEndPoint,IMeasurement> getCharacterizations() {
-    	if (this.characterizations == null) return Collections.emptyMap();
-    	return this.characterizations;
+		Map<IEndPoint,IMeasurement> characterizations = getProperty(CHARACTERIZATIONS);
+    	if (characterizations == null) return Collections.emptyMap();
+    	return Collections.unmodifiableMap(characterizations);
     }
 
     public void addCharacterization(IMeasurement characterization) {
     	if (characterization == null || characterization.getEndPoint() == null)
     		throw new NullPointerException("The characterization or its end point is null");
-    	if (this.characterizations == null)
-    		this.characterizations = new HashMap<IEndPoint,IMeasurement>();
-    	this.characterizations.put(characterization.getEndPoint(), characterization);
+		Map<IEndPoint,IMeasurement> characterizations = getProperty(CHARACTERIZATIONS);
+    	if (characterizations == null) {
+    		characterizations = new HashMap<IEndPoint,IMeasurement>();
+    		setProperty(CHARACTERIZATIONS, characterizations);
+    	}
+    	characterizations.put(characterization.getEndPoint(), characterization);
     }
 
-    public void setLabels(List<String> labels) {
-    	if (labels == null || labels.size() == 0) return;
-    	this.labels = new ArrayList<String>();
-    	this.labels.addAll(labels);
+    public void setLabels(List<String> newLabels) {
+    	if (newLabels == null || newLabels.size() == 0) return;
+    	List<String> labels = getProperty(LABELS);
+    	if (labels == null) {
+    		labels = new ArrayList<String>();
+    		setProperty(LABELS, labels);
+    	}
+    	labels.addAll(newLabels);
     }
 }
