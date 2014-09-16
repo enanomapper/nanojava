@@ -66,6 +66,11 @@
     	<artifactId>cdk-formula</artifactId>
     	<version>${cdk.version}</version>
     </dependency>
+    <dependency>
+    	<groupId>org.openscience.cdk</groupId>
+    	<artifactId>cdk-libiocml</artifactId>
+    	<version>${cdk.version}</version>
+    </dependency>
   </dependencies>
   <properties>
     <cdk.version>1.5.9-SNAPSHOT</cdk.version>
