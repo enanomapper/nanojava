@@ -24,10 +24,7 @@ import org.bitbucket.nanojava.data.measurement.IEndPoint;
 import org.bitbucket.nanojava.data.measurement.IErrorlessMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
-import org.openscience.cdk.interfaces.IMolecularFormula;
 import org.openscience.cdk.libio.cml.Convertor;
-import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
-import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMoleculeList;
 import org.xmlcml.cml.element.CMLName;
@@ -59,14 +56,6 @@ public class CDKSerializer {
 		CMLMoleculeList cmlMaterial = convertor.cdkAtomContainerSetToCMLList(material);
 		cmlMaterial.setConvention("nano:material");
 		cmlMaterial.addNamespaceDeclaration("nano", "http://linkedchemistry.org/nano#");
-
-		// set the composition
-		if (material.getChemicalComposition() != null) {
-			IMolecularFormula molForm = material.getChemicalComposition();
-			CMLFormula cmlFormula = new CMLFormula();
-			cmlFormula.setInline(MolecularFormulaManipulator.getString(molForm));
-			cmlMaterial.appendChild(cmlFormula);
-		}
 
 		// set the labels
 		for (String label : material.getLabels()) {

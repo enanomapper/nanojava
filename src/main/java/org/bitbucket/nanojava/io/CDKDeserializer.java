@@ -25,7 +25,6 @@ import java.util.Map;
 
 import nu.xom.Document;
 import nu.xom.Element;
-import nu.xom.Elements;
 import nu.xom.ParsingException;
 
 import org.bitbucket.nanojava.data.Material;
@@ -33,11 +32,13 @@ import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.ErrorlessMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.IEndPoint;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
-import org.openscience.cdk.DefaultChemObjectBuilder;
-import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
+import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.interfaces.IChemFile;
+import org.openscience.cdk.io.CMLReader;
+import org.openscience.cdk.silent.ChemFile;
+import org.openscience.cdk.tools.manipulator.ChemFileManipulator;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
-import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMolecule;
 import org.xmlcml.cml.element.CMLMoleculeList;
@@ -75,7 +76,7 @@ public class CDKDeserializer {
 	public static List<Material> fromCML(CMLList cmlMaterials) {
 		List<Material> materials = new ArrayList<Material>();
 		for (CMLElement element : cmlMaterials.getChildCMLElements()) {
-			if (element instanceof CMLMolecule) {
+			if (element instanceof CMLMoleculeList) {
 				Material material = fromCML((CMLMoleculeList)element);
 				if (material != null) materials.add(material);
 			}
@@ -86,15 +87,6 @@ public class CDKDeserializer {
 	public static Material fromCML(CMLMoleculeList cmlMaterial) {
 		if (!cmlMaterial.getConvention().matches("nano:material")) return null;
 		Material material = new Material("METALOXIDE");
-
-		Elements elements = cmlMaterial.getChildElements();
-		for (int i=0; i<elements.size(); i++) {
-			Element element = elements.get(i);
-			if (element.getLocalName().equals("CMLScalar")) {
-				CMLScalar scalar = (CMLScalar)element;
-				if (scalar.getDictRef().equals("nano:type")) material.setType(scalar.getValue());
-			}
-		}
 
 		List<String> labels = new ArrayList<String>();
 		for (CMLElement element : cmlMaterial.getChildCMLElements()) {
@@ -119,16 +111,24 @@ public class CDKDeserializer {
 						}
 					}
 				}
+			} else if (element instanceof CMLScalar) {
+				CMLScalar scalar = (CMLScalar)element;
+				if (scalar.getDictRef().equals("nano:type")) material.setType(scalar.getValue());
 			} else if (element instanceof CMLName) {
 				labels.add(element.getStringContent());
-			} else if (element instanceof CMLFormula) {
-				if (material.getChemicalComposition() == null) { // ignore second and later copies
-					material.addAtomContainer(
-						MolecularFormulaManipulator.getAtomContainer(
-							element.getAttributeValue("inline"),
-							DefaultChemObjectBuilder.getInstance()
-						)
+			} else if (element instanceof CMLMolecule) {
+				try {
+					CMLReader reader = new CMLReader(
+						new ByteArrayInputStream(element.toXML().toString().getBytes())
 					);
+					IChemFile chemFile = reader.read(new ChemFile());
+					for (IAtomContainer container :
+						  ChemFileManipulator.getAllAtomContainers(chemFile)) {
+						material.addAtomContainer(container);
+					}
+					reader.close();
+				} catch (Exception e) {
+					e.printStackTrace();
 				}
 			}
 		}
