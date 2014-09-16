@@ -39,8 +39,8 @@ extends MaterialDescriptorTest {
     @Test
     public void testCalculate_ZnO() throws Exception {
         Material material = new Material(MaterialType.METALOXIDE);
-        material.setChemicalComposition(
-            MolecularFormulaManipulator.getMolecularFormula(
+        material.addAtomContainer(
+            MolecularFormulaManipulator.getAtomContainer(
                 "ZnO", DefaultChemObjectBuilder.getInstance()
             )
         );
@@ -54,8 +54,8 @@ extends MaterialDescriptorTest {
     @Test
     public void testCalculate_Fe2O3() throws Exception {
         Material material = new Material(MaterialType.METALOXIDE);
-        material.setChemicalComposition(
-            MolecularFormulaManipulator.getMolecularFormula(
+        material.addAtomContainer(
+            MolecularFormulaManipulator.getAtomContainer(
                 "Fe2O3", DefaultChemObjectBuilder.getInstance()
             )
         );
@@ -69,8 +69,8 @@ extends MaterialDescriptorTest {
     @Test
     public void testCalculate_Al2O3() throws Exception {
         Material material = new Material(MaterialType.METALOXIDE);
-        material.setChemicalComposition(
-            MolecularFormulaManipulator.getMolecularFormula(
+        material.addAtomContainer(
+            MolecularFormulaManipulator.getAtomContainer(
                 "Al2O3", DefaultChemObjectBuilder.getInstance()
             )
         );
@@ -84,8 +84,8 @@ extends MaterialDescriptorTest {
     @Test
     public void testCalculate_CuZnFe2O4() throws Exception {
         Material material = new Material(MaterialType.METALOXIDE);
-        material.setChemicalComposition(
-            MolecularFormulaManipulator.getMolecularFormula(
+        material.addAtomContainer(
+            MolecularFormulaManipulator.getAtomContainer(
                 "CuZnFe2O4", DefaultChemObjectBuilder.getInstance()
             )
         );

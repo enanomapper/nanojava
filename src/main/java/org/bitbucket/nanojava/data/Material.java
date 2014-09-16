@@ -25,8 +25,11 @@ import java.util.Map;
 import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.IEndPoint;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IMolecularFormula;
+import org.openscience.cdk.silent.MolecularFormula;
 import org.openscience.cdk.silent.Substance;
+import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
 @SuppressWarnings("serial")
 public class Material extends Substance {
@@ -37,8 +40,6 @@ public class Material extends Substance {
 	private final String TYPE = "nanojava.type";
 	/** IChemObject property of type List<String>. */
 	private final String LABELS = "nanojava.labels";
-
-	private IMolecularFormula chemicalComposition;
 
 	public Material() {}
 
@@ -72,10 +73,13 @@ public class Material extends Substance {
 		addCharacterization(zetaPotential);
 	}
 
-	public void setChemicalComposition(IMolecularFormula chemicalComposition) {
-		this.chemicalComposition = chemicalComposition;
-	}
 	public IMolecularFormula getChemicalComposition() {
+		IMolecularFormula chemicalComposition = new MolecularFormula();
+		for (IAtomContainer container : atomContainers()) {
+			chemicalComposition.add(
+				MolecularFormulaManipulator.getMolecularFormula(container)
+			);
+		}
 		return chemicalComposition;
 	}
 

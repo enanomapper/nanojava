@@ -116,8 +116,8 @@ public class Deserializer {
 				labels.add(element.getStringContent());
 			} else if (element instanceof CMLFormula) {
 				if (material.getChemicalComposition() == null) { // ignore second and later copies
-					material.setChemicalComposition(
-						MolecularFormulaManipulator.getMolecularFormula(
+					material.addAtomContainer(
+						MolecularFormulaManipulator.getAtomContainer(
 							element.getAttributeValue("inline"),
 							DefaultChemObjectBuilder.getInstance()
 						)

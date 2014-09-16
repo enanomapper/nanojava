@@ -43,8 +43,8 @@ extends MaterialDescriptorTest {
     @Test
     public void testCalculate_ZnO() throws Exception {
         Material material = new Material(MaterialType.METALOXIDE);
-        material.setChemicalComposition(
-            MolecularFormulaManipulator.getMolecularFormula(
+        material.addAtomContainer(
+            MolecularFormulaManipulator.getAtomContainer(
                 "ZnO", DefaultChemObjectBuilder.getInstance()
             )
         );
@@ -62,8 +62,8 @@ extends MaterialDescriptorTest {
     @Test
     public void testCalculate_TestSize_TooSmall() throws Exception {
         Material material = new Material(MaterialType.METALOXIDE);
-        material.setChemicalComposition(
-            MolecularFormulaManipulator.getMolecularFormula(
+        material.addAtomContainer(
+            MolecularFormulaManipulator.getAtomContainer(
                 "ZnO", DefaultChemObjectBuilder.getInstance()
             )
         );
@@ -82,8 +82,8 @@ extends MaterialDescriptorTest {
     @Test
     public void testCalculate_TestSize_OK() throws Exception {
         Material material = new Material(MaterialType.METALOXIDE);
-        material.setChemicalComposition(
-            MolecularFormulaManipulator.getMolecularFormula(
+        material.addAtomContainer(
+            MolecularFormulaManipulator.getAtomContainer(
                 "ZnO", DefaultChemObjectBuilder.getInstance()
             )
         );
@@ -102,8 +102,8 @@ extends MaterialDescriptorTest {
     @Test
     public void testCalculate_IndiumOxide() throws Exception {
         Material material = new Material(MaterialType.METALOXIDE);
-        material.setChemicalComposition(
-            MolecularFormulaManipulator.getMolecularFormula(
+        material.addAtomContainer(
+            MolecularFormulaManipulator.getAtomContainer(
                 "In2O3", DefaultChemObjectBuilder.getInstance()
             )
         );
@@ -122,14 +122,14 @@ extends MaterialDescriptorTest {
     @Test
     public void testCalculate_IronOxides() throws Exception {
         Material oxide1 = new Material(MaterialType.METALOXIDE);
-        oxide1.setChemicalComposition(
-            MolecularFormulaManipulator.getMolecularFormula(
+        oxide1.addAtomContainer(
+            MolecularFormulaManipulator.getAtomContainer(
                 "Fe2O3", DefaultChemObjectBuilder.getInstance()
             )
         );
         Material oxide2 = new Material(MaterialType.METALOXIDE);
-        oxide2.setChemicalComposition(
-            MolecularFormulaManipulator.getMolecularFormula(
+        oxide2.addAtomContainer(
+            MolecularFormulaManipulator.getAtomContainer(
                 "Fe3O4", DefaultChemObjectBuilder.getInstance()
             )
         );

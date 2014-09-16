@@ -75,8 +75,10 @@ public class SerializationTest {
 	@Test
 	public void roundChemicalComposition() {
 		Material material = new Material("METALOXIDE");
-        material.setChemicalComposition(
-        	MolecularFormulaManipulator.getMolecularFormula("CeO2", DefaultChemObjectBuilder.getInstance())
+        material.addAtomContainer(
+        	MolecularFormulaManipulator.getAtomContainer(
+        		"CeO2", DefaultChemObjectBuilder.getInstance()
+        	)
         );
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
 		Assert.assertNotNull(cmlMaterial);
