@@ -74,6 +74,7 @@ public class Material extends Substance {
 	}
 
 	public IMolecularFormula getChemicalComposition() {
+		if (getAtomContainerCount() == 0) return null;
 		IMolecularFormula chemicalComposition = new MolecularFormula();
 		for (IAtomContainer container : atomContainers()) {
 			chemicalComposition.add(

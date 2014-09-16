@@ -36,6 +36,12 @@ public class MaterialTest {
     }
 
     @Test
+    public void testChemicalCompisitionWhenEmpty() throws Exception {
+        Material nm = new Material("GRAPHENE");
+        Assert.assertNull(nm.getChemicalComposition());
+    }
+
+    @Test
     public void testLabels() throws Exception {
         Material nm = new Material("GRAPHENE");
         List<String> labels = new ArrayList<String>();
