@@ -16,10 +16,11 @@
  */
 package org.bitbucket.nanojava.descriptor;
 
-import org.bitbucket.nanojava.data.Material;
 import org.openscience.cdk.exception.CDKException;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
 import org.openscience.cdk.interfaces.IMolecularFormula;
+import org.openscience.cdk.interfaces.ISubstance;
 import org.openscience.cdk.qsar.DescriptorSpecification;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.DoubleResult;
@@ -27,7 +28,7 @@ import org.openscience.cdk.qsar.result.DoubleResultType;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
-public class MolecularWeightDescriptor implements IMaterialDescriptor {
+public class MolecularWeightDescriptor implements ISubstanceDescriptor {
 
 	public String[] getDescriptorNames() {
         return new String[]{"MW"};
@@ -58,14 +59,15 @@ public class MolecularWeightDescriptor implements IMaterialDescriptor {
 		return; // no parameters
 	}
 
-	public DescriptorValue calculate(Material container) {
-        if (container == null) return newNaNDescriptor();
+	public DescriptorValue calculate(ISubstance substance) {
+        if (substance == null) return newNaNDescriptor();
 
-        IMolecularFormula molFormula = container.getChemicalComposition();
-	    if (molFormula == null) return newNaNDescriptor();
-
-	    double mass =
-	        MolecularFormulaManipulator.getNaturalExactMass(molFormula);
+        double mass = 0.0;
+        for (IAtomContainer container : substance.atomContainers()) {
+        	IMolecularFormula formula =
+        		MolecularFormulaManipulator.getMolecularFormula(container);
+        	mass += MolecularFormulaManipulator.getNaturalExactMass(formula); 
+        }
 	    
 		return new DescriptorValue(
 		    getSpecification(),

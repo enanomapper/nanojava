@@ -16,18 +16,19 @@
  */
 package org.bitbucket.nanojava.descriptor;
 
-import org.bitbucket.nanojava.data.Material;
+import org.bitbucket.nanojava.manipulator.SubstanceManipulator;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
 import org.openscience.cdk.interfaces.IIsotope;
 import org.openscience.cdk.interfaces.IMolecularFormula;
+import org.openscience.cdk.interfaces.ISubstance;
 import org.openscience.cdk.qsar.DescriptorSpecification;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 import org.openscience.cdk.qsar.result.IntegerResult;
 import org.openscience.cdk.qsar.result.IntegerResultType;
 
-public class OxygenAtomCountDescriptor implements IMaterialDescriptor {
+public class OxygenAtomCountDescriptor implements ISubstanceDescriptor {
 
 	public String[] getDescriptorNames() {
         return new String[]{"NoMe"};
@@ -58,10 +59,10 @@ public class OxygenAtomCountDescriptor implements IMaterialDescriptor {
 		return; // no parameters
 	}
 
-	public DescriptorValue calculate(Material container) {
+	public DescriptorValue calculate(ISubstance container) {
         if (container == null) return newNaNDescriptor();
 
-	    IMolecularFormula molFormula = container.getChemicalComposition();
+	    IMolecularFormula molFormula = SubstanceManipulator.getChemicalComposition(container);
 	    if (molFormula == null) return newNaNDescriptor();
 
 	    int count = 0;

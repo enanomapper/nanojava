@@ -17,11 +17,12 @@
 package org.bitbucket.nanojava.descriptor;
 
 import org.bitbucket.nanojava.data.MaterialType;
-import org.bitbucket.nanojava.data.Material;
+import org.bitbucket.nanojava.manipulator.SubstanceManipulator;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
 import org.openscience.cdk.interfaces.IIsotope;
 import org.openscience.cdk.interfaces.IMolecularFormula;
+import org.openscience.cdk.interfaces.ISubstance;
 import org.openscience.cdk.qsar.DescriptorSpecification;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.DoubleResult;
@@ -29,7 +30,7 @@ import org.openscience.cdk.qsar.result.DoubleResultType;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
-public class MetalElementMassDescriptor implements IMaterialDescriptor {
+public class MetalElementMassDescriptor implements ISubstanceDescriptor {
 
 	public String[] getDescriptorNames() {
         return new String[]{"MeGrp"};
@@ -60,11 +61,11 @@ public class MetalElementMassDescriptor implements IMaterialDescriptor {
 		return; // no parameters
 	}
 
-	public DescriptorValue calculate(Material container) {
+	public DescriptorValue calculate(ISubstance container) {
 	    if (container == null) return newNaNDescriptor();
-	    if (container.getType() != MaterialType.METALOXIDE)
+	    if (SubstanceManipulator.getType(container) != MaterialType.METALOXIDE)
 	        return newNaNDescriptor();
-	    IMolecularFormula molFormula = container.getChemicalComposition();
+	    IMolecularFormula molFormula = SubstanceManipulator.getChemicalComposition(container);
 	    if (molFormula == null) return newNaNDescriptor();
 
 	    int metalCount = 0;

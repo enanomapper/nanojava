@@ -18,26 +18,26 @@ package org.bitbucket.nanojava.descriptor;
 
 import junit.framework.Assert;
 
-import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.Material;
+import org.bitbucket.nanojava.data.MaterialType;
 import org.junit.Test;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 
 public abstract class MaterialDescriptorTest {
 
-    IMaterialDescriptor descriptor;
+	ISubstanceDescriptor descriptor;
     
     @SuppressWarnings("rawtypes")
     public void setDescriptor(Class descriptorClass) throws Exception {
         if (descriptor == null) {
             Object descriptor = descriptorClass.newInstance();
-            if (!(descriptor instanceof IMaterialDescriptor)) {
+            if (!(descriptor instanceof ISubstanceDescriptor)) {
                 throw new Exception(
                     "The passed descriptor class must be a INanomaterialDescriptor"
                 );
             }
-            this.descriptor = (IMaterialDescriptor)descriptor;
+            this.descriptor = (ISubstanceDescriptor)descriptor;
         }
     }
     

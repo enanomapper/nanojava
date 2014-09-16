@@ -19,21 +19,22 @@ package org.bitbucket.nanojava.descriptor;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.bitbucket.nanojava.data.Material;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.bitbucket.nanojava.data.measurement.MeasurementRange;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
+import org.bitbucket.nanojava.manipulator.SubstanceManipulator;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
 import org.openscience.cdk.interfaces.IIsotope;
 import org.openscience.cdk.interfaces.IMolecularFormula;
+import org.openscience.cdk.interfaces.ISubstance;
 import org.openscience.cdk.qsar.DescriptorSpecification;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.DoubleArrayResult;
 import org.openscience.cdk.qsar.result.DoubleArrayResultType;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 
-public class EnergyBandDescriptor implements IMaterialDescriptor {
+public class EnergyBandDescriptor implements ISubstanceDescriptor {
 
 	public String[] getDescriptorNames() {
         return new String[]{"CBandE", "VBandE"};
@@ -64,16 +65,16 @@ public class EnergyBandDescriptor implements IMaterialDescriptor {
 		return; // no parameters
 	}
 
-	public DescriptorValue calculate(Material container) {
+	public DescriptorValue calculate(ISubstance container) {
         if (container == null) return newNaNDescriptor();
 
-	    IMolecularFormula molFormula = container.getChemicalComposition();
+	    IMolecularFormula molFormula = SubstanceManipulator.getChemicalComposition(container);
 	    if (molFormula == null) return newNaNDescriptor();
 	    
 	    int elementCount = getElementCount(molFormula);
 	    if (elementCount != 2) return newNaNDescriptor();
 	    
-	    IMeasurement size = container.getSize();
+	    IMeasurement size = SubstanceManipulator.getSize(container);
 	    if (size != null) {
 	        // check the size
 	        if (size instanceof MeasurementRange) {

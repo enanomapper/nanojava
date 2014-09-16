@@ -16,19 +16,20 @@
  */
 package org.bitbucket.nanojava.descriptor;
 
-import org.bitbucket.nanojava.data.Material;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.bitbucket.nanojava.data.measurement.IMeasurementRange;
 import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
+import org.bitbucket.nanojava.manipulator.SubstanceManipulator;
 import org.openscience.cdk.exception.CDKException;
 import org.openscience.cdk.interfaces.IChemObjectBuilder;
+import org.openscience.cdk.interfaces.ISubstance;
 import org.openscience.cdk.qsar.DescriptorSpecification;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.DoubleResult;
 import org.openscience.cdk.qsar.result.DoubleResultType;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 
-public class ZetaPotentialDescriptor implements IMaterialDescriptor {
+public class ZetaPotentialDescriptor implements ISubstanceDescriptor {
 
 	public String[] getDescriptorNames() {
         return new String[]{"Zeta"};
@@ -59,10 +60,10 @@ public class ZetaPotentialDescriptor implements IMaterialDescriptor {
 		return; // no parameters
 	}
 
-	public DescriptorValue calculate(Material container) {
+	public DescriptorValue calculate(ISubstance container) {
         if (container == null) return newNaNDescriptor();
 
-	    IMeasurement size = container.getZetaPotential();
+	    IMeasurement size = SubstanceManipulator.getZetaPotential(container);
 	    if (size == null) return newNaNDescriptor();
 
 	    double sizeValue = Double.NaN;

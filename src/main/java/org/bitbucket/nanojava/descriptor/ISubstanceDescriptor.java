@@ -16,23 +16,23 @@
  */
 package org.bitbucket.nanojava.descriptor;
 
-import org.bitbucket.nanojava.data.Material;
 import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.interfaces.ISubstance;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.IDescriptor;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
 
-public interface IMaterialDescriptor extends IDescriptor {
+public interface ISubstanceDescriptor extends IDescriptor {
 
     /**
-     * Calculates the descriptor value for the given IAtomContainer.
+     * Calculates the descriptor value for the given {@link ISubstance}.
      *
      * @param container An {@link IAtomContainer} for which this descriptor
      *                  should be calculated
      * @return An object of {@link DescriptorValue} that contain the
      *         calculated value as well as specification details
      */
-    public DescriptorValue calculate(Material container);
+    public DescriptorValue calculate(ISubstance container);
 
     /**
      * Returns the specific type of the DescriptorResult object.
