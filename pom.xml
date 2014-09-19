@@ -17,7 +17,9 @@
       <snapshots><enabled>false</enabled></snapshots>
     </repository>
     <repository>
+      <id>ebi-uk</id>
       <url>http://www.ebi.ac.uk/intact/maven/nexus/content/repositories/ebi-repo/</url>
+      <snapshots><enabled>true</enabled></snapshots>
     </repository>
   </repositories>
 
