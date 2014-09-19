@@ -16,6 +16,9 @@
       <url>http://mvnrepository.com/</url>
       <snapshots><enabled>false</enabled></snapshots>
     </repository>
+    <repository>
+      <url>http://www.ebi.ac.uk/intact/maven/nexus/content/repositories/ebi-repo/</url>
+    </repository>
   </repositories>
 
   <distributionManagement>
