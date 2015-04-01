@@ -78,7 +78,7 @@
     </dependency>
   </dependencies>
   <properties>
-    <cdk.version>1.5.9-SNAPSHOT</cdk.version>
+    <cdk.version>1.5.10</cdk.version>
     <junit.version>4.10</junit.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
   </properties>
