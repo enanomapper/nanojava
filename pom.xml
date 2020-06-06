@@ -3,7 +3,8 @@
   <groupId>org.bitbucket.nanojava</groupId>
   <artifactId>nanojava</artifactId>
   <name>NanoJava</name>
-  
+  <version>1.2.0-SNAPSHOT</version>
+ <!-- 
   <repositories>
     <repository>
       <id>ambit-plovdiv</id>
@@ -33,13 +34,8 @@
       <url>http://ambit.uni-plovdiv.bg:8083/nexus/content/repositories/thirdparty</url>
     </repository>
   </distributionManagement>
-
+  -->
   <dependencies>
-    <dependency>
-      <groupId>org.openscience.cdk</groupId>
-      <artifactId>cdk-qsar</artifactId>
-      <version>${cdk.version}</version>
-    </dependency>
     <dependency>
         <groupId>junit</groupId>
         <artifactId>junit</artifactId>
@@ -51,36 +47,28 @@
       <artifactId>cmlxom</artifactId>
       <version>3.1</version>
     </dependency>
-    <dependency>
-    	<groupId>com.github.jqudt</groupId>
-    	<artifactId>jqudt</artifactId>
-    	<version>1.3.0-SNAPSHOT</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.openscience.cdk</groupId>
-    	<artifactId>cdk-silent</artifactId>
-    	<version>${cdk.version}</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.openscience.cdk</groupId>
-    	<artifactId>cdk-data</artifactId>
-    	<version>${cdk.version}</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.openscience.cdk</groupId>
-    	<artifactId>cdk-formula</artifactId>
-    	<version>${cdk.version}</version>
-    </dependency>
-    <dependency>
-    	<groupId>org.openscience.cdk</groupId>
-    	<artifactId>cdk-libiocml</artifactId>
-    	<version>${cdk.version}</version>
-    </dependency>
+	<dependency>
+	    <groupId>org.openscience.cdk</groupId>
+	    <artifactId>cdk-bundle</artifactId>
+	    <version>${cdk.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>info.picocli</groupId>
+		<artifactId>picocli</artifactId>
+		<version>3.1.0</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.github.egonw</groupId>
+	    <artifactId>jqudt</artifactId>
+	    <version>1.4.0-SNAPSHOT</version>
+	</dependency>
   </dependencies>
   <properties>
-    <cdk.version>1.5.10</cdk.version>
-    <junit.version>4.10</junit.version>
+    <cdk.version>2.3</cdk.version>
+    <junit.version>4.12</junit.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>1.8</maven.compiler.source>
+	<maven.compiler.target>1.8</maven.compiler.target>
   </properties>
   <build>
     <resources>
@@ -90,15 +78,28 @@
       </resource>
     </resources>
     <plugins>
-    	<plugin>
-    		<groupId>org.apache.maven.plugins</groupId>
-    		<artifactId>maven-compiler-plugin</artifactId>
-            <configuration>
-              <source>1.6</source>
-              <target>1.6</target>
-            </configuration>  
-    	</plugin>
-    </plugins>
+		<plugin>
+			<artifactId>maven-assembly-plugin</artifactId>
+			<configuration>
+				<descriptorRefs>
+					<descriptorRef>jar-with-dependencies</descriptorRef>
+				</descriptorRefs>
+				<archive>
+					<manifest>
+						<mainClass>org.bitbucket.nanojava.NanoJava</mainClass>
+					</manifest>
+				</archive>
+			</configuration>
+			<executions>
+				<execution>
+					<id>make-assembly</id>
+					<phase>package</phase>
+					<goals>
+						<goal>single</goal>
+					</goals>
+				</execution>
+			</executions>
+		</plugin>
+	</plugins> 
   </build>
-  <version>1.2.0-SNAPSHOT</version>
 </project>

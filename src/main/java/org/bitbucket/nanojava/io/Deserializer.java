@@ -1,4 +1,5 @@
 /* Copyright (C) 2012-2013  Egon Willighagen <egonw@users.sf.net>
+ *  				  2020  Ammar Ammar <ammar257ammar@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -122,6 +123,7 @@ public class Deserializer {
 							DefaultChemObjectBuilder.getInstance()
 						)
 					);
+					labels.add("formula:"+element.getAttributeValue("inline"));
 				}
 			}
 		}
