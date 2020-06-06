@@ -83,8 +83,9 @@ docker run aammar/nano-java -d OxygenAtomCountDescriptor -m Al2O3
 
 Output:
 
-Nano Material	OxygenAtomCountDescriptor
-Al2O3	3
+| Nano Material | OxygenAtomCountDescriptor |
+| ------------- | ------------------------- |
+| Al2O3         | 3                         |
 
 ------
 
@@ -104,18 +105,19 @@ docker run -v XML_PATH_ON_YOUR_PC:/data aammar/nano-java -d OxygenAtomCountDescr
 
 Output:
 
-Nano Material	OxygenAtomCountDescriptor
-Al2O3	3
-CeO2	2
-CoO	1
-Co3O4	4
-Cr2O3	3
-CuO	1
-Fe2O3	3
-Fe3O4	4
-Gd2O3	3
-HfO2	2
-In2O3	3
+| Nano Material | OxygenAtomCountDescriptor |
+| ------------- | ------------------------- |
+| Al2O3         | 3                         |
+| CeO2          | 2                         |
+| CoO           | 1                         |
+| Co3O4         | 4                         |
+| Cr2O3         | 3                         |
+| CuO           | 1                         |
+| Fe2O3         | 3                         |
+| Fe3O4         | 4                         |
+| Gd2O3         | 3                         |
+| HfO2          | 2                         |
+| In2O3         | 3                         |
 
 ------
 
