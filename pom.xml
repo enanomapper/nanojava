@@ -4,6 +4,7 @@
   <artifactId>nanojava</artifactId>
   <name>NanoJava</name>
   <version>1.2.0-SNAPSHOT</version>
+ <!-- 
   <repositories>
     <repository>
       <id>ambit-plovdiv</id>
@@ -33,7 +34,7 @@
       <url>http://ambit.uni-plovdiv.bg:8083/nexus/content/repositories/thirdparty</url>
     </repository>
   </distributionManagement>
-
+  -->
   <dependencies>
     <dependency>
         <groupId>junit</groupId>
@@ -56,10 +57,15 @@
 		<artifactId>picocli</artifactId>
 		<version>3.1.0</version>
 	</dependency>
+	<dependency>
+	    <groupId>com.github.egonw</groupId>
+	    <artifactId>jqudt</artifactId>
+	    <version>1.4.0-SNAPSHOT</version>
+	</dependency>
   </dependencies>
   <properties>
     <cdk.version>2.3</cdk.version>
-    <junit.version>3.8.1</junit.version>
+    <junit.version>4.12</junit.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
 	<maven.compiler.target>1.8</maven.compiler.target>
@@ -80,7 +86,7 @@
 				</descriptorRefs>
 				<archive>
 					<manifest>
-						<mainClass>nl.unimaas.msb.psbap.PSBAP</mainClass>
+						<mainClass>org.bitbucket.nanojava.NanoJava</mainClass>
 					</manifest>
 				</archive>
 			</configuration>
