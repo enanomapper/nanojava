@@ -1,4 +1,5 @@
-/* Copyright (C) 2011-2020  Egon Willighagen <egonw@users.sf.net>, Ammar Ammar <ammar257ammar@gmail.com>
+/* Copyright (C) 2012-2013  Egon Willighagen <egonw@users.sf.net>
+ *  				  2020  Ammar Ammar <ammar257ammar@gmail.com>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
