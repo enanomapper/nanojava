@@ -51,6 +51,11 @@
 	    <artifactId>cdk-bundle</artifactId>
 	    <version>${cdk.version}</version>
 	</dependency>
+	<dependency>
+		<groupId>info.picocli</groupId>
+		<artifactId>picocli</artifactId>
+		<version>3.1.0</version>
+	</dependency>
   </dependencies>
   <properties>
     <cdk.version>2.3</cdk.version>
