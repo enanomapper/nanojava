@@ -33,13 +33,33 @@
 	    <version>1.4.0</version>
 	</dependency>
   </dependencies>
+
   <properties>
     <cdk.version>2.3</cdk.version>
     <junit.version>4.12</junit.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
-	<maven.compiler.target>1.8</maven.compiler.target>
+    <maven.compiler.target>1.8</maven.compiler.target>
   </properties>
+
+  <!-- developer = commit access -->
+  <developers>
+    <developer>
+      <name>Egon Willighagen</name>
+      <email>egonw@users.sf.net</email>
+      <url>http://chem-bla-ics.blogspot.com</url>
+    </developer>
+  </developers>
+
+  <contributors>
+    <contributor>
+      <name>Ammar Ammar</name>
+    </contributor>
+    <contributor>
+      <name>Nina Jeliazkova</name>
+    </contributor>
+  </contributors>
+
   <build>
     <resources>
       <resource>
