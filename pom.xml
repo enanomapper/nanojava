@@ -60,7 +60,7 @@
 	<dependency>
 	    <groupId>com.github.egonw</groupId>
 	    <artifactId>jqudt</artifactId>
-	    <version>1.4.0-SNAPSHOT</version>
+	    <version>1.4.0</version>
 	</dependency>
   </dependencies>
   <properties>

@@ -1,15 +1,5 @@
 FROM maven:3-jdk-8-alpine as maven
 
-WORKDIR /jqudt
-
-RUN apk update && apk add git
-
-RUN git clone https://github.com/egonw/jqudt.git
-
-WORKDIR /jqudt/jqudt 
-
-RUN mvn install 
-
 WORKDIR /tmp
 
 COPY pom.xml .
