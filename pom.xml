@@ -13,9 +13,9 @@
         <scope>test</scope>
     </dependency>
     <dependency>
-      <groupId>org.xml-cml</groupId>
+      <groupId>org.blueobelisk</groupId>
       <artifactId>cmlxom</artifactId>
-      <version>3.1</version>
+      <version>4.0</version>
     </dependency>
 	<dependency>
 	    <groupId>org.openscience.cdk</groupId>
@@ -35,7 +35,7 @@
   </dependencies>
 
   <properties>
-    <cdk.version>2.3</cdk.version>
+    <cdk.version>2.6</cdk.version>
     <junit.version>4.13.1</junit.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
