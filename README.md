@@ -1,5 +1,7 @@
-nanojava
-========
+[![build](https://github.com/egonw/nanojava/actions/workflows/maven.yml/badge.svg)](https://github.com/egonw/nanojava/actions/workflows/maven.yml)
+[![codecov](https://codecov.io/gh/egonw/nanojava/branch/master/graph/badge.svg?token=7AGTB9R55I)](https://codecov.io/gh/egonw/nanojava)
+
+# nanojava
 
 Java library for descriptor calculation for (nano)materials.
 
