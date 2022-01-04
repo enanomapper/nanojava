@@ -16,13 +16,13 @@
  */
 package org.bitbucket.nanojava.descriptor;
 
-import junit.framework.Assert;
-
 import org.bitbucket.nanojava.data.Material;
 import org.bitbucket.nanojava.data.MaterialType;
 import org.junit.Test;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
+
+import junit.framework.Assert;
 
 public abstract class MaterialDescriptorTest {
 
@@ -37,7 +37,7 @@ public abstract class MaterialDescriptorTest {
                     "The passed descriptor class must be a ISubstanceDescriptor"
                 );
             }
-            this.descriptor = (ISubstanceDescriptor)descriptor;
+            this.descriptor = (ISubstanceDescriptor)descriptor;	
         }
     }
     
@@ -59,5 +59,18 @@ public abstract class MaterialDescriptorTest {
         Assert.assertNotNull(result);
         Assert.assertNotSame(0, result.length());
     }
-    
+
+    @Test
+    public void testParameters() {
+    	Object[] params = descriptor.getParameters();
+    	Assert.assertNotNull(params);
+    	String[] names = descriptor.getParameterNames();
+    	Assert.assertNotNull(names);
+    }
+
+    @Test
+    public void testGetDescriptorType() {
+    	IDescriptorResult type = descriptor.getDescriptorResultType();
+    	Assert.assertNotNull(type);
+    }
 }
