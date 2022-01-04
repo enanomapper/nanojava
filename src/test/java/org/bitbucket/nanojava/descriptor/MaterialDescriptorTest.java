@@ -1,4 +1,4 @@
-/* Copyright (C) 2011  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2011-2022  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -34,7 +34,7 @@ public abstract class MaterialDescriptorTest {
             Object descriptor = descriptorClass.newInstance();
             if (!(descriptor instanceof ISubstanceDescriptor)) {
                 throw new Exception(
-                    "The passed descriptor class must be a INanomaterialDescriptor"
+                    "The passed descriptor class must be a ISubstanceDescriptor"
                 );
             }
             this.descriptor = (ISubstanceDescriptor)descriptor;
