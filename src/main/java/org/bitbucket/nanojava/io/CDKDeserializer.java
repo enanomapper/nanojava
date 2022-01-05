@@ -58,6 +58,9 @@ public class CDKDeserializer {
     	if (rootElem instanceof CMLMolecule) { // requirement
     		CMLMolecule cmlMaterial = (CMLMolecule)rootElem;
     		return Deserializer.fromCML(cmlMaterial);
+    	} else if (rootElem instanceof CMLMoleculeList) { // requirement
+    		CMLMoleculeList cmlMaterial = (CMLMoleculeList)rootElem;
+    		return fromCML(cmlMaterial);
     	}
     	return null;
 	}
@@ -125,6 +128,13 @@ public class CDKDeserializer {
 					for (IAtomContainer container :
 						  ChemFileManipulator.getAllAtomContainers(chemFile)) {
 						material.addAtomContainer(container);
+						for (CMLElement molElement : element.getChildCMLElements()) {
+							if (molElement instanceof CMLScalar) {
+								CMLScalar scalar = (CMLScalar)molElement;
+								if (scalar.getDictRef().equals("nano:order"))
+									container.setProperty(Material.ORDER, Integer.parseInt(scalar.getValue()));
+							}
+						}
 					}
 					reader.close();
 				} catch (Exception e) {

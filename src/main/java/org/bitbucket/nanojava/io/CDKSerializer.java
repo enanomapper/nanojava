@@ -24,7 +24,11 @@ import org.bitbucket.nanojava.data.measurement.IEndPoint;
 import org.bitbucket.nanojava.data.measurement.IErrorlessMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
+import org.openscience.cdk.interfaces.IAtom;
+import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.interfaces.IBond;
 import org.openscience.cdk.libio.cml.Convertor;
+import org.openscience.cdk.libio.cml.ICMLCustomizer;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMoleculeList;
 import org.xmlcml.cml.element.CMLName;
@@ -35,9 +39,32 @@ import com.github.jqudt.Unit;
 import com.github.jqudt.onto.units.EnergyUnit;
 import com.github.jqudt.onto.units.LengthUnit;
 
+import nu.xom.Element;
+
 public class CDKSerializer {
 
-	private static Convertor convertor = new Convertor(true, "cml");
+	private static Convertor convertor;
+	static {
+		CDKSerializer.convertor = new Convertor(true, "cml");
+		CDKSerializer.convertor.registerCustomizer(new ICMLCustomizer() {
+			@Override
+			public void customize(IAtomContainer molecule, Object nodeToAdd) throws Exception {
+				Object orderProperty = molecule.getProperty(Material.ORDER);
+				if (orderProperty != null) {
+					CMLScalar scalar = new CMLScalar();
+					scalar.setDictRef("nano:order");
+					scalar.setValue("" + orderProperty);
+					((Element)nodeToAdd).appendChild(scalar);
+				}
+			}
+			
+			@Override
+			public void customize(IBond bond, Object nodeToAdd) throws Exception {}
+			
+			@Override
+			public void customize(IAtom atom, Object nodeToAdd) throws Exception {}
+		});
+	}
 	
 	public static String toCMLString(Material material) {
 		CMLMoleculeList cmlMaterial = toCML(material);

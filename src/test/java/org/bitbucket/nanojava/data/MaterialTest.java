@@ -1,4 +1,4 @@
-/* Copyright (C) 2011  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2011-2022  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -19,11 +19,14 @@ package org.bitbucket.nanojava.data;
 import java.util.ArrayList;
 import java.util.List;
 
-import junit.framework.Assert;
-
 import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.ErrorlessMeasurementValue;
+import org.bitbucket.nanojava.io.CDKDeserializer;
+import org.bitbucket.nanojava.io.CDKSerializer;
+import org.junit.Assert;
 import org.junit.Test;
+import org.openscience.cdk.interfaces.IAtomContainer;
+import org.xmlcml.cml.element.CMLMoleculeList;
 
 import com.github.jqudt.onto.units.LengthUnit;
 
@@ -61,4 +64,23 @@ public class MaterialTest {
         Assert.assertEquals(2, nm.getCharacterizations().size());
     }
 
+	@Test
+	public void figureEightLeft() throws Exception {
+		Material material = MaterialBuilder.type("METALOXIDE")
+			.label("silica nanoparticles with gold coating")
+			.componentFromSMILES(1, "O=[Si]=O")
+			.componentFromSMILES(2, "[Au]")
+			.asMaterial();
+
+		CMLMoleculeList cmlMaterial = CDKSerializer.toCML(material);
+		Assert.assertNotNull(cmlMaterial);
+		Material roundTripped = CDKDeserializer.fromCML(cmlMaterial);
+		Assert.assertNotNull(roundTripped);
+        Assert.assertNotNull(roundTripped.getLabels());
+        Assert.assertEquals(1, roundTripped.getLabels().size());
+        Assert.assertEquals(2, roundTripped.getAtomContainerCount());
+        for (IAtomContainer container : roundTripped.atomContainers()) {
+        	Assert.assertNotNull(container.getProperty(Material.ORDER));
+        }
+	}
 }
