@@ -1,4 +1,4 @@
-/* Copyright (C) 2011  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2011-2022  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -27,6 +27,12 @@ import org.openscience.cdk.silent.Substance;
 
 @SuppressWarnings("serial")
 public class Material extends Substance {
+
+	/**
+	 * Property for IAtomContainers in this Material, from the inside to the outside.
+	 * Order 1 is the core, order 2 the first shell, etc.
+	 */
+	public static String ORDER = "MaterialComponentOrder"; 
 
 	public Material() {}
 
