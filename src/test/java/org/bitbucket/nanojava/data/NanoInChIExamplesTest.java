@@ -41,14 +41,12 @@ public class NanoInChIExamplesTest {
 			.componentFromSMILES(1, "[Au]", "SHELL")
 			.componentFromSMILES(2, "O=[Si]=O", "SPHERE")
 			.asMaterial();
+		String nanoInChI = NInChIGenerator.generator(material);
+		Assert.assertEquals("InChI=1A/Au/msh/s2t-9!O2Si/c1-3-2/msp/s20d-9/k000/y2&1", nanoInChI);
 
 		CMLMoleculeList cmlMaterial = CDKSerializer.toCML(material);
 		Assert.assertNotNull(cmlMaterial);
 		System.out.println(asIndentedString(cmlMaterial));
-
-		String nanoInChI = NInChIGenerator.generator(material);
-		Assert.assertNotNull(cmlMaterial);
-		Assert.assertEquals("InChI=1A/Au/msh/s2t-9!O2Si/c1-3-2/msp/s20d-9/k000/y2&1", nanoInChI);
 	}
 
 	@Test
@@ -56,13 +54,13 @@ public class NanoInChIExamplesTest {
 		Material material = MaterialBuilder.type("METAL")
 			.componentFromSMILES(1, "[Au]", "SPHERE", new ErrorlessMeasurementValue(EndPoints.DIAMETER, 3.0, LengthUnit.NM))
 			.asMaterial();
+		String nanoInChI = NInChIGenerator.generator(material);
+		Assert.assertEquals("InChI=1A/Au/msp/s3d-9/y1", nanoInChI);
 
 		CMLMoleculeList cmlMaterial = CDKSerializer.toCML(material);
 		Assert.assertNotNull(cmlMaterial);
 		System.out.println(asIndentedString(cmlMaterial));
 
-		String nanoInChI = NInChIGenerator.generator(material);
-		Assert.assertEquals("InChI=1A/Au/msp/s3d-9/y1", nanoInChI);
 	}
 
 	private String asIndentedString(CMLMoleculeList cmlMaterial) throws Exception {
