@@ -16,18 +16,24 @@
  */
 package org.bitbucket.nanojava.io;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.bitbucket.nanojava.data.Material;
+import org.bitbucket.nanojava.data.MaterialBuilder;
 import org.bitbucket.nanojava.data.MaterialType;
+import org.bitbucket.nanojava.data.Morphology;
 import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.ErrorlessMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.IErrorlessMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
+import org.bitbucket.nanojava.manipulator.SubstanceManipulator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openscience.cdk.DefaultChemObjectBuilder;
+import org.openscience.cdk.exception.InvalidSmilesException;
+import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IMolecularFormula;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 import org.xmlcml.cml.element.CMLList;
@@ -36,6 +42,9 @@ import org.xmlcml.cml.element.CMLMoleculeList;
 import com.github.jqudt.onto.UnitFactory;
 import com.github.jqudt.onto.units.EnergyUnit;
 import com.github.jqudt.onto.units.LengthUnit;
+
+import nu.xom.Document;
+import nu.xom.Serializer;
 
 public class CDKSerializationTest {
 
@@ -120,6 +129,24 @@ public class CDKSerializationTest {
 	}
 
 	@Test
+	public void roundTripSizes_Component() throws Exception {
+		Material material = MaterialBuilder.type("METAL")
+			.componentFromSMILES(1, "[Au]", "SPHERE", new ErrorlessMeasurementValue(EndPoints.DIAMETER, 3.0, LengthUnit.NM))
+			.asMaterial();
+		CMLMoleculeList cmlMaterial = CDKSerializer.toCML(material);
+		Assert.assertNotNull(cmlMaterial);
+		System.out.println(asIndentedString(cmlMaterial));
+		Material roundTripped = CDKDeserializer.fromCML(cmlMaterial);
+		Assert.assertNotNull(roundTripped);
+		IAtomContainer component = roundTripped.getAtomContainer(0);
+		Assert.assertNotNull(component);
+		Assert.assertEquals(3.0,
+			((IErrorlessMeasurementValue)SubstanceManipulator.getMeasurement(component, EndPoints.DIAMETER)).getValue(),
+			0.1
+		);
+	}
+
+	@Test
 	public void roundTripPurity() {
 		Material material = new Material("METALOXIDE");
 		material.addCharacterization(new ErrorlessMeasurementValue(
@@ -159,5 +186,28 @@ public class CDKSerializationTest {
 		Assert.assertEquals(2, roundTripped.size());
 		Assert.assertEquals(MaterialType.GRAPHENE, roundTripped.get(0).getType());
 		Assert.assertEquals(MaterialType.METALOXIDE, roundTripped.get(1).getType());
+	}
+
+	@Test
+	public void roundtripMorphology() throws Exception {
+		Material material = MaterialBuilder.type("METAL")
+			.componentFromSMILES(1, "[Au]", "SPHERE")
+			.asMaterial();
+
+		CMLMoleculeList cmlMaterial = CDKSerializer.toCML(material);
+		Assert.assertNotNull(cmlMaterial);
+		Material roundTripped = CDKDeserializer.fromCML(cmlMaterial);
+		Assert.assertNotNull(roundTripped);
+		System.out.println(asIndentedString(cmlMaterial));
+		Assert.assertEquals(MaterialType.METAL, roundTripped.getType());
+		Assert.assertEquals(Morphology.SPHERE, SubstanceManipulator.getMorphology(roundTripped.getAtomContainer(0)));
+	}
+
+	private String asIndentedString(CMLMoleculeList cmlMaterial) throws Exception {
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		Serializer xomSerializer = new Serializer(output, "UTF-8");
+		xomSerializer.setIndent(2);
+		xomSerializer.write(new Document(cmlMaterial));
+		return output.toString();
 	}
 }

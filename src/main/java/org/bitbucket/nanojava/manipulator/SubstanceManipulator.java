@@ -23,6 +23,7 @@ import java.util.List;
 import java.util.Map;
 
 import org.bitbucket.nanojava.data.MaterialType;
+import org.bitbucket.nanojava.data.Morphology;
 import org.bitbucket.nanojava.data.SubstanceProperties;
 import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.IEndPoint;
@@ -88,6 +89,48 @@ public class SubstanceManipulator {
     public static MaterialType getType(ISubstance substance) {
         return substance.getProperty(SubstanceProperties.TYPE);
     }
+
+    public static void setMorphology(IAtomContainer container, Morphology type) {
+    	container.setProperty(SubstanceProperties.MORPHOLOGY, type);
+    }
+
+    public static Morphology getMorphology(IAtomContainer container) {
+    	return container.getProperty(SubstanceProperties.MORPHOLOGY);
+    }
+
+    public static void setMorphology(IAtomContainer container, String morphology) { 
+    	for (Morphology morph : Morphology.values()) {
+	        if (morph.name().equals(morphology)) {
+	            setMorphology(container, morph);
+	            return;
+	        }
+	    }
+	    throw new IllegalArgumentException(
+	        "Unsupported Morphology"
+	    );
+    }
+
+	public static IMeasurement getMeasurement(IAtomContainer component, IEndPoint endpoint) {
+		Map<IEndPoint,IMeasurement> characterizations = component.getProperty(SubstanceProperties.CHARACTERIZATIONS);
+		if (characterizations == null) return null;
+		return characterizations.get(endpoint);
+	}
+
+	public static Map<IEndPoint,IMeasurement> getMeasurements(IAtomContainer component) {
+		return component.getProperty(SubstanceProperties.CHARACTERIZATIONS);
+	}
+
+	public static void addMeasurement(IAtomContainer component, IMeasurement measurement) {
+		if (measurement == null || measurement.getEndPoint() == null)
+    		throw new NullPointerException("The characterization or its endpoint is null");
+		Map<IEndPoint,IMeasurement> characterizations =
+				component.getProperty(SubstanceProperties.CHARACTERIZATIONS);
+    	if (characterizations == null) {
+    		characterizations = new HashMap<IEndPoint,IMeasurement>();
+    		component.setProperty(SubstanceProperties.CHARACTERIZATIONS, characterizations);
+    	}
+    	characterizations.put(measurement.getEndPoint(), measurement);
+	}
 
     public static List<String> getLabels(ISubstance substance) {
     	List<String> labels = substance.getProperty(SubstanceProperties.LABELS);

@@ -23,15 +23,13 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import nu.xom.Document;
-import nu.xom.Element;
-import nu.xom.ParsingException;
-
 import org.bitbucket.nanojava.data.Material;
+import org.bitbucket.nanojava.data.SubstanceProperties;
 import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.ErrorlessMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.IEndPoint;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
+import org.bitbucket.nanojava.manipulator.SubstanceManipulator;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IChemFile;
 import org.openscience.cdk.io.CMLReader;
@@ -48,6 +46,10 @@ import org.xmlcml.cml.element.CMLScalar;
 
 import com.github.jqudt.Unit;
 import com.github.jqudt.onto.UnitFactory;
+
+import nu.xom.Document;
+import nu.xom.Element;
+import nu.xom.ParsingException;
 
 public class CDKDeserializer {
 
@@ -89,7 +91,7 @@ public class CDKDeserializer {
 
 	public static Material fromCML(CMLMoleculeList cmlMaterial) {
 		if (!cmlMaterial.getConvention().matches("nano:material")) return null;
-		Material material = new Material("METALOXIDE");
+		Material material = new Material();
 
 		List<String> labels = new ArrayList<String>();
 		for (CMLElement element : cmlMaterial.getChildCMLElements()) {
@@ -133,6 +135,36 @@ public class CDKDeserializer {
 								CMLScalar scalar = (CMLScalar)molElement;
 								if (scalar.getDictRef().equals("nano:order"))
 									container.setProperty(Material.ORDER, Integer.parseInt(scalar.getValue()));
+								if (scalar.getDictRef().equals("nano:morphology")) {
+									container.setProperty(SubstanceProperties.MORPHOLOGY, scalar.getValue());
+								}
+							} else if (molElement instanceof CMLProperty) {
+								CMLProperty prop = (CMLProperty)molElement;
+								String dictRef = prop.getDictRef();
+								System.out.println("foo: " + dictRef);
+								String url = resolveDictRef(prop, dictRef);
+								System.out.println("url: " + url);
+								if (url != null) {
+									for (CMLElement propScalar : prop.getChildCMLElements()) {
+										if (propScalar instanceof CMLScalar) {
+											CMLScalar scalar = (CMLScalar)propScalar;
+											System.out.println("property: " + scalar);
+											String unitUrl = resolveDictRef(scalar, scalar.getUnits());
+											System.out.println("unit: " + unitUrl);
+											// OK, let's figure out the end point and unit
+											IEndPoint endpoint = getEndPoint(url);
+											System.out.println("endpoint: " + endpoint);
+											Unit unit = getUnit(unitUrl);
+											if (endpoint != null && unit != null) {
+												IMeasurement characterization = new ErrorlessMeasurementValue(
+													endpoint, scalar.getDouble(), unit
+												);
+												SubstanceManipulator.addMeasurement(container, characterization);
+												System.out.println("Measurement added! " + characterization);
+											}
+										}
+									}
+								}
 							}
 						}
 					}
@@ -154,8 +186,10 @@ public class CDKDeserializer {
 	@SuppressWarnings("serial")
 	private static Map<String,IEndPoint> endpoints = new HashMap<String, IEndPoint>() {{
 			// can this be done smarter??
+		    addEndPoint(EndPoints.DIAMETER);
 		    addEndPoint(EndPoints.DIAMETER_DLS);
 		    addEndPoint(EndPoints.DIAMETER_TEM);
+		    addEndPoint(EndPoints.THICKNESS);
 		    addEndPoint(EndPoints.SIZE);
 		    addEndPoint(EndPoints.PH);
 		    addEndPoint(EndPoints.ZETA_POTENTIAL);

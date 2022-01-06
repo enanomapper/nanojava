@@ -20,10 +20,12 @@ import java.util.List;
 import java.util.Map;
 
 import org.bitbucket.nanojava.data.Material;
+import org.bitbucket.nanojava.data.SubstanceProperties;
 import org.bitbucket.nanojava.data.measurement.IEndPoint;
 import org.bitbucket.nanojava.data.measurement.IErrorlessMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
 import org.bitbucket.nanojava.data.measurement.IMeasurementValue;
+import org.bitbucket.nanojava.manipulator.SubstanceManipulator;
 import org.openscience.cdk.interfaces.IAtom;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IBond;
@@ -55,6 +57,55 @@ public class CDKSerializer {
 					scalar.setDictRef("nano:order");
 					scalar.setValue("" + orderProperty);
 					((Element)nodeToAdd).appendChild(scalar);
+				}
+				Object morphologyProperty = molecule.getProperty(SubstanceProperties.MORPHOLOGY);
+				if (morphologyProperty != null) {
+					CMLScalar scalar = new CMLScalar();
+					scalar.setDictRef("nano:morphology");
+					scalar.setValue("" + morphologyProperty);
+					((Element)nodeToAdd).appendChild(scalar);
+				}
+				// set the characterizations
+				Map<IEndPoint,IMeasurement> characterizations = SubstanceManipulator.getMeasurements(molecule);
+				for (IEndPoint endPoint : characterizations.keySet()) {
+					IMeasurement measurement = characterizations.get(endPoint);
+					System.out.println("" + endPoint);
+					System.out.println("" + measurement);
+					if (measurement != null) {
+						for (String namespace : Namespaces.prefixes.keySet()) {
+							String endPointStr = endPoint.getURI().toString();
+							System.out.println("foo: " + endPointStr);
+							if (endPointStr.startsWith(namespace)) {
+								System.out.println("bar");
+								String prefix = Namespaces.prefixes.get(namespace);
+								String entry = endPointStr.substring(namespace.length());
+
+								CMLProperty prop = new CMLProperty();
+								prop.addNamespaceDeclaration(prefix, namespace);
+								prop.setDictRef(prefix + ":" + entry);
+
+								CMLScalar scalar = new CMLScalar();
+								Unit unit = measurement.getUnit();
+								for (String unitNS : Namespaces.prefixes.keySet()) {
+									String unitStr = unit.getResource().toString();
+									if (unitStr.startsWith(unitNS)) {
+										prefix = Namespaces.prefixes.get(unitNS);
+										entry = unitStr.substring(unitNS.length());
+										scalar.addNamespaceDeclaration(prefix, unitNS);
+										scalar.setUnits(prefix + ":" + entry);
+									}
+								}
+								if (measurement instanceof IMeasurementValue) {
+									scalar.setValue(((IMeasurementValue)measurement).getValue());
+								} else if (measurement instanceof IErrorlessMeasurementValue) {
+									scalar.setValue(((IErrorlessMeasurementValue)measurement).getValue());
+								}
+								prop.addScalar(scalar);
+								System.out.println("Adding: " + prop);
+								((Element)nodeToAdd).appendChild(prop);
+							}
+						}
+					}
 				}
 			}
 			

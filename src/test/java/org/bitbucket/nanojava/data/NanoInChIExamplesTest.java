@@ -18,25 +18,28 @@ package org.bitbucket.nanojava.data;
 
 import java.io.ByteArrayOutputStream;
 
+import org.bitbucket.nanojava.data.measurement.EndPoints;
+import org.bitbucket.nanojava.data.measurement.ErrorlessMeasurementValue;
 import org.bitbucket.nanojava.inchi.NInChIGenerator;
 import org.bitbucket.nanojava.io.CDKSerializer;
 import org.junit.Assert;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.xmlcml.cml.element.CMLMoleculeList;
+
+import com.github.jqudt.onto.units.LengthUnit;
 
 import nu.xom.Document;
 import nu.xom.Serializer;
 
 public class NanoInChIExamplesTest {
 
-	@Ignore("Known to fail")
+//	@Ignore("Known to fail")
 	@Test
 	public void figureEightLeft() throws Exception {
 		Material material = MaterialBuilder.type("METALOXIDE")
 			.label("silica nanoparticles with gold coating")
-			.componentFromSMILES(1, "O=[Si]=O")
-			.componentFromSMILES(2, "[Au]")
+			.componentFromSMILES(1, "O=[Si]=O", "SPHERE")
+			.componentFromSMILES(2, "[Au]", "SHELL")
 			.asMaterial();
 
 		CMLMoleculeList cmlMaterial = CDKSerializer.toCML(material);
@@ -46,6 +49,21 @@ public class NanoInChIExamplesTest {
 		String nanoInChI = NInChIGenerator.generator(material);
 		Assert.assertNotNull(cmlMaterial);
 		Assert.assertEquals("InChI=1A/Au/msh/s2t-9!O2Si/c1-3-2/msp/s20d-9/k000/y2&1", nanoInChI);
+	}
+
+	@Test
+	public void simpleGoldParticle() throws Exception {
+		Material material = MaterialBuilder.type("METAL")
+			.componentFromSMILES(1, "[Au]", "SPHERE", new ErrorlessMeasurementValue(EndPoints.DIAMETER, 3.0, LengthUnit.NM))
+			.asMaterial();
+
+		CMLMoleculeList cmlMaterial = CDKSerializer.toCML(material);
+		Assert.assertNotNull(cmlMaterial);
+		System.out.println(asIndentedString(cmlMaterial));
+
+		String nanoInChI = NInChIGenerator.generator(material);
+		Assert.assertNotNull(cmlMaterial);
+		Assert.assertEquals("NInChI=1A/Au/msp/s3d-9/y1", nanoInChI);
 	}
 
 	private String asIndentedString(CMLMoleculeList cmlMaterial) throws Exception {

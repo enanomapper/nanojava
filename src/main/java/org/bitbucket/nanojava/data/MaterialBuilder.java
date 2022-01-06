@@ -19,6 +19,8 @@ package org.bitbucket.nanojava.data;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.bitbucket.nanojava.data.measurement.IMeasurement;
+import org.bitbucket.nanojava.manipulator.SubstanceManipulator;
 import org.openscience.cdk.exception.InvalidSmilesException;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.smiles.SmilesParser;
@@ -34,6 +36,11 @@ public class MaterialBuilder {
 	public static MaterialBuilder type(String type) {
 		MaterialBuilder builder = new MaterialBuilder(type);
 		return builder;
+	}
+
+	public MaterialBuilder morphology(String morphology) {
+		this.material.setMorphology(morphology);
+		return this;
 	}
 
 	public MaterialBuilder label(String label) {
@@ -54,18 +61,30 @@ public class MaterialBuilder {
 		return this;
 	}
 
-	public MaterialBuilder componentFromSMILES(int order, String componentSMILES) throws InvalidSmilesException {
+	public MaterialBuilder componentFromSMILES(int order, String componentSMILES, String morphology, IMeasurement... measurements) throws InvalidSmilesException {
 		SmilesParser parser = new SmilesParser(material.getBuilder());
-		IAtomContainer core = parser.parseSmiles(componentSMILES);
-		return this.component(order, core);
+		IAtomContainer component = parser.parseSmiles(componentSMILES);
+		for (IMeasurement measurement : measurements) {
+			SubstanceManipulator.addMeasurement(component, measurement);
+		}
+		return this.component(order, component, morphology);
 	}
 
-	public MaterialBuilder component(int order, IAtomContainer component) {
+	public MaterialBuilder component(int order, IAtomContainer component, String morphology, IMeasurement... measurements) {
 		component.setProperty(Material.ORDER, order);
+		SubstanceManipulator.setMorphology(component, morphology);
+		for (IMeasurement measurement : measurements) {
+			SubstanceManipulator.addMeasurement(component, measurement);
+		}
 		this.material.addAtomContainer(component);
 		return this;
 	}
 
+	public MaterialBuilder measurement(IMeasurement value) {
+		this.material.addCharacterization(value);
+		return this;
+	}
+	
 	public Material asMaterial() {
 		return this.material;
 	}
