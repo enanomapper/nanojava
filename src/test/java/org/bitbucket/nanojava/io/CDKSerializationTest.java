@@ -140,10 +140,9 @@ public class CDKSerializationTest {
 		Assert.assertNotNull(roundTripped);
 		IAtomContainer component = roundTripped.getAtomContainer(0);
 		Assert.assertNotNull(component);
-		Assert.assertEquals(3.0,
-			((IErrorlessMeasurementValue)SubstanceManipulator.getMeasurement(component, EndPoints.DIAMETER)).getValue(),
-			0.1
-		);
+		IErrorlessMeasurementValue diameter = (IErrorlessMeasurementValue)SubstanceManipulator.getMeasurement(component, EndPoints.DIAMETER);
+		Assert.assertEquals(3.0, diameter.getValue(), 0.1);
+		System.out.println("Unit: " + diameter.getUnit());
 	}
 
 	@Test
