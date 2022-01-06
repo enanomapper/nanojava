@@ -136,7 +136,7 @@ public class CDKDeserializer {
 								if (scalar.getDictRef().equals("nano:order"))
 									container.setProperty(Material.ORDER, Integer.parseInt(scalar.getValue()));
 								if (scalar.getDictRef().equals("nano:morphology")) {
-									container.setProperty(SubstanceProperties.MORPHOLOGY, scalar.getValue());
+									SubstanceManipulator.setMorphology(container, scalar.getValue());
 								}
 							} else if (molElement instanceof CMLProperty) {
 								CMLProperty prop = (CMLProperty)molElement;
