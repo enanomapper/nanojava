@@ -38,8 +38,8 @@ public class NanoInChIExamplesTest {
 	public void figureEightLeft() throws Exception {
 		Material material = MaterialBuilder.type("METALOXIDE")
 			.label("silica nanoparticles with gold coating")
-			.componentFromSMILES(1, "O=[Si]=O", "SPHERE")
-			.componentFromSMILES(2, "[Au]", "SHELL")
+			.componentFromSMILES(1, "[Au]", "SHELL")
+			.componentFromSMILES(2, "O=[Si]=O", "SPHERE")
 			.asMaterial();
 
 		CMLMoleculeList cmlMaterial = CDKSerializer.toCML(material);
