@@ -42,6 +42,13 @@ public class MaterialTest {
     public void testChemicalCompisitionWhenEmpty() throws Exception {
         Material nm = new Material("GRAPHENE");
         Assert.assertNull(nm.getChemicalComposition());
+        Assert.assertNotNull(nm.getType());
+    }
+
+    @Test
+    public void testDefaultConstructor() throws Exception {
+        Material nm = new Material();
+        Assert.assertNull(nm.getType());
     }
 
     @Test
@@ -68,8 +75,8 @@ public class MaterialTest {
 	public void figureEightLeft() throws Exception {
 		Material material = MaterialBuilder.type("METALOXIDE")
 			.label("silica nanoparticles with gold coating")
-			.componentFromSMILES(1, "O=[Si]=O")
-			.componentFromSMILES(2, "[Au]")
+			.componentFromSMILES(1, "O=[Si]=O", "SPHERE")
+			.componentFromSMILES(2, "[Au]", "SHELL")
 			.asMaterial();
 
 		CMLMoleculeList cmlMaterial = CDKSerializer.toCML(material);

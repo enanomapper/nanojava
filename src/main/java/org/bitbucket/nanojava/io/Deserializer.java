@@ -24,10 +24,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import nu.xom.Document;
-import nu.xom.Element;
-import nu.xom.ParsingException;
-
 import org.bitbucket.nanojava.data.Material;
 import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.ErrorlessMeasurementValue;
@@ -40,13 +36,16 @@ import org.xmlcml.cml.base.CMLElement;
 import org.xmlcml.cml.element.CMLFormula;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMolecule;
-import org.xmlcml.cml.element.CMLMoleculeList;
 import org.xmlcml.cml.element.CMLName;
 import org.xmlcml.cml.element.CMLProperty;
 import org.xmlcml.cml.element.CMLScalar;
 
 import com.github.jqudt.Unit;
 import com.github.jqudt.onto.UnitFactory;
+
+import nu.xom.Document;
+import nu.xom.Element;
+import nu.xom.ParsingException;
 
 public class Deserializer {
 

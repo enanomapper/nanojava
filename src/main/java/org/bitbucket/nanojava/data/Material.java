@@ -76,6 +76,10 @@ public class Material extends Substance {
         return SubstanceManipulator.getType(this);
     }
 
+    public void setMorphology(String type) {
+    	SubstanceManipulator.setType(this, type);
+    }
+
     public List<String> getLabels() {
     	return SubstanceManipulator.getLabels(this);
     }

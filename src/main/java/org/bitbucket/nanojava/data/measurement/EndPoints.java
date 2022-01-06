@@ -22,9 +22,10 @@ import java.net.URI;
 public class EndPoints {
 
 	public final static IEndPoint SIZE = new EndPoint("size", URI.create("http://purl.org/obo/owl/PATO#PATO_0000117"), null);
-	public final static IEndPoint DIAMETER_TEM = new EndPoint("diameter (TEM)", URI.create("http://purl.org/obo/owl/PATO#PATO_0001334"), SIZE);
-
-	public final static IEndPoint DIAMETER_DLS = new EndPoint("diameter (DLS)", URI.create("http://purl.bioontology.org/ontology/npo#NPO_1915"), null);
+	public final static IEndPoint DIAMETER = new EndPoint("diameter (TEM)", URI.create("http://purl.org/obo/owl/PATO#0001334"), SIZE);
+	public final static IEndPoint DIAMETER_TEM = new EndPoint("diameter (TEM)", URI.create("http://purl.org/obo/owl/PATO#PATO_0001334"), DIAMETER);
+	public final static IEndPoint DIAMETER_DLS = new EndPoint("diameter (DLS)", URI.create("http://purl.bioontology.org/ontology/npo#NPO_1915"), DIAMETER);
+	public final static IEndPoint THICKNESS = new EndPoint("diameter (TEM)", URI.create("http://purl.org/obo/owl/PATO#0000915"), SIZE);
 
 	public final static IEndPoint ZETA_POTENTIAL = new EndPoint("zeta potential", URI.create("http://purl.bioontology.org/ontology/npo#NPO_1302"), null);
 

@@ -16,13 +16,17 @@
  */
 package org.bitbucket.nanojava.data;
 
+import org.openscience.cdk.interfaces.ISubstance;
+
 public enum SubstanceProperties {
 
-	/** IChemObject property of type MaterialType. */
+	/** {@link ISubstance} property of type MaterialType. */
 	CHARACTERIZATIONS,
-	/** IChemObject property of type {@link MaterialType}. */
+	/** {@link ISubstance} property of type {@link MaterialType}. */
 	TYPE,
-	/** IChemObject property of type List<String>. */
-	LABELS
+	/** {@link ISubstance} property of type List<String>. */
+	LABELS,
+	/** {@link ISubstance} property of type {@link Morphology}. */
+	MORPHOLOGY
 
 }
