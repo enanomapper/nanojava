@@ -62,8 +62,7 @@ public class NanoInChIExamplesTest {
 		System.out.println(asIndentedString(cmlMaterial));
 
 		String nanoInChI = NInChIGenerator.generator(material);
-		Assert.assertNotNull(cmlMaterial);
-		Assert.assertEquals("NInChI=1A/Au/msp/s3d-9/y1", nanoInChI);
+		Assert.assertEquals("InChI=1A/Au/msp/s3d-9/y1", nanoInChI);
 	}
 
 	private String asIndentedString(CMLMoleculeList cmlMaterial) throws Exception {
