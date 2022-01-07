@@ -53,11 +53,11 @@ public class MaterialBuilder {
 
 	public MaterialBuilder labels(String... labels) {
 		List<String> mlabels = this.material.getLabels();
-		if (mlabels == null) {
+		if (mlabels == null || mlabels.size() == 0) {
 			mlabels = new ArrayList<String>();
-			this.material.setLabels(mlabels);
 		}
 		for (String label : labels) mlabels.add(label);
+		this.material.setLabels(mlabels);
 		return this;
 	}
 
