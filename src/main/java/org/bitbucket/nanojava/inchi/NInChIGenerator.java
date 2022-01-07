@@ -44,6 +44,7 @@ import org.openscience.cdk.interfaces.ISubstance;
  *
  * <p>Specifically, this class implements the "NInChI Alpha" from
  * <a href="https://doi.org/10.3390/nano10122493">this article</a>.
+ * And the current implementation is NOT EVEN COMPLETE.
  */
 public class NInChIGenerator {
 
