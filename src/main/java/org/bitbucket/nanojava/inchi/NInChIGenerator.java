@@ -29,7 +29,10 @@ import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.ISubstance;
 
 /**
- * Helper class to generate nano InChIs for the provided ISubstance.
+ * Helper class to generate nano InChIs for the provided ISubstance. This class is based
+ * on the current ideas of what such a nano InChI may look like. There is no specification,
+ * just explored ideas. The structure of the "NInChI" can change overnight. This implementation
+ * allows us to explore the proposal's characteristics.
  */
 public class NInChIGenerator {
 
