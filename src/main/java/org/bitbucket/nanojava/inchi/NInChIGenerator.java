@@ -41,6 +41,9 @@ import org.openscience.cdk.interfaces.ISubstance;
  * on the current ideas of what such a nano InChI may look like. There is no specification,
  * just explored ideas. The structure of the "NInChI" can change overnight. This implementation
  * allows us to explore the proposal's characteristics.
+ *
+ * <p>Specifically, this class implements the "NInChI Alpha" from
+ * <a href="https://doi.org/10.3390/nano10122493">this article</a>.
  */
 public class NInChIGenerator {
 

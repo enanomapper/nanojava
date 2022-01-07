@@ -31,6 +31,11 @@ import com.github.jqudt.onto.units.LengthUnit;
 import nu.xom.Document;
 import nu.xom.Serializer;
 
+/**
+ * These tests are aimed at testing the NInChI Alpha version.
+ *
+ * @author egonw
+ */
 public class NanoInChIExamplesTest {
 
 	@Test
