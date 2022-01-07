@@ -19,13 +19,13 @@ package org.bitbucket.nanojava.io;
 import java.io.IOException;
 import java.util.List;
 
-import junit.framework.Assert;
-import nu.xom.ParsingException;
-
-import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.Material;
+import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.measurement.IErrorlessMeasurementValue;
+import org.junit.Assert;
 import org.junit.Test;
+
+import nu.xom.ParsingException;
 
 public class DeserializationTest {
 
