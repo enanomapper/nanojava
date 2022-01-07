@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bitbucket.nanojava.data.Material;
 import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.Morphology;
 import org.bitbucket.nanojava.data.Spacegroup;
@@ -30,6 +31,7 @@ import org.bitbucket.nanojava.data.SubstanceProperties;
 import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.IEndPoint;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
+import org.bitbucket.nanojava.io.CDKSerializer;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IMolecularFormula;
 import org.openscience.cdk.interfaces.ISubstance;
@@ -188,6 +190,11 @@ public class SubstanceManipulator {
     	return container.getProperty(SubstanceProperties.SPACEGROUP);
     }
 
+    public static String asIndentedString(Material material) throws Exception {
+    	CMLMoleculeList cmlMaterial = CDKSerializer.toCML(material);
+		return asIndentedString(cmlMaterial);
+	}
+    
     public static String asIndentedString(CMLMoleculeList cmlMaterial) throws Exception {
 		ByteArrayOutputStream output = new ByteArrayOutputStream();
 		Serializer xomSerializer = new Serializer(output, "UTF-8");
