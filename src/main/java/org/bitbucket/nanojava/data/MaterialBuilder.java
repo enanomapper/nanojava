@@ -38,11 +38,6 @@ public class MaterialBuilder {
 		return builder;
 	}
 
-	public MaterialBuilder morphology(String morphology) {
-		this.material.setMorphology(morphology);
-		return this;
-	}
-
 	public MaterialBuilder label(String label) {
 		List<String> labels = this.material.getLabels();
 		if (labels == null || labels.size() == 0) labels = new ArrayList<String>();
