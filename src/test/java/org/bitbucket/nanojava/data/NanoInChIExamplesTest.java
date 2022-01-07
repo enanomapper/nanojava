@@ -32,6 +32,9 @@ import com.github.jqudt.onto.units.LengthUnit;
  */
 public class NanoInChIExamplesTest {
 
+	/**
+	 * Tests the left-side example from Figure 8 of <a href="https://doi.org/10.3390/nano10122493">this article</a>.
+	 */
 	@Test
 	public void figureEightLeft() throws Exception {
 		Material material = MaterialBuilder.type("METALOXIDE")
@@ -56,6 +59,9 @@ public class NanoInChIExamplesTest {
 		Assert.assertEquals("InChI=1A/Au/msh/s2t-9!O2Si/c1-3-2/msp/s20d-9/k000/y2&1", nanoInChI);
 	}
 
+	/**
+	 * Tests the right-side example from Figure 8 of <a href="https://doi.org/10.3390/nano10122493">this article</a>.
+	 */
 	@Test
 	public void figureEightRight() throws Exception {
 		Material material = MaterialBuilder.type("METALOXIDE")
