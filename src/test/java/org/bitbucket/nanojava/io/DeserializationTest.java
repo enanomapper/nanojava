@@ -21,7 +21,9 @@ import java.util.List;
 
 import org.bitbucket.nanojava.data.Material;
 import org.bitbucket.nanojava.data.MaterialType;
+import org.bitbucket.nanojava.data.Morphology;
 import org.bitbucket.nanojava.data.measurement.IErrorlessMeasurementValue;
+import org.bitbucket.nanojava.manipulator.SubstanceManipulator;
 import org.junit.Assert;
 import org.junit.Test;
 
@@ -59,6 +61,25 @@ public class DeserializationTest {
 		List<Material> materials = Deserializer.fromCMLListString(input);
 		Assert.assertNotNull(materials);
 		Assert.assertEquals(11, materials.size());
+	}
+
+	@Test
+	public void readMaterialFromMoleculeList() throws ParsingException, IOException {
+		String input = "<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n"
+			+ "<moleculeList id=\"molSet1\" convention=\"nano:material\" xmlns=\"http://www.xml-cml.org/schema\" xmlns:nano=\"http://linkedchemistry.org/nano#\">\n"
+			+ "  <molecule id=\"m1\">\n"
+			+ "    <atomArray>\n"
+			+ "      <atom id=\"a1\" elementType=\"Au\" formalCharge=\"0\" hydrogenCount=\"0\"/>\n"
+			+ "    </atomArray>\n"
+			+ "    <scalar dictRef=\"nano:order\" dataType=\"xsd:string\">1</scalar>\n"
+			+ "    <scalar dictRef=\"nano:morphology\" dataType=\"xsd:string\">SPHERE</scalar>\n"
+			+ "  </molecule>\n"
+			+ "  <scalar dictRef=\"nano:type\" dataType=\"xsd:string\">METAL</scalar>\n"
+			+ "</moleculeList>";
+		Material material = CDKDeserializer.fromCMLString(input);
+		Assert.assertNotNull(material);
+		Assert.assertEquals(MaterialType.METAL, material.getType());
+		Assert.assertEquals(Morphology.SPHERE, SubstanceManipulator.getMorphology(material.getAtomContainer(0)));
 	}
 
 }
