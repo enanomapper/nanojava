@@ -65,6 +65,13 @@ public class CDKSerializer {
 					scalar.setValue("" + morphologyProperty);
 					((Element)nodeToAdd).appendChild(scalar);
 				}
+				Object spacegroupProperty = molecule.getProperty(SubstanceProperties.SPACEGROUP);
+				if (spacegroupProperty != null) {
+					CMLScalar scalar = new CMLScalar();
+					scalar.setDictRef("nano:spacegroup");
+					scalar.setValue("" + spacegroupProperty);
+					((Element)nodeToAdd).appendChild(scalar);
+				}
 				// set the characterizations
 				Map<IEndPoint,IMeasurement> characterizations = SubstanceManipulator.getMeasurements(molecule);
 				for (IEndPoint endPoint : characterizations.keySet()) {

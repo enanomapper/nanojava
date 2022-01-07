@@ -62,14 +62,26 @@ public class MaterialBuilder {
 		for (IMeasurement measurement : measurements) {
 			SubstanceManipulator.addMeasurement(component, measurement);
 		}
-		return this.component(order, component, morphology);
+		return this.component(order, component, morphology, null);
 	}
 
-	public MaterialBuilder component(int order, IAtomContainer component, String morphology, IMeasurement... measurements) {
+	public MaterialBuilder componentFromSMILES(int order, String componentSMILES, String morphology, String spacegroup, IMeasurement... measurements) throws InvalidSmilesException {
+		SmilesParser parser = new SmilesParser(material.getBuilder());
+		IAtomContainer component = parser.parseSmiles(componentSMILES);
+		for (IMeasurement measurement : measurements) {
+			SubstanceManipulator.addMeasurement(component, measurement);
+		}
+		return this.component(order, component, morphology, spacegroup);
+	}
+
+	public MaterialBuilder component(int order, IAtomContainer component, String morphology, String spacegroup, IMeasurement... measurements) {
 		component.setProperty(Material.ORDER, order);
 		SubstanceManipulator.setMorphology(component, morphology);
 		for (IMeasurement measurement : measurements) {
 			SubstanceManipulator.addMeasurement(component, measurement);
+		}
+		if (spacegroup != null) {
+			SubstanceManipulator.setSpacegroup(component, spacegroup);
 		}
 		this.material.addAtomContainer(component);
 		return this;

@@ -24,6 +24,7 @@ import java.util.Map;
 
 import org.bitbucket.nanojava.data.Material;
 import org.bitbucket.nanojava.data.Morphology;
+import org.bitbucket.nanojava.data.Spacegroup;
 import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.IErrorlessMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.IMeasurement;
@@ -56,9 +57,13 @@ public class NInChIGenerator {
 			int order = component.getProperty(Material.ORDER);
 			System.out.println("InChI: " + inchi);
 			nInChIComponent += inchi.substring(9); // skip InChI=1S/
+
+			// add morphology layer
 			Morphology morph = SubstanceManipulator.getMorphology(component);
 			if (morph == Morphology.SPHERE) { nInChIComponent += "/msp"; } else
 			if (morph == Morphology.SHELL) { nInChIComponent += "/msh"; }
+
+			// add size layer
 			IMeasurement diameter = SubstanceManipulator.getMeasurement(component, EndPoints.DIAMETER);
 			System.out.println("diam: " + diameter);
 			if (diameter != null) {
@@ -81,6 +86,12 @@ public class NInChIGenerator {
 					}
 				}
 			}
+
+			// add spacegroup layer
+			Spacegroup group = SubstanceManipulator.getSpacegroup(component);
+			if (group == Spacegroup.AMORPHOUS) { nInChIComponent += "/k000"; }
+
+			// store for later alphabetical ordering
 			nInChIComponents.put(nInChIComponent, order);
 		}
 		List<String> componentStrings = new ArrayList<String>();

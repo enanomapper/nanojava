@@ -1,4 +1,4 @@
-/* Copyright (C) 2014  Egon Willighagen <egonw@users.sf.net>
+/* Copyright (C) 2022  Egon Willighagen <egonw@users.sf.net>
  *
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU Lesser General Public License as published by the Free
@@ -16,19 +16,8 @@
  */
 package org.bitbucket.nanojava.data;
 
-import org.openscience.cdk.interfaces.ISubstance;
+public enum Spacegroup {
 
-public enum SubstanceProperties {
-
-	/** {@link ISubstance} property of type MaterialType. */
-	CHARACTERIZATIONS,
-	/** {@link ISubstance} property of type {@link MaterialType}. */
-	TYPE,
-	/** {@link ISubstance} property of type List<String>. */
-	LABELS,
-	/** {@link ISubstance} property of type {@link Morphology}. */
-	MORPHOLOGY,
-	/** {@link ISubstance} property of type {@link Spacegroup}. */
-	SPACEGROUP
-
+	AMORPHOUS
+	
 }
