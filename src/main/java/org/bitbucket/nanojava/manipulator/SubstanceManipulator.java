@@ -24,6 +24,7 @@ import java.util.Map;
 
 import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.Morphology;
+import org.bitbucket.nanojava.data.Spacegroup;
 import org.bitbucket.nanojava.data.SubstanceProperties;
 import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.IEndPoint;
@@ -165,6 +166,21 @@ public class SubstanceManipulator {
     		substance.setProperty(SubstanceProperties.LABELS, labels);
     	}
     	labels.addAll(newLabels);
+    }
+
+	public static void setSpacegroup(IAtomContainer component, String spacegroup) {
+    	for (Spacegroup group : Spacegroup.values()) {
+	        if (group.name().equals(spacegroup)) {
+	        	component.setProperty(SubstanceProperties.SPACEGROUP, group);
+	            return;
+	        }
+	    }
+	    throw new IllegalArgumentException(
+	        "Unsupported spacegroup: " + spacegroup
+	    );
+	}
+    public static Spacegroup getSpacegroup(IAtomContainer container) {
+    	return container.getProperty(SubstanceProperties.SPACEGROUP);
     }
 
 }

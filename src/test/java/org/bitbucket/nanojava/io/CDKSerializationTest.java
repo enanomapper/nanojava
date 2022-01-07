@@ -24,6 +24,7 @@ import org.bitbucket.nanojava.data.Material;
 import org.bitbucket.nanojava.data.MaterialBuilder;
 import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.Morphology;
+import org.bitbucket.nanojava.data.Spacegroup;
 import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.ErrorlessMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.IErrorlessMeasurementValue;
@@ -32,7 +33,6 @@ import org.bitbucket.nanojava.manipulator.SubstanceManipulator;
 import org.junit.Assert;
 import org.junit.Test;
 import org.openscience.cdk.DefaultChemObjectBuilder;
-import org.openscience.cdk.exception.InvalidSmilesException;
 import org.openscience.cdk.interfaces.IAtomContainer;
 import org.openscience.cdk.interfaces.IMolecularFormula;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
@@ -143,6 +143,23 @@ public class CDKSerializationTest {
 		IErrorlessMeasurementValue diameter = (IErrorlessMeasurementValue)SubstanceManipulator.getMeasurement(component, EndPoints.DIAMETER);
 		Assert.assertEquals(3.0, diameter.getValue(), 0.1);
 		System.out.println("Unit: " + diameter.getUnit());
+	}
+
+	@Test
+	public void roundComponentSpacegroup() throws Exception {
+		Material material = MaterialBuilder.type("METAL")
+			.componentFromSMILES(1, "O=[Si]=O", "SPHERE", "AMORPHOUS")
+			.asMaterial();
+		CMLMoleculeList cmlMaterial = CDKSerializer.toCML(material);
+		Assert.assertNotNull(cmlMaterial);
+		System.out.println(asIndentedString(cmlMaterial));
+		Material roundTripped = CDKDeserializer.fromCML(cmlMaterial);
+		Assert.assertNotNull(roundTripped);
+		IAtomContainer component = roundTripped.getAtomContainer(0);
+		Assert.assertNotNull(component);
+		Spacegroup group = SubstanceManipulator.getSpacegroup(component);
+		Assert.assertNotNull(group);
+		Assert.assertEquals(Spacegroup.AMORPHOUS, group);
 	}
 
 	@Test

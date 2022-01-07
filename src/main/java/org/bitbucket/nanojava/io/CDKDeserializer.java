@@ -138,6 +138,9 @@ public class CDKDeserializer {
 								if (scalar.getDictRef().equals("nano:morphology")) {
 									SubstanceManipulator.setMorphology(container, scalar.getValue());
 								}
+								if (scalar.getDictRef().equals("nano:spacegroup")) {
+									SubstanceManipulator.setSpacegroup(container, scalar.getValue());
+								}
 							} else if (molElement instanceof CMLProperty) {
 								CMLProperty prop = (CMLProperty)molElement;
 								String dictRef = prop.getDictRef();
