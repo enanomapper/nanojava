@@ -17,11 +17,16 @@
 package org.bitbucket.nanojava.data;
 
 import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertThrows;
 import static org.junit.Assert.assertTrue;
 
 import java.util.List;
 
+import org.bitbucket.nanojava.manipulator.SubstanceManipulator;
 import org.junit.Test;
+import org.openscience.cdk.exception.InvalidSmilesException;
+import org.openscience.cdk.interfaces.IAtomContainer;
 
 public class MaterialBuilderTest {
 
@@ -42,7 +47,6 @@ public class MaterialBuilderTest {
 		assertEquals("silica nanoparticles with gold coating", labels.get(0));
 	}
 
-
 	@Test
 	public void labels() throws Exception {
 		Material material = MaterialBuilder.type("METALOXIDE")
@@ -54,4 +58,39 @@ public class MaterialBuilderTest {
 		assertTrue(labels.contains("SiO2-Au"));
 	}
 
+	@Test
+	public void componentMorphology() throws Exception {
+		Material material = MaterialBuilder.type("METALOXIDE")
+			.componentFromSMILES(1, "O=[Si]=O", "SPHERE")
+			.asMaterial();
+		assertEquals(1, material.getAtomContainerCount());
+		IAtomContainer component = material.getAtomContainer(0);
+		assertNotNull(component);
+		assertEquals(Morphology.SPHERE, SubstanceManipulator.getMorphology(component));
+	}
+
+	@Test
+	public void componentMorphologyBad() throws Exception {
+        Exception exception = assertThrows(
+            IllegalArgumentException.class, () ->
+            {
+            	MaterialBuilder.type("METALOXIDE")
+            		.componentFromSMILES(1, "O=[Si]=O", "FOO");
+            }
+        );
+        assertNotNull(exception);
+        System.out.println(exception.getMessage());
+        assertTrue(exception.getMessage().contains("Unsupported Morphology"));
+	}
+
+	@Test
+	public void badSMILES() throws Exception {
+        assertThrows(
+            InvalidSmilesException.class, () ->
+            {
+            	MaterialBuilder.type("METALOXIDE")
+            		.componentFromSMILES(1, "O=[Si]1", "SPHERE");
+            }
+        );
+	}
 }
