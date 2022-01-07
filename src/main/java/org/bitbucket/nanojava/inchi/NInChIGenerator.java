@@ -16,6 +16,13 @@
  */
 package org.bitbucket.nanojava.inchi;
 
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
+import org.bitbucket.nanojava.data.Material;
 import org.bitbucket.nanojava.data.Morphology;
 import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.IErrorlessMeasurementValue;
@@ -38,28 +45,60 @@ public class NInChIGenerator {
 
 	public static String generator(ISubstance substance) throws CDKException {
 		String nanoInChI = "InChI=1A/";
+
+		// determine the component parts
+		Map<String,Integer> nInChIComponents = new HashMap<>(); 
 		for (int i=0; i<substance.getAtomContainerCount(); i++) {
+			String nInChIComponent = "";
 			IAtomContainer component = substance.getAtomContainer(i);
 			InChIGenerator generator = InChIGeneratorFactory.getInstance().getInChIGenerator(component);
 			String inchi = generator.getInchi();
+			int order = component.getProperty(Material.ORDER);
 			System.out.println("InChI: " + inchi);
-			nanoInChI += inchi.substring(9); // skip InChI=1S/
+			nInChIComponent += inchi.substring(9); // skip InChI=1S/
 			Morphology morph = SubstanceManipulator.getMorphology(component);
-			if (morph == Morphology.SPHERE) { nanoInChI += "/msp"; } else
-			if (morph == Morphology.SHELL) { nanoInChI += "/msh"; }
+			if (morph == Morphology.SPHERE) { nInChIComponent += "/msp"; } else
+			if (morph == Morphology.SHELL) { nInChIComponent += "/msh"; }
 			IMeasurement diameter = SubstanceManipulator.getMeasurement(component, EndPoints.DIAMETER);
 			System.out.println("diam: " + diameter);
 			if (diameter != null) {
 				if ("nm".equals(diameter.getUnit().getAbbreviation())) {
 					if (diameter instanceof IMeasurementValue) {
-						nanoInChI += "/s" + (int)((IMeasurementValue)diameter).getValue() + "d-9";
+						nInChIComponent += "/s" + (int)((IMeasurementValue)diameter).getValue() + "d-9";
 					} else if (diameter instanceof IErrorlessMeasurementValue) {
-						nanoInChI += "/s" + (int)((IErrorlessMeasurementValue)diameter).getValue() + "d-9";
+						nInChIComponent += "/s" + (int)((IErrorlessMeasurementValue)diameter).getValue() + "d-9";
 					}
 				}
 			}
-			nanoInChI += "/y" + (i+1);
+			IMeasurement thickness = SubstanceManipulator.getMeasurement(component, EndPoints.THICKNESS);
+			System.out.println("thickness: " + thickness);
+			if (thickness != null) {
+				if ("nm".equals(thickness.getUnit().getAbbreviation())) {
+					if (thickness instanceof IMeasurementValue) {
+						nInChIComponent += "/s" + (int)((IMeasurementValue)thickness).getValue() + "t-9";
+					} else if (thickness instanceof IErrorlessMeasurementValue) {
+						nInChIComponent += "/s" + (int)((IErrorlessMeasurementValue)thickness).getValue() + "t-9";
+					}
+				}
+			}
+			nInChIComponents.put(nInChIComponent, order);
 		}
+		List<String> componentStrings = new ArrayList<String>();
+		componentStrings.addAll(nInChIComponents.keySet());
+		Collections.sort(componentStrings);
+		String yLayer = "/y";
+		String componentLayer = "";
+		for (String component : componentStrings) {
+			System.out.println("comp: " + component);
+			componentLayer += component + "!";
+			yLayer += "" + nInChIComponents.get(component) + "&";
+		}
+		componentLayer = componentLayer.substring(0,componentLayer.length()-1); // remove the trailing !
+		yLayer = yLayer.substring(0,yLayer.length()-1); // remove the trailing &
+
+		// add the component ordering, from inside out
+		nanoInChI += componentLayer + yLayer;
+		System.out.println("NInChI: " + nanoInChI);
 		return nanoInChI;
 	}
 
