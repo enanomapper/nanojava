@@ -58,7 +58,6 @@ public class NInChIGenerator {
 			InChIGenerator generator = InChIGeneratorFactory.getInstance().getInChIGenerator(component);
 			String inchi = generator.getInchi();
 			int order = component.getProperty(Material.ORDER);
-			System.out.println("InChI: " + inchi);
 			nInChIComponent += inchi.substring(9); // skip InChI=1S/
 
 			// add morphology layer
@@ -68,7 +67,6 @@ public class NInChIGenerator {
 
 			// add size layer
 			IMeasurement diameter = SubstanceManipulator.getMeasurement(component, EndPoints.DIAMETER);
-			System.out.println("diam: " + diameter);
 			if (diameter != null) {
 				if ("nm".equals(diameter.getUnit().getAbbreviation())) {
 					if (diameter instanceof IMeasurementValue) {
@@ -79,7 +77,6 @@ public class NInChIGenerator {
 				}
 			}
 			IMeasurement thickness = SubstanceManipulator.getMeasurement(component, EndPoints.THICKNESS);
-			System.out.println("thickness: " + thickness);
 			if (thickness != null) {
 				if ("nm".equals(thickness.getUnit().getAbbreviation())) {
 					if (thickness instanceof IMeasurementValue) {
@@ -103,7 +100,6 @@ public class NInChIGenerator {
 		String yLayer = "/y";
 		String componentLayer = "";
 		for (String component : componentStrings) {
-			System.out.println("comp: " + component);
 			componentLayer += component + "!";
 			yLayer += "" + nInChIComponents.get(component) + "&";
 		}
@@ -112,7 +108,6 @@ public class NInChIGenerator {
 
 		// add the component ordering, from inside out
 		nanoInChI += componentLayer + yLayer;
-		System.out.println("NInChI: " + nanoInChI);
 		return nanoInChI;
 	}
 
