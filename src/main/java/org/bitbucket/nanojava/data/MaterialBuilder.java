@@ -76,7 +76,7 @@ public class MaterialBuilder {
 
 	public MaterialBuilder component(int order, IAtomContainer component, String morphology, String spacegroup, IMeasurement... measurements) {
 		component.setProperty(Material.ORDER, order);
-		SubstanceManipulator.setMorphology(component, morphology);
+		if (morphology != null) SubstanceManipulator.setMorphology(component, morphology);
 		for (IMeasurement measurement : measurements) {
 			SubstanceManipulator.addMeasurement(component, measurement);
 		}
