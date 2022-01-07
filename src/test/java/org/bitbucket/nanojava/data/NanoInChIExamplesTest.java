@@ -58,6 +58,18 @@ public class NanoInChIExamplesTest {
 	}
 
 	@Test
+	public void figureEightRight() throws Exception {
+		Material material = MaterialBuilder.type("METALOXIDE")
+			.label("gold nanoparticle with organic coating")
+			.componentFromSMILES(1, "[Au]", "SPHERE", new ErrorlessMeasurementValue(EndPoints.DIAMETER, 20, LengthUnit.NM))
+			.componentFromSMILES(2, "CCCCCCCCCCCCCCCC[N+](C)(C)C.[Br-]", null)
+			.asMaterial();
+
+		String nanoInChI = NInChIGenerator.generator(material);
+		Assert.assertEquals("InChI=1A/Au/msp/s20d-9!C19H42N.BrH/c1-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20(2,3)4;/h5-19H2,1-4H3;1H/q+1;/p-1/y1&2", nanoInChI);
+	}
+
+	@Test
 	public void simpleGoldParticle() throws Exception {
 		Material material = MaterialBuilder.type("METAL")
 			.componentFromSMILES(1, "[Au]", "SPHERE", new ErrorlessMeasurementValue(EndPoints.DIAMETER, 3.0, LengthUnit.NM))
