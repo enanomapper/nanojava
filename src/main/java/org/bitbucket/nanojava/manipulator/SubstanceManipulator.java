@@ -16,6 +16,7 @@
  */
 package org.bitbucket.nanojava.manipulator;
 
+import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
@@ -34,6 +35,10 @@ import org.openscience.cdk.interfaces.IMolecularFormula;
 import org.openscience.cdk.interfaces.ISubstance;
 import org.openscience.cdk.silent.MolecularFormula;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
+import org.xmlcml.cml.element.CMLMoleculeList;
+
+import nu.xom.Document;
+import nu.xom.Serializer;
 
 public class SubstanceManipulator {
 
@@ -182,5 +187,13 @@ public class SubstanceManipulator {
     public static Spacegroup getSpacegroup(IAtomContainer container) {
     	return container.getProperty(SubstanceProperties.SPACEGROUP);
     }
+
+    public static String asIndentedString(CMLMoleculeList cmlMaterial) throws Exception {
+		ByteArrayOutputStream output = new ByteArrayOutputStream();
+		Serializer xomSerializer = new Serializer(output, "UTF-8");
+		xomSerializer.setIndent(2);
+		xomSerializer.write(new Document(cmlMaterial));
+		return output.toString();
+	}
 
 }
