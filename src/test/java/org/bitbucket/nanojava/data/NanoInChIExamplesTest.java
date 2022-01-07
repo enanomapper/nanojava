@@ -16,20 +16,14 @@
  */
 package org.bitbucket.nanojava.data;
 
-import java.io.ByteArrayOutputStream;
-
 import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.ErrorlessMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.bitbucket.nanojava.inchi.NInChIGenerator;
 import org.junit.Assert;
 import org.junit.Test;
-import org.xmlcml.cml.element.CMLMoleculeList;
 
 import com.github.jqudt.onto.units.LengthUnit;
-
-import nu.xom.Document;
-import nu.xom.Serializer;
 
 /**
  * These tests are aimed at testing the NInChI Alpha version.
@@ -81,14 +75,6 @@ public class NanoInChIExamplesTest {
 			.asMaterial();
 		String nanoInChI = NInChIGenerator.generator(material);
 		Assert.assertEquals("InChI=1A/Au/msp/s3d-9/y1", nanoInChI);
-	}
-
-	private String asIndentedString(CMLMoleculeList cmlMaterial) throws Exception {
-		ByteArrayOutputStream output = new ByteArrayOutputStream();
-		Serializer xomSerializer = new Serializer(output, "UTF-8");
-		xomSerializer.setIndent(2);
-		xomSerializer.write(new Document(cmlMaterial));
-		return output.toString();
 	}
 
 }
