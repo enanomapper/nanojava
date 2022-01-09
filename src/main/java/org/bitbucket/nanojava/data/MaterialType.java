@@ -21,6 +21,7 @@ public enum MaterialType {
     METAL("metal", ""),
     METALOXIDE("metal oxide", ""),
     CARBONNANOTUBE("carbon nanotube", ""),
+    NANOTUBE("nanotube", ""),
     GRAPHENE("graphene", "");
 
     String label;

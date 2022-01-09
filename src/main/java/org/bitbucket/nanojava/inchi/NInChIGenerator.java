@@ -22,6 +22,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bitbucket.nanojava.data.Chirality;
 import org.bitbucket.nanojava.data.Material;
 import org.bitbucket.nanojava.data.Morphology;
 import org.bitbucket.nanojava.data.Spacegroup;
@@ -60,6 +61,7 @@ public class NInChIGenerator {
 			String nInChIComponent = generateStructureLayer(component);
 			nInChIComponent += gerateMorphologyLayer(component);
 			nInChIComponent += generateSizeLayer(component);
+			nInChIComponent += generateChiralityLayer(component);
 			nInChIComponent += generateCrystalStructureLayer(component);
 
 			// store for later alphabetical ordering
@@ -82,6 +84,13 @@ public class NInChIGenerator {
 		return nanoInChI;
 	}
 
+	private static String generateChiralityLayer(IAtomContainer component) {
+		String layer = "";
+		Chirality chirality = SubstanceManipulator.getChiralityType(component);
+		if (chirality == Chirality.THREE_BY_ONE) layer += "/w(3,1)";
+		return layer;
+	}
+
 	private static String generateCrystalStructureLayer(IAtomContainer component) {
 		String layer = "";
 		Spacegroup group = SubstanceManipulator.getSpacegroup(component);
@@ -93,7 +102,8 @@ public class NInChIGenerator {
 		String layer = "";
 		Morphology morph = SubstanceManipulator.getMorphology(component);
 		if (morph == Morphology.SPHERE) { layer += "/msp"; } else
-		if (morph == Morphology.SHELL) { layer += "/msh"; }
+		if (morph == Morphology.SHELL) { layer += "/msh"; } else
+		if (morph == Morphology.TUBE) { layer += "/mtu"; }
 		return layer;
 	}
 
@@ -105,27 +115,34 @@ public class NInChIGenerator {
 		return layer;
 	}
 
-	private static String generateSizeLayer(IAtomContainer component) {
+	private static String generateSizeLayer(IAtomContainer component) throws CDKException {
 		String layer = "";
-		IMeasurement diameter = SubstanceManipulator.getMeasurement(component, EndPoints.DIAMETER);
-		if (diameter != null) {
-			if ("nm".equals(diameter.getUnit().getAbbreviation())) {
-				if (diameter instanceof IMeasurementValue) {
-					layer += "/s" + (int)((IMeasurementValue)diameter).getValue() + "d-9";
-				} else if (diameter instanceof IErrorlessMeasurementValue) {
-					layer += "/s" + (int)((IErrorlessMeasurementValue)diameter).getValue() + "d-9";
-				}
+		IMeasurement measurement = SubstanceManipulator.getMeasurement(component, EndPoints.DIAMETER);
+		if (measurement != null) layer = sizeFromMeasurement(layer, measurement, "d");
+		measurement = SubstanceManipulator.getMeasurement(component, EndPoints.THICKNESS);
+		if (measurement != null) layer = sizeFromMeasurement(layer, measurement, "t");
+		return layer;
+	}
+
+	private static String sizeFromMeasurement(String layer, IMeasurement measurement, String measurementType)
+			throws CDKException {
+		if ("nm".equals(measurement.getUnit().getAbbreviation())) {
+			double value = 0.0;
+			if (measurement instanceof IMeasurementValue) {
+				value = ((IMeasurementValue)measurement).getValue();
+			} else if (measurement instanceof IErrorlessMeasurementValue) {
+				value = ((IErrorlessMeasurementValue)measurement).getValue();
+			} else {
+				throw new CDKException("Yet unsupported measurement value: " + measurement.getClass().getName());
 			}
-		}
-		IMeasurement thickness = SubstanceManipulator.getMeasurement(component, EndPoints.THICKNESS);
-		if (thickness != null) {
-			if ("nm".equals(thickness.getUnit().getAbbreviation())) {
-				if (thickness instanceof IMeasurementValue) {
-					layer += "/s" + (int)((IMeasurementValue)thickness).getValue() + "t-9";
-				} else if (thickness instanceof IErrorlessMeasurementValue) {
-					layer += "/s" + (int)((IErrorlessMeasurementValue)thickness).getValue() + "t-9";
-				}
+			String exponent = "-9";
+			if (value < 1.0) {
+				value = value*10.0;
+				exponent = "-10";
 			}
+			layer += "/s" + (int)value + measurementType + exponent;
+		} else {
+			throw new CDKException("Yet unsupported unit type: " + measurement.getUnit().getClass().getName());
 		}
 		return layer;
 	}

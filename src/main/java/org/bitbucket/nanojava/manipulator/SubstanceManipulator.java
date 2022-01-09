@@ -23,6 +23,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.bitbucket.nanojava.data.Chirality;
 import org.bitbucket.nanojava.data.Material;
 import org.bitbucket.nanojava.data.MaterialType;
 import org.bitbucket.nanojava.data.Morphology;
@@ -96,6 +97,26 @@ public class SubstanceManipulator {
 
     public static MaterialType getType(ISubstance substance) {
         return substance.getProperty(SubstanceProperties.TYPE);
+    }
+
+    public static void setChiralityType(IAtomContainer container, String chiralityType) {
+    	for (Chirality type : Chirality.values()) {
+	        if (type.name().equals(chiralityType)) {
+	            setChiralityType(container, type);
+	            return;
+	        }
+	    }
+	    throw new IllegalArgumentException(
+	        "Unsupported Chirality"
+	    );
+    }
+
+    public static void setChiralityType(IAtomContainer container, Chirality type) {
+    	container.setProperty(SubstanceProperties.CHIRALITYTYPE, type);
+    }
+
+    public static Chirality getChiralityType(IAtomContainer container) {
+        return container.getProperty(SubstanceProperties.CHIRALITYTYPE);
     }
 
     public static void setMorphology(IAtomContainer container, Morphology type) {
