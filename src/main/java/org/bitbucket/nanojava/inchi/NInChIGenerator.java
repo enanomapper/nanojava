@@ -49,7 +49,7 @@ import org.openscience.cdk.interfaces.ISubstance;
 public class NInChIGenerator {
 
 	public static String generator(ISubstance substance) throws CDKException {
-		String nanoInChI = "InChI=0.00.1A/";
+		String nanoInChI = "NInChI=0.00.1A/";
 
 		// determine the component parts
 		Map<String,Integer> nInChIComponents = new HashMap<>(); 
