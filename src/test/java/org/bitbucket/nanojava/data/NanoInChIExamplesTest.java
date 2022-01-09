@@ -20,7 +20,6 @@ import org.bitbucket.nanojava.data.measurement.EndPoints;
 import org.bitbucket.nanojava.data.measurement.ErrorlessMeasurementValue;
 import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.bitbucket.nanojava.inchi.NInChIGenerator;
-import org.bitbucket.nanojava.manipulator.SubstanceManipulator;
 import org.junit.Assert;
 import org.junit.Test;
 
