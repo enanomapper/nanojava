@@ -44,7 +44,7 @@ public class NanoInChIExamplesTest {
 			.asMaterial();
 
 		String nanoInChI = NInChIGenerator.generator(material);
-		Assert.assertEquals("InChI=0.00.1A/Au/msh/s2t-9!O2Si/c1-3-2/msp/s20d-9/k000/y2&1", nanoInChI);
+		Assert.assertEquals("NInChI=0.00.1A/Au/msh/s2t-9!O2Si/c1-3-2/msp/s20d-9/k000/y2&1", nanoInChI);
 	}
 
 	@Test
@@ -56,7 +56,7 @@ public class NanoInChIExamplesTest {
 			.asMaterial();
 
 		String nanoInChI = NInChIGenerator.generator(material);
-		Assert.assertEquals("InChI=0.00.1A/Au/msh/s2t-9!O2Si/c1-3-2/msp/s20d-9/k000/y2&1", nanoInChI);
+		Assert.assertEquals("NInChI=0.00.1A/Au/msh/s2t-9!O2Si/c1-3-2/msp/s20d-9/k000/y2&1", nanoInChI);
 	}
 
 	/**
@@ -71,7 +71,7 @@ public class NanoInChIExamplesTest {
 			.asMaterial();
 
 		String nanoInChI = NInChIGenerator.generator(material);
-		Assert.assertEquals("InChI=0.00.1A/Au/msp/s20d-9!C19H42N.BrH/c1-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20(2,3)4;/h5-19H2,1-4H3;1H/q+1;/p-1/y1&2", nanoInChI);
+		Assert.assertEquals("NInChI=0.00.1A/Au/msp/s20d-9!C19H42N.BrH/c1-5-6-7-8-9-10-11-12-13-14-15-16-17-18-19-20(2,3)4;/h5-19H2,1-4H3;1H/q+1;/p-1/y1&2", nanoInChI);
 	}
 
 	@Test
@@ -80,7 +80,7 @@ public class NanoInChIExamplesTest {
 			.componentFromSMILES(1, "[Au]", "SPHERE", new ErrorlessMeasurementValue(EndPoints.DIAMETER, 3.0, LengthUnit.NM))
 			.asMaterial();
 		String nanoInChI = NInChIGenerator.generator(material);
-		Assert.assertEquals("InChI=0.00.1A/Au/msp/s3d-9/y1", nanoInChI);
+		Assert.assertEquals("NInChI=0.00.1A/Au/msp/s3d-9/y1", nanoInChI);
 	}
 
 }
