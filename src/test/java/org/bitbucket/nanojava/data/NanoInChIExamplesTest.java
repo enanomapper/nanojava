@@ -22,6 +22,7 @@ import org.bitbucket.nanojava.data.measurement.MeasurementValue;
 import org.bitbucket.nanojava.inchi.NInChIGenerator;
 import org.junit.Assert;
 import org.junit.Test;
+import org.openscience.cdk.exception.CDKException;
 
 import com.github.jqudt.onto.units.LengthUnit;
 
@@ -83,4 +84,12 @@ public class NanoInChIExamplesTest {
 		Assert.assertEquals("NInChI=0.00.1A/Au/msp/s3d-9/y1", nanoInChI);
 	}
 
+	@Test
+	public void swcnt() throws CDKException {
+		Material material = MaterialBuilder.type("CARBONNANOTUBE")
+			.componentFromSMILES(1, "[C]", "TUBE", null, "THREE_BY_ONE", new ErrorlessMeasurementValue(EndPoints.DIAMETER, 0.4, LengthUnit.NM))
+			.asMaterial();
+		String nanoInChI = NInChIGenerator.generator(material);
+		Assert.assertEquals("NInChI=0.00.1A/C/mtu/s4d-10/w(3,1)/y1", nanoInChI);
+	}
 }

@@ -16,10 +16,8 @@
  */
 package org.bitbucket.nanojava.data;
 
-public enum Morphology {
+public enum Chirality {
 
-	SHELL,
-	SPHERE,
-	TUBE
+	THREE_BY_ONE
 	
 }

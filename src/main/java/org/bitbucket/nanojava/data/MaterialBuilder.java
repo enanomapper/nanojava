@@ -62,26 +62,30 @@ public class MaterialBuilder {
 		for (IMeasurement measurement : measurements) {
 			SubstanceManipulator.addMeasurement(component, measurement);
 		}
-		return this.component(order, component, morphology, null);
+		return this.component(order, component, morphology, null, null);
 	}
 
 	public MaterialBuilder componentFromSMILES(int order, String componentSMILES, String morphology, String spacegroup, IMeasurement... measurements) throws InvalidSmilesException {
 		SmilesParser parser = new SmilesParser(material.getBuilder());
 		IAtomContainer component = parser.parseSmiles(componentSMILES);
-		for (IMeasurement measurement : measurements) {
-			SubstanceManipulator.addMeasurement(component, measurement);
-		}
-		return this.component(order, component, morphology, spacegroup);
+		return this.component(order, component, morphology, spacegroup, null, measurements);
 	}
 
-	public MaterialBuilder component(int order, IAtomContainer component, String morphology, String spacegroup, IMeasurement... measurements) {
+	public MaterialBuilder componentFromSMILES(int order, String componentSMILES, String morphology, String spacegroup, String chirality, IMeasurement... measurements) throws InvalidSmilesException {
+		SmilesParser parser = new SmilesParser(material.getBuilder());
+		IAtomContainer component = parser.parseSmiles(componentSMILES);
+		return this.component(order, component, morphology, spacegroup, chirality, measurements);
+	}
+
+	public MaterialBuilder component(int order, IAtomContainer component, String morphology, String spacegroup, String chirality, IMeasurement... measurements) {
 		component.setProperty(Material.ORDER, order);
 		if (morphology != null) SubstanceManipulator.setMorphology(component, morphology);
 		for (IMeasurement measurement : measurements) {
 			SubstanceManipulator.addMeasurement(component, measurement);
 		}
-		if (spacegroup != null) {
-			SubstanceManipulator.setSpacegroup(component, spacegroup);
+		if (spacegroup != null) SubstanceManipulator.setSpacegroup(component, spacegroup);
+		if (chirality != null) {
+			SubstanceManipulator.setChiralityType(component, chirality);
 		}
 		this.material.addAtomContainer(component);
 		return this;

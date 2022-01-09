@@ -29,6 +29,8 @@ public enum SubstanceProperties {
 	/** {@link ISubstance} property of type {@link Morphology}. */
 	MORPHOLOGY,
 	/** {@link ISubstance} property of type {@link Spacegroup}. */
-	SPACEGROUP
+	SPACEGROUP,
+	/** {@link ISubstance} property of type {@link Chirality}. */
+	CHIRALITYTYPE
 
 }
