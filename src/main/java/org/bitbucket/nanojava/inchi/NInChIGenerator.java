@@ -54,43 +54,13 @@ public class NInChIGenerator {
 		// determine the component parts
 		Map<String,Integer> nInChIComponents = new HashMap<>(); 
 		for (int i=0; i<substance.getAtomContainerCount(); i++) {
-			String nInChIComponent = "";
 			IAtomContainer component = substance.getAtomContainer(i);
-			InChIGenerator generator = InChIGeneratorFactory.getInstance().getInChIGenerator(component);
-			String inchi = generator.getInchi();
 			int order = component.getProperty(Material.ORDER);
-			nInChIComponent += inchi.substring(9); // skip InChI=1S/
 
-			// add morphology layer
-			Morphology morph = SubstanceManipulator.getMorphology(component);
-			if (morph == Morphology.SPHERE) { nInChIComponent += "/msp"; } else
-			if (morph == Morphology.SHELL) { nInChIComponent += "/msh"; }
-
-			// add size layer
-			IMeasurement diameter = SubstanceManipulator.getMeasurement(component, EndPoints.DIAMETER);
-			if (diameter != null) {
-				if ("nm".equals(diameter.getUnit().getAbbreviation())) {
-					if (diameter instanceof IMeasurementValue) {
-						nInChIComponent += "/s" + (int)((IMeasurementValue)diameter).getValue() + "d-9";
-					} else if (diameter instanceof IErrorlessMeasurementValue) {
-						nInChIComponent += "/s" + (int)((IErrorlessMeasurementValue)diameter).getValue() + "d-9";
-					}
-				}
-			}
-			IMeasurement thickness = SubstanceManipulator.getMeasurement(component, EndPoints.THICKNESS);
-			if (thickness != null) {
-				if ("nm".equals(thickness.getUnit().getAbbreviation())) {
-					if (thickness instanceof IMeasurementValue) {
-						nInChIComponent += "/s" + (int)((IMeasurementValue)thickness).getValue() + "t-9";
-					} else if (thickness instanceof IErrorlessMeasurementValue) {
-						nInChIComponent += "/s" + (int)((IErrorlessMeasurementValue)thickness).getValue() + "t-9";
-					}
-				}
-			}
-
-			// add spacegroup layer
-			Spacegroup group = SubstanceManipulator.getSpacegroup(component);
-			if (group == Spacegroup.AMORPHOUS) { nInChIComponent += "/k000"; }
+			String nInChIComponent = generateStructureLayer(component);
+			nInChIComponent += gerateMorphologyLayer(component);
+			nInChIComponent += generateSizeLayer(component);
+			nInChIComponent += generateCrystalStructureLayer(component);
 
 			// store for later alphabetical ordering
 			nInChIComponents.put(nInChIComponent, order);
@@ -110,6 +80,54 @@ public class NInChIGenerator {
 		// add the component ordering, from inside out
 		nanoInChI += componentLayer + yLayer;
 		return nanoInChI;
+	}
+
+	private static String generateCrystalStructureLayer(IAtomContainer component) {
+		String layer = "";
+		Spacegroup group = SubstanceManipulator.getSpacegroup(component);
+		if (group == Spacegroup.AMORPHOUS) { layer += "/k000"; }
+		return layer;
+	}
+
+	private static String gerateMorphologyLayer(IAtomContainer component) {
+		String layer = "";
+		Morphology morph = SubstanceManipulator.getMorphology(component);
+		if (morph == Morphology.SPHERE) { layer += "/msp"; } else
+		if (morph == Morphology.SHELL) { layer += "/msh"; }
+		return layer;
+	}
+
+	private static String generateStructureLayer(IAtomContainer component) throws CDKException {
+		String layer = "";
+		InChIGenerator generator = InChIGeneratorFactory.getInstance().getInChIGenerator(component);
+		String inchi = generator.getInchi();
+		layer += inchi.substring(9); // skip InChI=1S/
+		return layer;
+	}
+
+	private static String generateSizeLayer(IAtomContainer component) {
+		String layer = "";
+		IMeasurement diameter = SubstanceManipulator.getMeasurement(component, EndPoints.DIAMETER);
+		if (diameter != null) {
+			if ("nm".equals(diameter.getUnit().getAbbreviation())) {
+				if (diameter instanceof IMeasurementValue) {
+					layer += "/s" + (int)((IMeasurementValue)diameter).getValue() + "d-9";
+				} else if (diameter instanceof IErrorlessMeasurementValue) {
+					layer += "/s" + (int)((IErrorlessMeasurementValue)diameter).getValue() + "d-9";
+				}
+			}
+		}
+		IMeasurement thickness = SubstanceManipulator.getMeasurement(component, EndPoints.THICKNESS);
+		if (thickness != null) {
+			if ("nm".equals(thickness.getUnit().getAbbreviation())) {
+				if (thickness instanceof IMeasurementValue) {
+					layer += "/s" + (int)((IMeasurementValue)thickness).getValue() + "t-9";
+				} else if (thickness instanceof IErrorlessMeasurementValue) {
+					layer += "/s" + (int)((IErrorlessMeasurementValue)thickness).getValue() + "t-9";
+				}
+			}
+		}
+		return layer;
 	}
 
 }
