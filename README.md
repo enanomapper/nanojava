@@ -61,7 +61,7 @@ If you do not have Docker or if it is an overhead for your use case, you can bun
 
 ### Usage
 
-**NOTE:** descriptor names are the class names of the descriptors available under the package org.bitbucket.nanojava.descriptor:
+**NOTE:** descriptor names are the class names of the descriptors available under the package io.github.egonw.nanojava.descriptor:
 
 - ParticleSizeDescriptor
 - MetalElementMassDescriptor
