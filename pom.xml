@@ -2,8 +2,18 @@
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.egonw</groupId>
   <artifactId>nanojava</artifactId>
+  <description>Java library extending the Chemistry Development Kit with functionality for nanomaterials.</description>  
   <name>NanoJava</name>
   <version>2.0.0</version>
+  <url>https://github.com/enanomapper/nanojava</url>
+
+  <licenses>
+    <license>
+      <name>GNU LGPL 2.1 or later</name>
+      <url>http://www.gnu.org/licenses/lgpl.html</url>
+      <distribution>repo</distribution>
+    </license>
+  </licenses>
 
   <scm>
     <connection>scm:git:git://github.com/egonw/nanojava.git</connection>
@@ -164,6 +174,44 @@
                 <configuration>
                     <groups>${junit5.groups}</groups>
                     <excludedGroups>${junit5.excludeGroups}</excludedGroups>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-source-plugin</artifactId>
+                <version>3.2.1</version>
+                <executions>
+                    <execution>
+                        <id>attach-sources</id>
+                        <goals>
+                            <goal>jar-no-fork</goal>
+                       </goals>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.4.0</version>
+                <executions>
+                    <execution>
+                        <id>attach-javadocs</id>
+                        <goals>
+                            <goal>jar</goal>
+                        </goals>
+                    </execution>
+                    <execution>
+                        <id>aggregate</id>
+                        <goals>
+                            <goal>aggregate</goal>
+                        </goals>
+                        <phase>site</phase>
+                        <configuration>
+                        </configuration>
+                    </execution>
+                </executions>
+                <configuration>
+                    <source>8</source>
                 </configuration>
             </plugin>
 	</plugins> 
