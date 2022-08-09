@@ -17,7 +17,7 @@ LABEL maintainer "Ammar Ammar <ammar257ammar@gmail.com>"
 
 RUN apk update && apk add bash
 
-COPY --from=maven /tmp/target/nanojava-1.2.0-SNAPSHOT-jar-with-dependencies.jar /app/nanojava.jar
+COPY --from=maven /tmp/target/nanojava-2.0.0-jar-with-dependencies.jar /app/nanojava.jar
 
 ENTRYPOINT ["java","-jar","/app/nanojava.jar"]
 CMD ["-h"]
