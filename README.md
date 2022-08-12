@@ -1,5 +1,6 @@
 [![build](https://github.com/egonw/nanojava/actions/workflows/maven.yml/badge.svg)](https://github.com/egonw/nanojava/actions/workflows/maven.yml)
 [![codecov](https://codecov.io/gh/egonw/nanojava/branch/master/graph/badge.svg?token=7AGTB9R55I)](https://codecov.io/gh/egonw/nanojava)
+[![DOI](https://zenodo.org/badge/16758207.svg)](https://zenodo.org/badge/latestdoi/16758207)
 
 # nanojava
 
