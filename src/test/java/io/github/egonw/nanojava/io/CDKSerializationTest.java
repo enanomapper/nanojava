@@ -20,6 +20,19 @@ import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.junit.Assert;
+import org.junit.Test;
+import org.openscience.cdk.interfaces.IAtomContainer;
+import org.openscience.cdk.interfaces.IMolecularFormula;
+import org.openscience.cdk.silent.SilentChemObjectBuilder;
+import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
+import org.xmlcml.cml.element.CMLList;
+import org.xmlcml.cml.element.CMLMoleculeList;
+
+import com.github.jqudt.onto.UnitFactory;
+import com.github.jqudt.onto.units.EnergyUnit;
+import com.github.jqudt.onto.units.LengthUnit;
+
 import io.github.egonw.nanojava.data.Material;
 import io.github.egonw.nanojava.data.MaterialBuilder;
 import io.github.egonw.nanojava.data.MaterialType;
@@ -30,19 +43,6 @@ import io.github.egonw.nanojava.data.measurement.ErrorlessMeasurementValue;
 import io.github.egonw.nanojava.data.measurement.IErrorlessMeasurementValue;
 import io.github.egonw.nanojava.data.measurement.MeasurementValue;
 import io.github.egonw.nanojava.manipulator.SubstanceManipulator;
-import org.junit.Assert;
-import org.junit.Test;
-import org.openscience.cdk.DefaultChemObjectBuilder;
-import org.openscience.cdk.interfaces.IAtomContainer;
-import org.openscience.cdk.interfaces.IMolecularFormula;
-import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
-import org.xmlcml.cml.element.CMLList;
-import org.xmlcml.cml.element.CMLMoleculeList;
-
-import com.github.jqudt.onto.UnitFactory;
-import com.github.jqudt.onto.units.EnergyUnit;
-import com.github.jqudt.onto.units.LengthUnit;
-
 import nu.xom.Document;
 import nu.xom.Serializer;
 
@@ -86,7 +86,7 @@ public class CDKSerializationTest {
 		Material material = new Material("METALOXIDE");
         material.addAtomContainer(
         	MolecularFormulaManipulator.getAtomContainer(
-        		"CeO2", DefaultChemObjectBuilder.getInstance()
+        		"CeO2", SilentChemObjectBuilder.getInstance()
         	)
         );
         CMLMoleculeList cmlMaterial = CDKSerializer.toCML(material);

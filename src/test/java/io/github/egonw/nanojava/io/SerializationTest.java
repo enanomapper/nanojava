@@ -19,16 +19,10 @@ package io.github.egonw.nanojava.io;
 import java.util.ArrayList;
 import java.util.List;
 
-import io.github.egonw.nanojava.data.MaterialType;
-import io.github.egonw.nanojava.data.Material;
-import io.github.egonw.nanojava.data.measurement.EndPoints;
-import io.github.egonw.nanojava.data.measurement.ErrorlessMeasurementValue;
-import io.github.egonw.nanojava.data.measurement.IErrorlessMeasurementValue;
-import io.github.egonw.nanojava.data.measurement.MeasurementValue;
 import org.junit.Assert;
 import org.junit.Test;
-import org.openscience.cdk.DefaultChemObjectBuilder;
 import org.openscience.cdk.interfaces.IMolecularFormula;
+import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 import org.xmlcml.cml.element.CMLList;
 import org.xmlcml.cml.element.CMLMolecule;
@@ -36,6 +30,13 @@ import org.xmlcml.cml.element.CMLMolecule;
 import com.github.jqudt.onto.UnitFactory;
 import com.github.jqudt.onto.units.EnergyUnit;
 import com.github.jqudt.onto.units.LengthUnit;
+
+import io.github.egonw.nanojava.data.Material;
+import io.github.egonw.nanojava.data.MaterialType;
+import io.github.egonw.nanojava.data.measurement.EndPoints;
+import io.github.egonw.nanojava.data.measurement.ErrorlessMeasurementValue;
+import io.github.egonw.nanojava.data.measurement.IErrorlessMeasurementValue;
+import io.github.egonw.nanojava.data.measurement.MeasurementValue;
 
 public class SerializationTest {
 
@@ -77,7 +78,7 @@ public class SerializationTest {
 		Material material = new Material("METALOXIDE");
         material.addAtomContainer(
         	MolecularFormulaManipulator.getAtomContainer(
-        		"CeO2", DefaultChemObjectBuilder.getInstance()
+        		"CeO2", SilentChemObjectBuilder.getInstance()
         	)
         );
 		CMLMolecule cmlMaterial = Serializer.toCML(material);
