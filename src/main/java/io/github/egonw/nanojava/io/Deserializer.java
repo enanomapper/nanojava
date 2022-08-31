@@ -29,7 +29,8 @@ import io.github.egonw.nanojava.data.measurement.EndPoints;
 import io.github.egonw.nanojava.data.measurement.ErrorlessMeasurementValue;
 import io.github.egonw.nanojava.data.measurement.IEndPoint;
 import io.github.egonw.nanojava.data.measurement.IMeasurement;
-import org.openscience.cdk.DefaultChemObjectBuilder;
+
+import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 import org.xmlcml.cml.base.CMLBuilder;
 import org.xmlcml.cml.base.CMLElement;
@@ -120,7 +121,7 @@ public class Deserializer {
 					material.addAtomContainer(
 						MolecularFormulaManipulator.getAtomContainer(
 							element.getAttributeValue("inline"),
-							DefaultChemObjectBuilder.getInstance()
+							SilentChemObjectBuilder.getInstance()
 						)
 					);
 					labels.add("formula:"+element.getAttributeValue("inline"));

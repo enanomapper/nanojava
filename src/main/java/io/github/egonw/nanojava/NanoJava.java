@@ -30,7 +30,8 @@ import java.util.Map;
 import io.github.egonw.nanojava.data.Material;
 import io.github.egonw.nanojava.descriptor.ISubstanceDescriptor;
 import io.github.egonw.nanojava.io.Loader;
-import org.openscience.cdk.DefaultChemObjectBuilder;
+
+import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
 import nu.xom.ParsingException;
@@ -77,7 +78,7 @@ public class NanoJava {
 
 			Material material = new Material();
 			material.addAtomContainer(MolecularFormulaManipulator.getAtomContainer(cli.material.trim(),
-					DefaultChemObjectBuilder.getInstance()));
+					SilentChemObjectBuilder.getInstance()));
 			
 			List<String> labels = new ArrayList<String>(material.getLabels());
 			labels.add("formula:"+cli.material.trim());
