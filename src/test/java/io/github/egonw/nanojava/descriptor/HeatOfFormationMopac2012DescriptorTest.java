@@ -16,17 +16,17 @@
  */
 package io.github.egonw.nanojava.descriptor;
 
-import junit.framework.Assert;
-
-import io.github.egonw.nanojava.data.MaterialType;
-import io.github.egonw.nanojava.data.Material;
 import org.junit.Before;
 import org.junit.Test;
-import org.openscience.cdk.DefaultChemObjectBuilder;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.DoubleResult;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
+import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
+
+import io.github.egonw.nanojava.data.Material;
+import io.github.egonw.nanojava.data.MaterialType;
+import junit.framework.Assert;
 
 public class HeatOfFormationMopac2012DescriptorTest
 extends MaterialDescriptorTest {
@@ -41,7 +41,7 @@ extends MaterialDescriptorTest {
         Material material = new Material(MaterialType.METALOXIDE);
         material.addAtomContainer(
             MolecularFormulaManipulator.getAtomContainer(
-                "ZnO", DefaultChemObjectBuilder.getInstance()
+                "ZnO", SilentChemObjectBuilder.getInstance()
             )
         );
         DescriptorValue value = descriptor.calculate(material);
@@ -56,7 +56,7 @@ extends MaterialDescriptorTest {
         Material material = new Material(MaterialType.METALOXIDE);
         material.addAtomContainer(
             MolecularFormulaManipulator.getAtomContainer(
-                "Fe2O3", DefaultChemObjectBuilder.getInstance()
+                "Fe2O3", SilentChemObjectBuilder.getInstance()
             )
         );
         DescriptorValue value = descriptor.calculate(material);
@@ -71,7 +71,7 @@ extends MaterialDescriptorTest {
         Material material = new Material(MaterialType.METALOXIDE);
         material.addAtomContainer(
             MolecularFormulaManipulator.getAtomContainer(
-                "Al2O3", DefaultChemObjectBuilder.getInstance()
+                "Al2O3", SilentChemObjectBuilder.getInstance()
             )
         );
         DescriptorValue value = descriptor.calculate(material);
@@ -86,7 +86,7 @@ extends MaterialDescriptorTest {
         Material material = new Material(MaterialType.METALOXIDE);
         material.addAtomContainer(
             MolecularFormulaManipulator.getAtomContainer(
-                "CuZnFe2O4", DefaultChemObjectBuilder.getInstance()
+                "CuZnFe2O4", SilentChemObjectBuilder.getInstance()
             )
         );
         DescriptorValue value = descriptor.calculate(material);

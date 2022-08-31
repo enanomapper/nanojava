@@ -16,21 +16,21 @@
  */
 package io.github.egonw.nanojava.descriptor;
 
-import junit.framework.Assert;
-
-import io.github.egonw.nanojava.data.MaterialType;
-import io.github.egonw.nanojava.data.Material;
-import io.github.egonw.nanojava.data.measurement.EndPoints;
-import io.github.egonw.nanojava.data.measurement.MeasurementValue;
 import org.junit.Before;
 import org.junit.Test;
-import org.openscience.cdk.DefaultChemObjectBuilder;
 import org.openscience.cdk.qsar.DescriptorValue;
 import org.openscience.cdk.qsar.result.DoubleArrayResult;
 import org.openscience.cdk.qsar.result.IDescriptorResult;
+import org.openscience.cdk.silent.SilentChemObjectBuilder;
 import org.openscience.cdk.tools.manipulator.MolecularFormulaManipulator;
 
 import com.github.jqudt.onto.units.LengthUnit;
+
+import io.github.egonw.nanojava.data.Material;
+import io.github.egonw.nanojava.data.MaterialType;
+import io.github.egonw.nanojava.data.measurement.EndPoints;
+import io.github.egonw.nanojava.data.measurement.MeasurementValue;
+import junit.framework.Assert;
 
 public class EnergyBandDescriptorTest
 extends MaterialDescriptorTest {
@@ -45,7 +45,7 @@ extends MaterialDescriptorTest {
         Material material = new Material(MaterialType.METALOXIDE);
         material.addAtomContainer(
             MolecularFormulaManipulator.getAtomContainer(
-                "ZnO", DefaultChemObjectBuilder.getInstance()
+                "ZnO", SilentChemObjectBuilder.getInstance()
             )
         );
         DescriptorValue value = descriptor.calculate(material);
@@ -64,7 +64,7 @@ extends MaterialDescriptorTest {
         Material material = new Material(MaterialType.METALOXIDE);
         material.addAtomContainer(
             MolecularFormulaManipulator.getAtomContainer(
-                "ZnO", DefaultChemObjectBuilder.getInstance()
+                "ZnO", SilentChemObjectBuilder.getInstance()
             )
         );
         material.setSize(new MeasurementValue(EndPoints.SIZE, 10.0, 5.0, LengthUnit.NM));
@@ -84,7 +84,7 @@ extends MaterialDescriptorTest {
         Material material = new Material(MaterialType.METALOXIDE);
         material.addAtomContainer(
             MolecularFormulaManipulator.getAtomContainer(
-                "ZnO", DefaultChemObjectBuilder.getInstance()
+                "ZnO", SilentChemObjectBuilder.getInstance()
             )
         );
         material.setSize(new MeasurementValue(EndPoints.SIZE, 40.0, 5.0, LengthUnit.NM));
@@ -104,7 +104,7 @@ extends MaterialDescriptorTest {
         Material material = new Material(MaterialType.METALOXIDE);
         material.addAtomContainer(
             MolecularFormulaManipulator.getAtomContainer(
-                "In2O3", DefaultChemObjectBuilder.getInstance()
+                "In2O3", SilentChemObjectBuilder.getInstance()
             )
         );
         material.setSize(new MeasurementValue(EndPoints.SIZE, 40.0, 5.0, LengthUnit.NM));
@@ -124,13 +124,13 @@ extends MaterialDescriptorTest {
         Material oxide1 = new Material(MaterialType.METALOXIDE);
         oxide1.addAtomContainer(
             MolecularFormulaManipulator.getAtomContainer(
-                "Fe2O3", DefaultChemObjectBuilder.getInstance()
+                "Fe2O3", SilentChemObjectBuilder.getInstance()
             )
         );
         Material oxide2 = new Material(MaterialType.METALOXIDE);
         oxide2.addAtomContainer(
             MolecularFormulaManipulator.getAtomContainer(
-                "Fe3O4", DefaultChemObjectBuilder.getInstance()
+                "Fe3O4", SilentChemObjectBuilder.getInstance()
             )
         );
         
