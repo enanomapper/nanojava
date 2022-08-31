@@ -24,7 +24,7 @@ public enum SubstanceProperties {
 	CHARACTERIZATIONS,
 	/** {@link ISubstance} property of type {@link MaterialType}. */
 	TYPE,
-	/** {@link ISubstance} property of type List<String>. */
+	/** {@link ISubstance} property of type {@code List<String>}. */
 	LABELS,
 	/** {@link ISubstance} property of type {@link Morphology}. */
 	MORPHOLOGY,
