@@ -45,9 +45,24 @@
       <artifactId>cmlxom</artifactId>
       <version>4.0</version>
     </dependency>
-	<dependency>
+	<!-- dependency>
 	    <groupId>org.openscience.cdk</groupId>
 	    <artifactId>cdk-bundle</artifactId>
+	    <version>${cdk.version}</version>
+	</dependency -->
+	<dependency>
+	    <groupId>org.openscience.cdk</groupId>
+	    <artifactId>cdk-formula</artifactId>
+	    <version>${cdk.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.openscience.cdk</groupId>
+	    <artifactId>cdk-libiocml</artifactId>
+	    <version>${cdk.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.openscience.cdk</groupId>
+	    <artifactId>cdk-silent</artifactId>
 	    <version>${cdk.version}</version>
 	</dependency>
 	<dependency>
