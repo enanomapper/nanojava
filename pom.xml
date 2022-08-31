@@ -43,7 +43,7 @@
     <dependency>
       <groupId>org.blueobelisk</groupId>
       <artifactId>cmlxom</artifactId>
-      <version>4.0</version>
+      <version>4.3</version>
     </dependency>
 	<!-- dependency>
 	    <groupId>org.openscience.cdk</groupId>
@@ -83,7 +83,7 @@
 	<dependency>
 	    <groupId>com.github.egonw</groupId>
 	    <artifactId>jqudt</artifactId>
-	    <version>1.4.0</version>
+	    <version>1.5.0</version>
 	</dependency>
     <dependency>
         <groupId>com.github.stefanbirkner</groupId>
@@ -95,7 +95,7 @@
 
   <properties>
     <cdk.version>2.7.1</cdk.version>
-    <junit.version>4.13.1</junit.version>
+    <junit.version>4.13.2</junit.version>
     <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
     <maven.compiler.source>1.8</maven.compiler.source>
     <maven.compiler.target>1.8</maven.compiler.target>
