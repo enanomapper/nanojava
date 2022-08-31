@@ -2,3 +2,5 @@
 target/
 repos/
 *.tar.gz
+.classpath
+bin/
