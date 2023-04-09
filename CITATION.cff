@@ -1,0 +1,17 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it as below."
+authors:
+  - family-names: Willighagen
+    given-names: Egon
+    orcid: https://orcid.org/0000-0001-7542-0286
+  - family-names: Jealiazkova
+    given-names: Nina
+    orcid: https://orcid.org/0000-0002-4322-6179
+  - family-names: Ammar
+    given-names: Ammar
+    orcid: https://orcid.org/0000-0002-8399-8990
+title: NanoJava
+version: 2.0.2
+date-released: 2023-04-09
+doi: 10.5281/zenodo.6984324
+url: "https://github.com/enanomapper/nanojava"
