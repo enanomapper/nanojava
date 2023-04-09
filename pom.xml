@@ -73,7 +73,7 @@
 	<dependency>
 		<groupId>info.picocli</groupId>
 		<artifactId>picocli</artifactId>
-		<version>3.1.0</version>
+		<version>4.7.2</version>
 	</dependency>
 	<dependency>
 	    <groupId>com.github.egonw</groupId>
