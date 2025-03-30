@@ -1,7 +1,7 @@
 [![build](https://github.com/egonw/nanojava/actions/workflows/maven.yml/badge.svg)](https://github.com/egonw/nanojava/actions/workflows/maven.yml)
 [![codecov](https://codecov.io/gh/egonw/nanojava/branch/master/graph/badge.svg?token=7AGTB9R55I)](https://codecov.io/gh/egonw/nanojava)
 [![DOI](https://zenodo.org/badge/16758207.svg)](https://zenodo.org/badge/latestdoi/16758207)
-[![Maven Central](https://img.shields.io/maven-central/v/io.github.egonw/nanojava.svg?label=Maven%20Central)](https://search.maven.org/search?q=g:%22io.github.egonw%22%20AND%20a:%22nanojava%22)
+[![Maven Central](https://maven-badges.herokuapp.com/maven-central/io.github.egonw/nanojava/badge.svg)](https://maven-badges.herokuapp.com/maven-central/io.github.egonw/nanojava)
 
 # nanojava
 
