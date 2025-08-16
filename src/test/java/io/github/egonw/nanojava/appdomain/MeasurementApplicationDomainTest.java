@@ -79,4 +79,15 @@ public class MeasurementApplicationDomainTest {
         assertTrue(domain.inDomain(range3));
     }
 
+    @Test
+    public void testAddValue() throws Exception {
+        IMeasurement range = new MeasurementRange(EndPoints.ZETA_POTENTIAL, 4.5, 6.7, "http://qudt.org/vocab/unit#ElectronVolt");
+        IMeasurement range2 = new MeasurementValue(EndPoints.ZETA_POTENTIAL, 7.5, 0.3, "http://qudt.org/vocab/unit#ElectronVolt");
+        IMeasurement range3 = new MeasurementRange(EndPoints.ZETA_POTENTIAL, 5.0, 7.0, "http://qudt.org/vocab/unit#ElectronVolt");
+        MeasurementApplicationDomain domain = new MeasurementApplicationDomain();
+        domain.add(range);
+        domain.add(range2);
+        assertTrue(domain.inDomain(range3));
+    }
+
 }

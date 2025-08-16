@@ -66,4 +66,15 @@ public class SubstanceManipulatorTest {
         assertEquals(2, SubstanceManipulator.getCharacterizations(nm).size());
     }
 
+    @Test
+    public void testAsIndentedString_Material() throws Exception {
+        Material nm = new Material("GRAPHENE");
+        nm.addCharacterization(new ErrorlessMeasurementValue(EndPoints.DIAMETER_TEM, 20.0, LengthUnit.NM));
+        nm.addCharacterization(new ErrorlessMeasurementValue(EndPoints.DIAMETER_DLS, 55.0, LengthUnit.NM));
+        String indented = SubstanceManipulator.asIndentedString(nm);
+        System.out.println(indented);
+        assertTrue(indented.contains("<?xml"));
+        assertTrue(indented.contains("NPO_1915"));
+    }
+
 }
