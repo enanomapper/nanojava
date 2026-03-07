@@ -1,12 +1,12 @@
+<?xml version="1.0"?>
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
   <modelVersion>4.0.0</modelVersion>
   <groupId>io.github.egonw</groupId>
   <artifactId>nanojava</artifactId>
-  <description>Java library extending the Chemistry Development Kit with functionality for nanomaterials.</description>  
+  <description>Java library extending the Chemistry Development Kit with functionality for nanomaterials.</description>
   <name>NanoJava</name>
   <version>2.0.6-SNAPSHOT</version>
   <url>https://github.com/enanomapper/nanojava</url>
-
   <licenses>
     <license>
       <name>GNU LGPL 2.1 or later</name>
@@ -14,14 +14,12 @@
       <distribution>repo</distribution>
     </license>
   </licenses>
-
   <scm>
     <connection>scm:git:git://github.com/egonw/nanojava.git</connection>
     <developerConnection>scm:git:ssh://git@github.com/egonw/nanojava.git</developerConnection>
     <url>http://github.com/egonw/nanojava/tree/master</url>
     <tag>HEAD</tag>
   </scm>
-
   <distributionManagement>
     <snapshotRepository>
       <id>central</id>
@@ -32,7 +30,13 @@
       <url>https://central.sonatype.com</url>
     </repository>
   </distributionManagement>
-
+  <properties>
+    <cdk.version>2.12</cdk.version>
+    <junit.version>5.13.3</junit.version>
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    <maven.compiler.source>11</maven.compiler.source>
+    <maven.compiler.target>11</maven.compiler.target>
+  </properties>
   <dependencies>
     <dependency>
       <groupId>org.junit.jupiter</groupId>
@@ -52,59 +56,50 @@
     <dependency>
       <groupId>org.blueobelisk</groupId>
       <artifactId>cmlxom</artifactId>
-      <version>4.13</version>
+      <version>4.15</version>
     </dependency>
-	<dependency>
-	    <groupId>org.openscience.cdk</groupId>
-	    <artifactId>cdk-formula</artifactId>
-	    <version>${cdk.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.openscience.cdk</groupId>
-	    <artifactId>cdk-inchi</artifactId>
-	    <version>${cdk.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.openscience.cdk</groupId>
-	    <artifactId>cdk-libiocml</artifactId>
-	    <version>${cdk.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.openscience.cdk</groupId>
-	    <artifactId>cdk-silent</artifactId>
-	    <version>${cdk.version}</version>
-	</dependency>
-	<dependency>
-	    <groupId>org.openscience.cdk</groupId>
-	    <artifactId>cdk-smiles</artifactId>
-	    <version>${cdk.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>info.picocli</groupId>
-		<artifactId>picocli</artifactId>
-		<version>4.7.7</version>
-	</dependency>
-	<dependency>
-	    <groupId>com.github.egonw</groupId>
-	    <artifactId>jqudt</artifactId>
-	    <version>1.5.1</version>
-	</dependency>
     <dependency>
-        <groupId>com.github.stefanbirkner</groupId>
-        <artifactId>system-rules</artifactId>
-        <version>1.19.0</version>
-        <scope>test</scope>
+      <groupId>org.openscience.cdk</groupId>
+      <artifactId>cdk-formula</artifactId>
+      <version>${cdk.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openscience.cdk</groupId>
+      <artifactId>cdk-inchi</artifactId>
+      <version>${cdk.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openscience.cdk</groupId>
+      <artifactId>cdk-libiocml</artifactId>
+      <version>${cdk.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openscience.cdk</groupId>
+      <artifactId>cdk-silent</artifactId>
+      <version>${cdk.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>org.openscience.cdk</groupId>
+      <artifactId>cdk-smiles</artifactId>
+      <version>${cdk.version}</version>
+    </dependency>
+    <dependency>
+      <groupId>info.picocli</groupId>
+      <artifactId>picocli</artifactId>
+      <version>4.7.7</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.egonw</groupId>
+      <artifactId>jqudt</artifactId>
+      <version>1.5.1</version>
+    </dependency>
+    <dependency>
+      <groupId>com.github.stefanbirkner</groupId>
+      <artifactId>system-rules</artifactId>
+      <version>1.19.0</version>
+      <scope>test</scope>
     </dependency>
   </dependencies>
-
-  <properties>
-    <cdk.version>2.11</cdk.version>
-    <junit.version>5.13.3</junit.version>
-    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-    <maven.compiler.source>1.8</maven.compiler.source>
-    <maven.compiler.target>1.8</maven.compiler.target>
-  </properties>
-
   <!-- developer = commit access -->
   <developers>
     <developer>
@@ -113,7 +108,6 @@
       <url>https://chem-bla-ics.linkedchemistry.info/</url>
     </developer>
   </developers>
-
   <contributors>
     <contributor>
       <name>Ammar Ammar</name>
@@ -122,7 +116,6 @@
       <name>Nina Jeliazkova</name>
     </contributor>
   </contributors>
-
   <build>
     <resources>
       <resource>
@@ -134,7 +127,7 @@
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-enforcer-plugin</artifactId>
-        <version>3.6.1</version>
+        <version>3.6.2</version>
         <executions>
           <execution>
             <id>enforce-maven</id>
@@ -154,119 +147,119 @@
           </execution>
         </executions>
       </plugin>
-		<plugin>
-			<artifactId>maven-assembly-plugin</artifactId>
-			<version>3.7.1</version>
-			<configuration>
-				<descriptorRefs>
-					<descriptorRef>jar-with-dependencies</descriptorRef>
-				</descriptorRefs>
-				<archive>
-					<manifest>
-						<mainClass>io.github.egonw.nanojava.NanoJava</mainClass>
-					</manifest>
-				</archive>
-			</configuration>
-			<executions>
-				<execution>
-					<id>make-assembly</id>
-					<phase>package</phase>
-					<goals>
-						<goal>single</goal>
-					</goals>
-				</execution>
-			</executions>
-		</plugin>
-            <plugin>
-                <groupId>org.jacoco</groupId>
-                <artifactId>jacoco-maven-plugin</artifactId>
-                <version>0.8.13</version>
-                <executions>
-                    <execution>
-                        <id>start-agent</id>
-                        <goals>
-                            <goal>prepare-agent</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>generate-report</id>
-                        <goals>
-                            <goal>report</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.sonatype.central</groupId>
-                <artifactId>central-publishing-maven-plugin</artifactId>
-                <version>0.8.0</version>
-                <extensions>true</extensions>
-                <configuration>
-                    <publishingServerId>central</publishingServerId>
-                    <autoPublish>true</autoPublish>
-                    <waitUntil>published</waitUntil>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-gpg-plugin</artifactId>
-                <version>3.2.8</version>
-                <executions>
-                    <execution>
-                        <id>sign-artifacts</id>
-                        <phase>verify</phase>
-                        <goals>
-                            <goal>sign</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <artifactId>maven-surefire-plugin</artifactId>
-                <version>3.5.3</version>
-                <configuration>
-                    <groups>${junit5.groups}</groups>
-                    <excludedGroups>${junit5.excludeGroups}</excludedGroups>
-                </configuration>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-source-plugin</artifactId>
-                <version>3.3.1</version>
-                <executions>
-                    <execution>
-                        <id>attach-sources</id>
-                        <goals>
-                            <goal>jar-no-fork</goal>
-                       </goals>
-                    </execution>
-                </executions>
-            </plugin>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-javadoc-plugin</artifactId>
-                <version>3.11.2</version>
-                <executions>
-                    <execution>
-                        <id>attach-javadocs</id>
-                        <goals>
-                            <goal>jar</goal>
-                        </goals>
-                    </execution>
-                    <execution>
-                        <id>aggregate</id>
-                        <goals>
-                            <goal>aggregate</goal>
-                        </goals>
-                        <phase>site</phase>
-                        <configuration>
-                        </configuration>
-                    </execution>
-                </executions>
-                <configuration>
-                    <source>8</source>
-                </configuration>
-            </plugin>
-	</plugins> 
+      <plugin>
+        <artifactId>maven-assembly-plugin</artifactId>
+        <version>3.8.0</version>
+        <configuration>
+          <descriptorRefs>
+            <descriptorRef>jar-with-dependencies</descriptorRef>
+          </descriptorRefs>
+          <archive>
+            <manifest>
+              <mainClass>io.github.egonw.nanojava.NanoJava</mainClass>
+            </manifest>
+          </archive>
+        </configuration>
+        <executions>
+          <execution>
+            <id>make-assembly</id>
+            <phase>package</phase>
+            <goals>
+              <goal>single</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.jacoco</groupId>
+        <artifactId>jacoco-maven-plugin</artifactId>
+        <version>0.8.14</version>
+        <executions>
+          <execution>
+            <id>start-agent</id>
+            <goals>
+              <goal>prepare-agent</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>generate-report</id>
+            <goals>
+              <goal>report</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.sonatype.central</groupId>
+        <artifactId>central-publishing-maven-plugin</artifactId>
+        <version>0.10.0</version>
+        <extensions>true</extensions>
+        <configuration>
+          <publishingServerId>central</publishingServerId>
+          <autoPublish>true</autoPublish>
+          <waitUntil>published</waitUntil>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-gpg-plugin</artifactId>
+        <version>3.2.8</version>
+        <executions>
+          <execution>
+            <id>sign-artifacts</id>
+            <phase>verify</phase>
+            <goals>
+              <goal>sign</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <artifactId>maven-surefire-plugin</artifactId>
+        <version>3.5.5</version>
+        <configuration>
+          <groups>${junit5.groups}</groups>
+          <excludedGroups>${junit5.excludeGroups}</excludedGroups>
+        </configuration>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-source-plugin</artifactId>
+        <version>3.4.0</version>
+        <executions>
+          <execution>
+            <id>attach-sources</id>
+            <goals>
+              <goal>jar-no-fork</goal>
+            </goals>
+          </execution>
+        </executions>
+      </plugin>
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-javadoc-plugin</artifactId>
+        <version>3.12.0</version>
+        <executions>
+          <execution>
+            <id>attach-javadocs</id>
+            <goals>
+              <goal>jar</goal>
+            </goals>
+          </execution>
+          <execution>
+            <id>aggregate</id>
+            <goals>
+              <goal>aggregate</goal>
+            </goals>
+            <phase>site</phase>
+            <configuration>
+            </configuration>
+          </execution>
+        </executions>
+        <configuration>
+          <source>8</source>
+        </configuration>
+      </plugin>
+    </plugins>
   </build>
 </project>
