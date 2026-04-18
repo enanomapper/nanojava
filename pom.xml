@@ -60,12 +60,8 @@
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-api</artifactId>
       <version>${junit.version}</version>
+      <scope>test</scope>
     </dependency>
-    <!-- dependency>
-      <groupId>org.junit.jupiter</groupId>
-      <artifactId>junit-jupiter-params</artifactId>
-      <version>${junit.version}</version>
-    </dependency -->
     <dependency>
       <groupId>org.junit.jupiter</groupId>
       <artifactId>junit-jupiter-engine</artifactId>
@@ -75,7 +71,7 @@
     <dependency>
       <groupId>org.blueobelisk</groupId>
       <artifactId>cmlxom</artifactId>
-      <version>4.16</version>
+      <version>4.17</version>
     </dependency>
     <dependency>
       <groupId>org.openscience.cdk</groupId>
